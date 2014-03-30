@@ -5,22 +5,31 @@ import java.sql.SQLException;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.sql.ConnectionPoolDataSource;
-import javax.sql.PooledConnection;
+import javax.sql.DataSource;
 
 public class JndiDbProvider implements DbProvider {
 
 	private final static String DS_JNDI_NAME = "jdbc/sfinapp-DS";
 
 	@Override
+	public DataSource getDataSource() {
+		try {
+			DataSource ds = (DataSource) new InitialContext().lookup(DS_JNDI_NAME);
+			
+			return ds;
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
+	@Override
 	public Connection getConnection() {
 		try {
-			ConnectionPoolDataSource ds = (ConnectionPoolDataSource) new InitialContext().lookup(DS_JNDI_NAME);
-			PooledConnection pConn = ds.getPooledConnection();
+			return getDataSource().getConnection();
 			
-			return pConn.getConnection();
-			
-		} catch (NamingException | SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 

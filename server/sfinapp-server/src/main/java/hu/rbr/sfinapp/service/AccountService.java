@@ -2,60 +2,53 @@ package hu.rbr.sfinapp.service;
 
 import hu.rbr.sfinapp.model.Account;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import org.sql2o.Sql2o;
 
 
 public class AccountService extends AbstractService {
+	private Sql2o sql2o = getSql2o();
 	
 	public List<Account> getAllAccounts() {
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		
-		try {
-			List<Account> accounts = new ArrayList<>();
-			
-			Connection conn = dbProvider.getConnection();
-			
-			ps = conn.prepareStatement("SELECT * FROM accounts");
-			
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				Account acc = new Account();
-				
-				acc.setId(rs.getInt("acc_id"));
-				acc.setName(rs.getString("acc_name"));
-				acc.setDescription(rs.getString("acc_description"));
-				
-				accounts.add(acc);
-			}
-			
-			return accounts;
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		} finally {
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+		final String sql =
+			    "SELECT acc_id as id, " + 
+			    "       acc_name as name, " +
+			    "       acc_description as description " +
+			    "  FROM accounts";
 
+		List<Account> accounts = sql2o.createQuery(sql)
+		    .executeAndFetch(Account.class);
+		
+		return accounts;
+	}
+	
+	public Account getAccountById(int id) {
+		final String sql =
+			    "SELECT acc_id as id, " + 
+			    "       acc_name as name, " +
+			    "       acc_description as description " +
+			    "  FROM accounts" +
+			    " WHERE acc_id = :id";
+
+		Account account = sql2o.createQuery(sql)
+			.addParameter("id", id)
+		    .executeAndFetchFirst(Account.class);
+		
+		return account;
+	}
+	
+	public Account createAccount(Account acc) {
+		final String sql =
+				"INSERT INTO accounts(acc_name, acc_description)" +
+				"     VALUES (:name, :description)";
+
+		int newId = sql2o.createQuery(sql, true)
+			.addParameter("name", acc.getName())
+			.addParameter("description", acc.getDescription())
+		    .executeUpdate()
+		    .getKey(Integer.class);
+		
+		return getAccountById(newId);
 	}
 }
