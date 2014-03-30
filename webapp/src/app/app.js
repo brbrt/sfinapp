@@ -1,8 +1,8 @@
-angular.module( 'ngBoilerplate', [
+angular.module( 'sfinapp-web', [
   'templates-app',
   'templates-common',
-  'ngBoilerplate.home',
-  'ngBoilerplate.about',
+  'sfinapp-web.home',
+  'sfinapp-web.accounts',
   'ui.router.state',
   'ui.router'
 ])

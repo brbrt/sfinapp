@@ -12,9 +12,8 @@
  * The dependencies block here is also where component dependencies should be
  * specified, as shown below.
  */
-angular.module( 'ngBoilerplate.home', [
-  'ui.router.state',
-  'plusOne'
+angular.module( 'sfinapp-web.home', [
+  'ui.router.state'
 ])
 
 /**
