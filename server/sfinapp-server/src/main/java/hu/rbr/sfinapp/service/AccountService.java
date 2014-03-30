@@ -25,11 +25,11 @@ public class AccountService extends AbstractService {
 	
 	public Account getAccountById(int id) {
 		final String sql =
-			    "SELECT acc_id as id, " + 
-			    "       acc_name as name, " +
-			    "       acc_description as description " +
-			    "  FROM accounts" +
-			    " WHERE acc_id = :id";
+		    "SELECT acc_id as id, " + 
+		    "       acc_name as name, " +
+		    "       acc_description as description " +
+		    "  FROM accounts" +
+		    " WHERE acc_id = :id";
 
 		Account account = sql2o.createQuery(sql)
 			.addParameter("id", id)
@@ -40,8 +40,8 @@ public class AccountService extends AbstractService {
 	
 	public Account createAccount(Account acc) {
 		final String sql =
-				"INSERT INTO accounts(acc_name, acc_description)" +
-				"     VALUES (:name, :description)";
+			"INSERT INTO accounts(acc_name, acc_description)" +
+			"     VALUES (:name, :description)";
 
 		int newId = sql2o.createQuery(sql, true)
 			.addParameter("name", acc.getName())
@@ -50,5 +50,29 @@ public class AccountService extends AbstractService {
 		    .getKey(Integer.class);
 		
 		return getAccountById(newId);
+	}
+	
+	public void updateAccount(int id, Account acc) {
+		final String sql =
+			"UPDATE accounts" +
+			"   SET acc_name = :name, " +
+			"       acc_description = :description" +
+			" WHERE acc_id = :id";
+
+		sql2o.createQuery(sql)
+			.addParameter("id", id)
+			.addParameter("name", acc.getName())
+			.addParameter("description", acc.getDescription())
+		    .executeUpdate();
+	}
+	
+	public void deleteAccount(int id) {
+		final String sql =
+			"DELETE FROM accounts" +
+			" WHERE acc_id = :id";
+
+		sql2o.createQuery(sql)
+			.addParameter("id", id)
+		    .executeUpdate();
 	}
 }
