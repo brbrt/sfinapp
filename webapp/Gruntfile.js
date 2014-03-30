@@ -442,7 +442,22 @@ module.exports = function ( grunt ) {
           livereload: false
         }
       }
+    },
+
+    /**
+    * Server config
+    */
+    connect: {
+      server: {
+        options: {
+          port: '<%= server.port %>',
+          hostname: '<%= server.hostname %>',
+          base: './<%= build_dir %>',
+          open: true
+        }
+      }
     }
+    
   };
 
   grunt.initConfig( grunt.util._.extend( taskConfig, userConfig ) );
@@ -455,7 +470,7 @@ module.exports = function ( grunt ) {
    * before watching for changes.
    */
   grunt.renameTask( 'watch', 'delta' );
-  grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'delta' ] );
+  grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'connect', 'delta' ] );
 
   /**
    * The default task is to build and compile.

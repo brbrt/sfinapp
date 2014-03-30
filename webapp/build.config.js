@@ -9,6 +9,17 @@ module.exports = {
    */
   build_dir: 'build',
   compile_dir: 'bin',
+    
+
+  /**
+   * This is server config. Define port and hostname.
+   * It will be used in grunt connect task for developer server.
+   */
+  server: {
+     port: 3333,
+     hostname: 'localhost'
+  },
+ 
 
   /**
    * This is a collection of file patterns that refer to our app code (the
