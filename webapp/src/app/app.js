@@ -3,6 +3,7 @@ angular.module( 'sfinapp-web', [
   'templates-common',
   'sfinapp-web.home',
   'sfinapp-web.accounts',
+  'sfinapp-web.services.account',
   'ui.router.state',
   'ui.router'
 ])

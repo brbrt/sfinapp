@@ -1,6 +1,7 @@
 angular.module( 'sfinapp-web.accounts', [
   'ui.router.state',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'sfinapp-web.services.account'
 ])
 
 .config(function config( $stateProvider ) {
@@ -16,8 +17,11 @@ angular.module( 'sfinapp-web.accounts', [
   });
 })
 
-.controller( 'AccountCtrl', function AccountCtrl( $scope ) {
-
+.controller( 'AccountCtrl', function AccountCtrl( $scope, accountService ) {
+    accountService.getAll().success(function(data) {
+        $scope.allAccounts = data;
+        console.log(data);
+    });
 })
 
 ;
