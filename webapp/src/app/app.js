@@ -8,6 +8,10 @@ angular.module( 'sfinapp-web', [
   'ui.router'
 ])
 
+.constant('constants', {
+  apiUrl: 'http://localhost:8008/sfinapp-server/api/'
+})
+
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
   $urlRouterProvider.otherwise( '/home' );
 })
