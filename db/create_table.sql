@@ -1,7 +1,10 @@
-DROP TABLE IF EXISTS Account, accounts;
+DROP TABLE IF EXISTS `accounts`;
 
-CREATE TABLE accounts (
-	acc_id SERIAL PRIMARY KEY,
-	acc_name text,
-	acc_description text
+CREATE TABLE `accounts` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(200) NOT NULL,
+  `description` TEXT,
+  
+  PRIMARY KEY (`id`)
 );
+

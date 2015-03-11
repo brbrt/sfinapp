@@ -1,4 +1,4 @@
-package hu.rbr.sfinapp.service;
+package hu.rbr.sfinapp.core.db;
 
 import java.sql.Connection;
 

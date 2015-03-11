@@ -1,4 +1,4 @@
-package hu.rbr.sfinapp.service;
+package hu.rbr.sfinapp.core.api;
 
 import java.io.IOException;
 

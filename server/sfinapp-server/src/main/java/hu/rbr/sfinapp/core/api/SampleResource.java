@@ -1,4 +1,4 @@
-package hu.rbr.sfinapp.api;
+package hu.rbr.sfinapp.core.api;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

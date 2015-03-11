@@ -1,10 +1,9 @@
-package hu.rbr.sfinapp.service;
+package hu.rbr.sfinapp.account;
 
-import hu.rbr.sfinapp.model.Account;
+import hu.rbr.sfinapp.core.AbstractService;
+import org.sql2o.Sql2o;
 
 import java.util.List;
-
-import org.sql2o.Sql2o;
 
 
 public class AccountService extends AbstractService {
@@ -12,9 +11,9 @@ public class AccountService extends AbstractService {
 	
 	public List<Account> getAllAccounts() {
 		final String sql =
-			    "SELECT acc_id as id, " + 
-			    "       acc_name as name, " +
-			    "       acc_description as description " +
+			    "SELECT id, " +
+			    "       name, " +
+			    "       description " +
 			    "  FROM accounts";
 
 		List<Account> accounts = sql2o.createQuery(sql)
@@ -25,11 +24,11 @@ public class AccountService extends AbstractService {
 	
 	public Account getAccountById(int id) {
 		final String sql =
-		    "SELECT acc_id as id, " + 
-		    "       acc_name as name, " +
-		    "       acc_description as description " +
+            "SELECT id, " +
+            "       name, " +
+            "       description " +
 		    "  FROM accounts" +
-		    " WHERE acc_id = :id";
+		    " WHERE id = :id";
 
 		Account account = sql2o.createQuery(sql)
 			.addParameter("id", id)
@@ -40,7 +39,7 @@ public class AccountService extends AbstractService {
 	
 	public Account createAccount(Account acc) {
 		final String sql =
-			"INSERT INTO accounts(acc_name, acc_description)" +
+			"INSERT INTO accounts(name, description)" +
 			"     VALUES (:name, :description)";
 
 		int newId = sql2o.createQuery(sql, true)
@@ -55,9 +54,9 @@ public class AccountService extends AbstractService {
 	public void updateAccount(int id, Account acc) {
 		final String sql =
 			"UPDATE accounts" +
-			"   SET acc_name = :name, " +
-			"       acc_description = :description" +
-			" WHERE acc_id = :id";
+			"   SET name = :name, " +
+			"       description = :description" +
+			" WHERE id = :id";
 
 		sql2o.createQuery(sql)
 			.addParameter("id", id)
@@ -69,7 +68,7 @@ public class AccountService extends AbstractService {
 	public void deleteAccount(int id) {
 		final String sql =
 			"DELETE FROM accounts" +
-			" WHERE acc_id = :id";
+			" WHERE id = :id";
 
 		sql2o.createQuery(sql)
 			.addParameter("id", id)

@@ -10,11 +10,14 @@
 	<name>sfinapp-server</name>
 
 	<properties>
-		<java.version>1.7</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.7</java.version>
+        <servlet-api.version>2.5</servlet-api.version>
         <jetty.version>9.2.9.v20150224</jetty.version>
-		<jersey.version>2.7</jersey.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+        <jersey.version>2.7</jersey.version>
+        <mysql-connector.version>5.1.34</mysql-connector.version>
+        <sql2o.version>1.5.4</sql2o.version>
+    </properties>
 
 	<build>
 		<finalName>sfinapp-server</finalName>
@@ -94,16 +97,22 @@
             <version>${jersey.version}</version>
         </dependency>
 
-		<dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector.version}</version>
+        </dependency>
+
+        <dependency>
 			<groupId>org.sql2o</groupId>
 			<artifactId>sql2o</artifactId>
-			<version>1.3.0</version>
+			<version>${sql2o.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<version>${servlet-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

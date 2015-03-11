@@ -1,7 +1,7 @@
 package hu.rbr.sfinapp;
 
-import hu.rbr.sfinapp.core.Config;
-import hu.rbr.sfinapp.core.PropertyConfig;
+import hu.rbr.sfinapp.core.config.Config;
+import hu.rbr.sfinapp.core.config.PropertyConfig;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 

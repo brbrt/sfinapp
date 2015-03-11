@@ -1,3 +1,6 @@
 CREATE DATABASE sfinapp
-  WITH ENCODING='UTF8'
-       CONNECTION LIMIT=-1;
+DEFAULT CHARACTER SET = 'utf8';
+
+USE sfinapp;
+
+

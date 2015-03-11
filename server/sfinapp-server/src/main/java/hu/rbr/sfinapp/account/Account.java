@@ -1,4 +1,4 @@
-package hu.rbr.sfinapp.model;
+package hu.rbr.sfinapp.account;
 
 import java.io.Serializable;
 

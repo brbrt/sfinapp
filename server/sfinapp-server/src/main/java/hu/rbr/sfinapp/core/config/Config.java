@@ -1,4 +1,4 @@
-package hu.rbr.sfinapp.core;
+package hu.rbr.sfinapp.core.config;
 
 public interface Config {
 
