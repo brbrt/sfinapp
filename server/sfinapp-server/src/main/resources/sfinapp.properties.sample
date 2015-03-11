@@ -3,4 +3,4 @@ http.context = /
 
 db.url = jdbc:mysql://localhost:3306/sfinapp
 db.username = sfinapp
-db.password = qwe123
+db.password =
