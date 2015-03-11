@@ -1,77 +1,31 @@
 package hu.rbr.sfinapp.account;
 
-import hu.rbr.sfinapp.core.AbstractService;
-import org.sql2o.Sql2o;
+import hu.rbr.sfinapp.core.service.BaseService;
 
 import java.util.List;
 
 
-public class AccountService extends AbstractService {
-	private Sql2o sql2o = getSql2o();
-	
-	public List<Account> getAllAccounts() {
-		final String sql =
-			    "SELECT id, " +
-			    "       name, " +
-			    "       description " +
-			    "  FROM accounts";
+public class AccountService extends BaseService {
 
-		List<Account> accounts = sql2o.createQuery(sql)
-		    .executeAndFetch(Account.class);
-		
-		return accounts;
+    private AccountDao accountDao = new AccountDao();
+
+	public List<Account> getAllAccounts() {
+		return accountDao.getAllAccounts();
 	}
 	
 	public Account getAccountById(int id) {
-		final String sql =
-            "SELECT id, " +
-            "       name, " +
-            "       description " +
-		    "  FROM accounts" +
-		    " WHERE id = :id";
-
-		Account account = sql2o.createQuery(sql)
-			.addParameter("id", id)
-		    .executeAndFetchFirst(Account.class);
-		
-		return account;
+        return accountDao.getAccountById(id);
 	}
 	
 	public Account createAccount(Account acc) {
-		final String sql =
-			"INSERT INTO accounts(name, description)" +
-			"     VALUES (:name, :description)";
-
-		int newId = sql2o.createQuery(sql, true)
-			.addParameter("name", acc.getName())
-			.addParameter("description", acc.getDescription())
-		    .executeUpdate()
-		    .getKey(Integer.class);
-		
-		return getAccountById(newId);
+		return accountDao.createAccount(acc);
 	}
 	
 	public void updateAccount(int id, Account acc) {
-		final String sql =
-			"UPDATE accounts" +
-			"   SET name = :name, " +
-			"       description = :description" +
-			" WHERE id = :id";
-
-		sql2o.createQuery(sql)
-			.addParameter("id", id)
-			.addParameter("name", acc.getName())
-			.addParameter("description", acc.getDescription())
-		    .executeUpdate();
+		accountDao.updateAccount(id, acc);
 	}
 	
 	public void deleteAccount(int id) {
-		final String sql =
-			"DELETE FROM accounts" +
-			" WHERE id = :id";
-
-		sql2o.createQuery(sql)
-			.addParameter("id", id)
-		    .executeUpdate();
+		accountDao.deleteAccount(id);
 	}
 }

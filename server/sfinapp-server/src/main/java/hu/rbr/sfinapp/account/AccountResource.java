@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import java.util.List;
 
-@Path("account")
+@Path("accounts")
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountResource {
 	
@@ -14,17 +14,16 @@ public class AccountResource {
 
 	@GET
 	public List<Account> getAll() {
-		List<Account> accs = service.getAllAccounts();
-		
-		return accs;
+		List<Account> accounts = service.getAllAccounts();
+		return accounts;
 	}
 	
 	@GET
 	@Path("/{id}")
 	public Response getById(@PathParam("id") int id) {
-		Account acc = service.getAccountById(id);
+		Account account = service.getAccountById(id);
 		
-		ResponseBuilder resp = (acc == null) ? Response.ok("Not found") : Response.ok(acc);
+		ResponseBuilder resp = (account == null) ? Response.ok("Not found") : Response.ok(account);
 		
 		return resp.build();
 	}
@@ -32,9 +31,8 @@ public class AccountResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Account create(Account acc) {
-		Account newAcc = service.createAccount(acc);
-		
-		return newAcc;
+		Account account = service.createAccount(acc);
+		return account;
 	}
 	
 	@PUT
@@ -42,7 +40,6 @@ public class AccountResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response update(@PathParam("id") int id, Account acc) {
 		service.updateAccount(id, acc);
-		
 		return Response.ok().build();
 	}
 	
@@ -50,7 +47,6 @@ public class AccountResource {
 	@Path("/{id}")
 	public Response delete(@PathParam("id") int id) {
 		service.deleteAccount(id);
-		
 		return Response.ok().build();
 	}
 }
