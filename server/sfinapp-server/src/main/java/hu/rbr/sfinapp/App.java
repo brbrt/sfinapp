@@ -1,17 +1,19 @@
 package hu.rbr.sfinapp;
 
+import hu.rbr.sfinapp.core.Config;
+import hu.rbr.sfinapp.core.PropertyConfig;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 public class App {
 
     public static void main(String[] args) throws Exception {
+        Config config = new PropertyConfig();
 
-        // TODO: parameters from properties
-        Server server = new Server(8080);
+        Server server = new Server(config.getInt("http.port"));
 
         WebAppContext webapp = new WebAppContext();
-        webapp.setContextPath("/");
+        webapp.setContextPath(config.get("http.context"));
         webapp.setWar("src/main/webapp");
 
         // A WebAppContext is a ContextHandler as well so it needs to be set to the server so it is aware of where to send the appropriate requests.
