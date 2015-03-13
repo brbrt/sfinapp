@@ -4,10 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>hu.rbr</groupId>
-	<artifactId>sfinapp-server</artifactId>
+	<artifactId>sfinapp-service</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>sfinapp-server</name>
+	<name>sfinapp-service</name>
 
 	<properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,7 +20,7 @@
     </properties>
 
 	<build>
-		<finalName>sfinapp-server</finalName>
+		<finalName>sfinapp-service</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
