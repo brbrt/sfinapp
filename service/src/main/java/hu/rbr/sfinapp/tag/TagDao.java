@@ -41,9 +41,7 @@ public class TagDao extends BaseDao<Tag> {
         try (Connection conn = sql2o.open()) {
             int newId = conn
                     .createQuery(sql, true)
-                    .addParameter("name", tag.name)
-                    .addParameter("description", tag.description)
-                    .addParameter("parentId", tag.parentId)
+                    .bind(tag)
                     .executeUpdate()
                     .getKey(Integer.class);
 
@@ -59,12 +57,11 @@ public class TagDao extends BaseDao<Tag> {
                 "       parent_id = :parentId " +
                 " WHERE id = :id";
 
+        tag.id = id;
+
         try (Connection conn = sql2o.open()) {
             conn.createQuery(sql)
-                .addParameter("id", id)
-                .addParameter("name", tag.name)
-                .addParameter("description", tag.description)
-                .addParameter("parentId", tag.parentId)
+                .bind(tag)
                 .executeUpdate();
 
             return get(id);
