@@ -6,9 +6,33 @@
 
     <title>sfinapp</title>
 
+    <!-- vendor:css -->
+    <!-- endinject -->
+    <!-- app:css -->
+    <!-- endinject -->
 </head>
 
 <body>
+    <div>
+        <top-bar>
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="#">sfinapp</a></h1>
+                </li>
+                <li toggle-top-bar class="menu-icon"><a href="#">Menu</a></li>
+            </ul>
+
+            <top-bar-section>
+                <!-- Left Nav Section -->
+                <ul class="left">
+                    <li><a ui-sref="home">Home</a></li>
+                    <li><a ui-sref="accounts">Accounts</a></li>
+                </ul>
+            </top-bar-section>
+        </top-bar>
+    </div>
+
+    <!--Main content-->
     <div ui-view></div>
 
 

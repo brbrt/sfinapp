@@ -7,8 +7,11 @@
 
             // External modules.
             'ui.router',
+            'mm.foundation',
 
             // Internal modules.
+            'sfinapp.config',
+
             'sfinapp.accounts',
             'sfinapp.home'
         ])

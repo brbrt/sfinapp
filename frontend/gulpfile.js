@@ -8,7 +8,9 @@ var config = {
 
     vendorSources: [
         './vendor/angular/angular.js',
-        './vendor/angular-ui-router/release/angular-ui-router.js'
+        './vendor/angular-ui-router/release/angular-ui-router.js',
+        './vendor/angular-foundation/mm-foundation-tpls.js',
+        './vendor/foundation/css/foundation.css'
     ],
 
     appSources: [
