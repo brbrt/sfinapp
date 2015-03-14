@@ -14,7 +14,7 @@
             url: '/home',
             controller: 'homeCtrl',
             controllerAs: 'vm',
-            templateUrl: 'home/home.tpl.html'
+            templateUrl: 'src/home/home.tpl.html'
         });
     }
 

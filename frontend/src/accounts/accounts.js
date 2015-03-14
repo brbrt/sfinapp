@@ -16,7 +16,7 @@
             url: '/accounts',
             controller: 'accountCtrl',
             controllerAs: 'vm',
-            templateUrl: 'accounts/accounts.tpl.html',
+            templateUrl: 'src/accounts/accounts.tpl.html',
             resolve: {
                 accounts: function getAccounts(accountSrv) {
                     return accountSrv.getAll();
