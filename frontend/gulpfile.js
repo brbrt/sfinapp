@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var del = require('del');
 var inject = require('gulp-inject');
 var series = require('stream-series');
+var watch = require('gulp-watch');
 
 var config = {
     buildDir:'./build',
@@ -10,7 +11,8 @@ var config = {
         './vendor/angular/angular.js',
         './vendor/angular-ui-router/release/angular-ui-router.js',
         './vendor/angular-foundation/mm-foundation-tpls.js',
-        './vendor/foundation/css/foundation.css'
+        './vendor/foundation/css/foundation.css',
+        './vendor/foundation/css/normalize.css'
     ],
 
     appSources: [
@@ -20,7 +22,7 @@ var config = {
 };
 
 
-gulp.task('clean', function (cb) {
+gulp.task('clean', function(cb) {
     return del(config.buildDir, cb);
 });
 
@@ -45,4 +47,10 @@ gulp.task('index', ['clean'], function() {
 
 gulp.task('build', ['clean', 'copy', 'index']);
 
-gulp.task('default', ['build']);
+gulp.task('watch', function() {
+    var watchFor = config.appSources.slice();
+    watchFor.push('./src/index.html');
+    gulp.watch(watchFor, ['build']);
+});
+
+gulp.task('default', ['watch']);
