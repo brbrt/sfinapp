@@ -1,12 +1,24 @@
 <div class="row-fluid">
-  <h1 class="page-header">
-    Accounts
-  </h1>
-  
-  <ul>
-    <li ng-repeat="acc in vm.accounts">
-      {{acc.name}}
-    </li>
-  </ul>
+    <h1 class="page-header">
+        Accounts
+    </h1>
+
+
+    <table st-table="vm.diplayedAccounts" st-safe-src="vm.accounts">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="acc in vm.diplayedAccounts">
+                <td>{{acc.id}}</td>
+                <td>{{acc.name}}</td>
+                <td>{{acc.description}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 

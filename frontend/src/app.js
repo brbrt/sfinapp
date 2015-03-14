@@ -8,6 +8,7 @@
             // External modules.
             'ui.router',
             'mm.foundation',
+            'smart-table',
 
             // Internal modules.
             'sfinapp.config',

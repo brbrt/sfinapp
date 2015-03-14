@@ -12,7 +12,8 @@ var config = {
         './vendor/angular-ui-router/release/angular-ui-router.js',
         './vendor/angular-foundation/mm-foundation-tpls.js',
         './vendor/foundation/css/foundation.css',
-        './vendor/foundation/css/normalize.css'
+        './vendor/foundation/css/normalize.css',
+        './vendor/angular-smart-table/dist/smart-table.js'
     ],
 
     appSources: [

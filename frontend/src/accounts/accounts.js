@@ -4,6 +4,7 @@
     angular
         .module('sfinapp.accounts', [
             'ui.router',
+            'smart-table',
 
             'sfinapp.accounts.accountSrv'
         ])
