@@ -1,44 +1,44 @@
-package hu.rbr.sfinapp.account;
+package hu.rbr.sfinapp.tag;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("accounts")
+@Path("tags")
 @Produces(MediaType.APPLICATION_JSON)
-public class AccountResource {
+public class TagResource {
 	
-	private AccountService service = new AccountService(); 
+	private TagService service = new TagService();
 
 	@GET
-	public List<Account> getAll() {
+	public List<Tag> getAll() {
 		return service.getAll();
 	}
 	
 	@GET
 	@Path("/{id}")
-	public Account getById(@PathParam("id") int id) {
-		return service.get(id);
+	public Tag getById(@PathParam("id") int id) {
+        return service.get(id);
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Account create(Account acc) {
-        return service.create(acc);
+	public Tag create(Tag acc) {
+		return service.create(acc);
 	}
 	
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Account update(@PathParam("id") int id, Account acc) {
+	public Tag update(@PathParam("id") int id, Tag acc) {
 		return service.update(id, acc);
 	}
 	
 	@DELETE
 	@Path("/{id}")
 	public Response delete(@PathParam("id") int id) {
-		service.delete(id);
+        service.delete(id);
 		return Response.ok().build();
 	}
 }

@@ -14,9 +14,9 @@
         </thead>
         <tbody>
             <tr ng-repeat="acc in vm.diplayedAccounts">
-                <td>{{acc.id}}</td>
-                <td>{{acc.name}}</td>
-                <td>{{acc.description}}</td>
+                <td>{{ ::acc.id }}</td>
+                <td>{{ ::acc.name }}</td>
+                <td>{{ ::acc.description }}</td>
             </tr>
         </tbody>
     </table>

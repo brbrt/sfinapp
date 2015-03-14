@@ -7,22 +7,21 @@ import java.util.List;
 
 public class AccountDao extends BaseDao<Account> {
 
-    public List<Account> getAllAccounts() {
+    public AccountDao() {
+        super("accounts", Account.class);
+    }
+
+    public List<Account> getAll() {
         final String sql =
                 "SELECT id, " +
                 "       name, " +
                 "       description " +
                 "  FROM accounts";
 
-        try (Connection conn = sql2o.open()) {
-            List<Account> accounts = conn
-                    .createQuery(sql)
-                    .executeAndFetch(Account.class);
-            return accounts;
-        }
+        return getAll(sql);
     }
 
-    public Account getAccountById(int id) {
+    public Account get(int id) {
         final String sql =
                 "SELECT id, " +
                 "       name, " +
@@ -30,17 +29,10 @@ public class AccountDao extends BaseDao<Account> {
                 "  FROM accounts" +
                 " WHERE id = :id";
 
-        try (Connection conn = sql2o.open()) {
-            Account account = conn
-                    .createQuery(sql)
-                    .addParameter("id", id)
-                    .executeAndFetchFirst(Account.class);
-            return account;
-        }
-
+        return get(sql, id);
     }
 
-    public Account createAccount(Account acc) {
+    public Account create(Account acc) {
         final String sql =
                 "INSERT INTO accounts(name, description)" +
                 "     VALUES (:name, :description)";
@@ -53,11 +45,11 @@ public class AccountDao extends BaseDao<Account> {
                     .executeUpdate()
                     .getKey(Integer.class);
 
-            return getAccountById(newId);
+            return get(newId);
         }
     }
 
-    public void updateAccount(int id, Account acc) {
+    public Account update(int id, Account acc) {
         final String sql =
                 "UPDATE accounts" +
                 "   SET name = :name, " +
@@ -70,18 +62,9 @@ public class AccountDao extends BaseDao<Account> {
                 .addParameter("name", acc.name)
                 .addParameter("description", acc.description)
                 .executeUpdate();
+
+            return get(id);
         }
     }
 
-    public void deleteAccount(int id) {
-        final String sql =
-                "DELETE FROM accounts" +
-                " WHERE id = :id";
-
-        try (Connection conn = sql2o.open()) {
-            conn.createQuery(sql)
-                .addParameter("id", id)
-                    .executeUpdate();
-        }
-    }
 }

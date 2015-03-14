@@ -14,7 +14,8 @@
             'sfinapp.config',
 
             'sfinapp.accounts',
-            'sfinapp.home'
+            'sfinapp.home',
+            'sfinapp.tag'
         ])
         .controller('mainCtrl', mainCtrl);
 

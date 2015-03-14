@@ -1,0 +1,21 @@
+<div class="row-fluid">
+    <h1 class="page-header">
+        Tags
+    </h1>
+
+    <table st-table="vm.diplayedTags" st-safe-src="vm.tags">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="tag in vm.diplayedTags">
+                <td>{{ ::tag.name }}</td>
+                <td>{{ ::tag.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
