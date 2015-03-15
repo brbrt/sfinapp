@@ -17,6 +17,7 @@
         <jersey.version>2.7</jersey.version>
         <mysql-connector.version>5.1.34</mysql-connector.version>
         <sql2o.version>1.5.4</sql2o.version>
+        <slf4j.version>1.7.10</slf4j.version>
     </properties>
 
 	<build>
@@ -109,7 +110,18 @@
 			<version>${sql2o.version}</version>
 		</dependency>
 
-		<dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>${servlet-api.version}</version>
