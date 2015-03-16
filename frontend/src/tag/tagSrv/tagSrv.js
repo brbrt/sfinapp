@@ -9,8 +9,14 @@
 
 
     function tagSrv($http) {
+        var url = '/api/tags/';
+
         var factory = {
-            getAll: getAll
+            getAll: getAll,
+            skeleton: skeleton,
+            create: create,
+            update: update,
+            delete: delete_
         };
 
         return factory;
@@ -18,7 +24,26 @@
         ////////////
 
         function getAll() {
-            return $http.get('/api/tags');
+            return $http.get(url);
+        }
+
+        function skeleton() {
+            return {
+                name: '',
+                description: ''
+            };
+        }
+
+        function create(newTag) {
+            return $http.post(url, newTag);
+        }
+
+        function update(editedTag) {
+            return $http.put(url + editedTag.id, editedTag);
+        }
+
+        function delete_(tag) {
+            return $http.delete(url + tag.id);
         }
     }
 

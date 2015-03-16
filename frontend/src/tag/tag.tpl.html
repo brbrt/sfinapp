@@ -8,14 +8,28 @@
             <tr>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="tag in vm.diplayedTags">
                 <td>{{ ::tag.name }}</td>
                 <td>{{ ::tag.description }}</td>
+                <td>
+                    <span ng-click="vm.openEditModal(tag)">
+                        Edit
+                    </span>
+
+                    <span ng-click="vm.deleteTag(tag)">
+                        Delete
+                    </span>
+                </td>
             </tr>
         </tbody>
     </table>
+
+    <button class="button" ng-click="vm.openAddModal()">
+        Add tag
+    </button>
 </div>
 
