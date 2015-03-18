@@ -13,7 +13,7 @@
             // Internal modules.
             'sfinapp.config',
 
-            'sfinapp.accounts',
+            'sfinapp.account',
             'sfinapp.home',
             'sfinapp.tag'
         ])

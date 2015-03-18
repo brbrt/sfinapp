@@ -7,18 +7,30 @@
     <table st-table="vm.diplayedAccounts" st-safe-src="vm.accounts">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="acc in vm.diplayedAccounts">
-                <td>{{ ::acc.id }}</td>
                 <td>{{ ::acc.name }}</td>
                 <td>{{ ::acc.description }}</td>
+                <td>
+                    <span ng-click="vm.openEditModal(acc)">
+                        Edit
+                    </span>
+
+                    <span ng-click="vm.deleteItem(acc)">
+                        Delete
+                    </span>
+                </td>
             </tr>
         </tbody>
     </table>
+
+    <button class="button" ng-click="vm.openAddModal()">
+        Add account
+    </button>
 </div>
 

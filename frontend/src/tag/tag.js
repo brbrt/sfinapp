@@ -39,7 +39,7 @@
         vm.tags = tags.data;
         vm.openAddModal = openAddModal;
         vm.openEditModal = openEditModal;
-        vm.deleteTag = deleteTag;
+        vm.deleteItem = deleteItem;
 
         init();
 
@@ -91,7 +91,7 @@
             return tagSrv.update(editedTag).then(serverSuccess, serverError);
         }
 
-        function deleteTag(tag) {
+        function deleteItem(tag) {
             return tagSrv.delete(tag).then(serverSuccess, serverError);
         }
 
