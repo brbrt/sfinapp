@@ -13,6 +13,7 @@
 
         var factory = {
             getAll: getAll,
+            get: get,
             skeleton: skeleton,
             create: create,
             update: update,
@@ -24,14 +25,21 @@
         ////////////
 
         function getAll() {
-            return $http.get(url).then(postProcess);
+            return $http.get(url);
+        }
+
+        function get(id) {
+            return $http.get(url + id);
         }
 
         function skeleton() {
-            return {
+            var skeleton = {
                 date: new Date(),
-                description: ''
+                description: '',
+                tags: []
             };
+
+            return { data: skeleton };
         }
 
         function create(item) {
@@ -46,13 +54,6 @@
             return $http.delete(url + item.id);
         }
 
-        function postProcess(resp) {
-            resp.data.forEach(function parseDate(item) {
-                item.date = new Date(item.date);
-            });
-
-            return resp;
-        }
     }
 
 

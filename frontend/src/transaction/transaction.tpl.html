@@ -1,7 +1,7 @@
-<div class="row-fluid">
-    <h1 class="page-header">
+<div>
+    <h2>
         Transactions
-    </h1>
+    </h2>
 
     <table st-table="vm.diplayedTransactions" st-safe-src="vm.transactions">
         <thead>
@@ -10,6 +10,7 @@
                 <th>Date</th>
                 <th>Amount</th>
                 <th>Type</th>
+                <th>Account</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -17,23 +18,20 @@
             <tr ng-repeat="tr in vm.diplayedTransactions">
                 <td>{{ ::tr.description }}</td>
                 <td>{{ ::tr.date | date }}</td>
-                <td>{{ ::tr.amount | currency }}</td>
+                <td class="right">{{ ::tr.amount | currency : 'Ft' : 0 }}</td>
                 <td>{{ ::tr.type }}</td>
+                <td>{{ ::tr.accountId }}</td>
                 <td>
-                    <span ng-click="vm.openEditModal(tr)">
+                    <a ui-sref="transaction-detail({id: tr.id})">
                         Edit
-                    </span>
-
-                    <span ng-click="vm.deleteItem(tr)">
-                        Delete
-                    </span>
+                    </a>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <button class="button" ng-click="vm.openAddModal()">
+    <a class="button" ui-sref="transaction-detail({id: 'new'})">
         Add transaction
-    </button>
+    </a>
 </div>
 

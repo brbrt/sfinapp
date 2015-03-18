@@ -1,17 +1,18 @@
 <form>
-    <h2>{{ ::vm.title }}</h2>
+    <h2>{{ ::(vm.isNew ? 'Create' : 'Edit' ) }} transaction </h2>
 
     <div class="row">
         <div class="large-6 columns">
             <label>Description
-                <input type="text" ng-model="vm.transaction.description" />
+                <input type="text" ng-model="vm.transaction.description" required />
             </label>
         </div>
 
         <div class="large-6 columns">
             <label>Amount
                 <input type="number" min="-10000000" max="10000000"
-                       ng-model="vm.transaction.amount" />
+                       ng-model="vm.transaction.amount"
+                       required />
             </label>
         </div>
     </div>
@@ -19,24 +20,42 @@
     <div class="row">
         <div class="large-6 columns">
             <label>Date
-                <input type="date" ng-model="vm.transaction.date" />
+                <input type="date" ng-model="vm.transaction.date" required />
             </label>
         </div>
 
         <div class="large-6 columns">
             <label>Account
+                <select ng-model="vm.transaction.accountId"
+                        ng-options="acc.id as acc.name for acc in vm.accounts"
+                        required>
+                </select>
+            </label>
+        </div>
+    </div>
+
+    <div class="row" ng-if="::vm.isNew" >
+        <div class="large-12 columns">
+            <label>
+                <input type="checkbox" value="false"
+                        ng-model="vm.createAnother">
+                Create another
             </label>
         </div>
     </div>
 
     <div class="row">
-        <div class="large-12 columns">
-            <button class="button" ng-click="vm.ok()">
-                OK
+        <div class="large-12 small-6 columns">
+            <button class="button" ng-click="vm.save()">
+                Save
             </button>
 
-            <button class="button secondary" ng-click="vm.cancel()">
+            <a class="button secondary" ui-sref="transaction">
                 Cancel
+            </a>
+
+            <button ng-if="::!vm.isNew" class="button alert" ng-click="vm.delete()">
+                Delete
             </button>
         </div>
     </div>
