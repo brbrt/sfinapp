@@ -4,6 +4,7 @@ module.exports = {
 
     vendorSources: [
         './vendor/angular/angular.js',
+        './vendor/angular-i18n/angular-locale_hu-hu.js',
         './vendor/angular-ui-router/release/angular-ui-router.js',
         './vendor/angular-foundation/mm-foundation-tpls.js',
         './vendor/foundation/css/foundation.css',
