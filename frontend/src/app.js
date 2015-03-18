@@ -4,11 +4,13 @@
     angular
         .module('sfinapp', [
             // AngularJS modules.
+            'ngAnimate',
 
             // External modules.
             'ui.router',
             'mm.foundation',
             'smart-table',
+            'toastr',
 
             // Internal modules.
             'sfinapp.config',

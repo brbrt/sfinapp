@@ -39,8 +39,9 @@
 
     function transactionDetailCtrl($log,
                                    $state,
-                                   accounts,
+                                   toastr,
                                    transactionSrv,
+                                   accounts,
                                    isNew,
                                    transaction) {
 
@@ -63,6 +64,7 @@
         function delete_() {
             transactionSrv.delete(vm.transaction).then(
                 function success() {
+                    toastr.success('Transaction is deleted.');
                     $state.go('transaction');
                 },
                 serverError
@@ -76,14 +78,12 @@
                 $state.go('transaction');
             }
 
-            // TODO
-            alert('Save success');
+            toastr.success('Transaction is saved.');
         }
 
         function serverError(err) {
             $log.error('Transaction save error: ', err);
-            // TODO
-            alert('Server error');
+            toastr.error('Server error.');
         }
 
     }
