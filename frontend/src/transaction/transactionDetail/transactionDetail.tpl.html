@@ -1,0 +1,43 @@
+<form>
+    <h2>{{ ::vm.title }}</h2>
+
+    <div class="row">
+        <div class="large-6 columns">
+            <label>Description
+                <input type="text" ng-model="vm.transaction.description" />
+            </label>
+        </div>
+
+        <div class="large-6 columns">
+            <label>Amount
+                <input type="number" min="-10000000" max="10000000"
+                       ng-model="vm.transaction.amount" />
+            </label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-6 columns">
+            <label>Date
+                <input type="date" ng-model="vm.transaction.date" />
+            </label>
+        </div>
+
+        <div class="large-6 columns">
+            <label>Account
+            </label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <button class="button" ng-click="vm.ok()">
+                OK
+            </button>
+
+            <button class="button secondary" ng-click="vm.cancel()">
+                Cancel
+            </button>
+        </div>
+    </div>
+</form>

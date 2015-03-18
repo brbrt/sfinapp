@@ -15,7 +15,8 @@
 
             'sfinapp.account',
             'sfinapp.home',
-            'sfinapp.tag'
+            'sfinapp.tag',
+            'sfinapp.transaction'
         ])
         .controller('mainCtrl', mainCtrl);
 
