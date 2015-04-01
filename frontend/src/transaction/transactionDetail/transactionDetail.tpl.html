@@ -34,6 +34,18 @@
         </div>
     </div>
 
+
+    <div class="row">
+        <div class="large-6 columns">
+            <label>Tags
+                <select ng-model="vm.transaction.tags"
+                        ng-options="tag.id as tag.name for tag in vm.tags"
+                        multiple >
+                </select>
+            </label>
+        </div>
+    </div>
+
     <div class="row" ng-if="::vm.isNew" >
         <div class="large-12 columns">
             <label>

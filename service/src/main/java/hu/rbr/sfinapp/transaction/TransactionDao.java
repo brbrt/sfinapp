@@ -65,6 +65,7 @@ public class TransactionDao extends BaseDao<Transaction> {
             return get(newId);
         }
     }
+
     @Override
     public Transaction update(int id, Transaction transaction) {
         final String sql =
@@ -89,6 +90,12 @@ public class TransactionDao extends BaseDao<Transaction> {
         }
     }
 
+    @Override
+    public void delete(final int id) {
+        deleteTags(id);
+        super.delete(id);
+    }
+
     private Transaction loadTags(Transaction transaction) {
         if (transaction == null) {
             return null;
@@ -98,7 +105,7 @@ public class TransactionDao extends BaseDao<Transaction> {
         return transaction;
     }
 
-    private List<Integer> getTags(int transactionId) {
+    private List<Integer> getTags(final int transactionId) {
         final String sql =
                 "SELECT tag_id " +
                 "  FROM transaction_tags " +
@@ -112,7 +119,7 @@ public class TransactionDao extends BaseDao<Transaction> {
         }
     }
 
-    private void saveTags(Transaction transaction) {
+    private void saveTags(final Transaction transaction) {
         try (Connection conn = sql2o.open()) {
             final String deleteSql = "DELETE FROM transaction_tags " +
                                      " WHERE transaction_id = :transactionId";
@@ -135,6 +142,18 @@ public class TransactionDao extends BaseDao<Transaction> {
             }
 
             query.executeBatch();
+        }
+    }
+
+    private void deleteTags(final int transactionId) {
+        final String sql =
+                "DELETE FROM transaction_tags " +
+                      "WHERE transaction_id = :transactionId";
+
+        try (Connection conn = sql2o.open()) {
+            conn.createQuery(sql)
+                    .addParameter("transactionId", transactionId)
+                    .executeUpdate();
         }
     }
 

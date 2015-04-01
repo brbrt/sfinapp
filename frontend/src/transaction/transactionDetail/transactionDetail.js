@@ -7,7 +7,7 @@
             'smart-table',
 
             'sfinapp.account.accountSrv',
-
+            'sfinapp.tag.tagSrv',
             'sfinapp.transaction.transactionSrv'
         ])
         .config(transactionDetailConfig)
@@ -23,6 +23,9 @@
             resolve: {
                 accounts: function getAccounts(accountSrv) {
                     return accountSrv.getAll();
+                },
+                tags: function getTags(tagSrv) {
+                    return tagSrv.getAll();
                 },
                 transactionId: function getTransactionId($stateParams) {
                     return $stateParams.id;
@@ -43,11 +46,13 @@
                                    transactionSrv,
                                    accounts,
                                    isNew,
+                                   tags,
                                    transaction) {
 
         var vm = this;
 
         vm.accounts = accounts.data;
+        vm.tags = tags.data;
         vm.isNew = isNew;
         vm.transaction = transaction.data;
 

@@ -9,23 +9,19 @@
                 <th>Description</th>
                 <th>Date</th>
                 <th>Amount</th>
-                <th>Type</th>
                 <th>Account</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="tr in vm.diplayedTransactions">
-                <td>{{ ::tr.description }}</td>
-                <td>{{ ::tr.date | date }}</td>
-                <td class="right">{{ ::tr.amount | currency : 'Ft' : 0 }}</td>
-                <td>{{ ::tr.type }}</td>
-                <td>{{ ::tr.accountId }}</td>
                 <td>
                     <a ui-sref="transaction-detail({id: tr.id})">
-                        Edit
+                        {{ ::tr.description }}
                     </a>
                 </td>
+                <td>{{ ::tr.date | date }}</td>
+                <td class="right">{{ ::tr.amount | currency : 'Ft' : 0 }}</td>
+                <td>{{ ::tr.accountId }}</td>
             </tr>
         </tbody>
     </table>
