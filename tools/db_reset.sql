@@ -1,3 +1,5 @@
+DROP DATABASE sfinapp;
+
 CREATE DATABASE sfinapp
 DEFAULT CHARACTER SET = 'utf8';
 

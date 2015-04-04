@@ -4,6 +4,7 @@ SELECT tr.id AS id,
        tr.description AS description,
        tr.date,
        tr.amount,
+       acc.id AS accountId,
        acc.name AS accountName,
        GROUP_CONCAT(ta.name ORDER BY ta.name) AS tags
   FROM transactions tr 
@@ -15,7 +16,3 @@ SELECT tr.id AS id,
            ON ta.id = tt.tag_id
  GROUP BY tr.id         
 ;
-
-----------------------------------------------------
-
-
