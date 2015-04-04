@@ -18,5 +18,11 @@ module.exports = {
     appSources: [
         './src/**/*.js', '!src/**/*.spec.js',
         './src/**/*.tpl.html'
-    ]
+    ],
+
+    lessSources: [
+        './src/**/*.less'
+    ],
+
+    indexHtml: './src/index.html'
 };
