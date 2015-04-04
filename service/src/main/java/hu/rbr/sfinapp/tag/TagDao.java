@@ -17,7 +17,8 @@ public class TagDao extends BaseDao<Tag> {
                 "       name, " +
                 "       description, " +
                 "       parent_id as parentId" +
-                "  FROM tags";
+                "  FROM tags"+
+                " ORDER BY name";
 
         return getAll(sql);
     }

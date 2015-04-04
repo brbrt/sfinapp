@@ -11,7 +11,10 @@ public class TransactionListDao extends BaseDao<TransactionListItem> {
     }
 
     public List<TransactionListItem> getAll() {
-        final String sql = "SELECT * FROM transaction_list";
+        final String sql =
+                "SELECT * " +
+                "  FROM transaction_list" +
+                "  ORDER BY date DESC";
 
         return getAll(sql);
     }

@@ -16,7 +16,8 @@ public class AccountDao extends BaseDao<Account> {
                 "SELECT id, " +
                 "       name, " +
                 "       description " +
-                "  FROM accounts";
+                "  FROM accounts" +
+                " ORDER BY name";
 
         return getAll(sql);
     }
