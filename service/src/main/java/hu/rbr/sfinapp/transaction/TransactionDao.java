@@ -66,7 +66,6 @@ public class TransactionDao extends BaseDao<Transaction> {
         }
     }
 
-    @Override
     public Transaction update(int id, Transaction transaction) {
         final String sql =
                 "UPDATE transactions" +

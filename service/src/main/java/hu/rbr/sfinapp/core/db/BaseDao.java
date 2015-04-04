@@ -52,11 +52,4 @@ public abstract class BaseDao<E> {
         }
     }
 
-    public abstract List<E> getAll();
-
-    public abstract E get(int id);
-
-    public abstract E create(E acc);
-
-    public abstract E update(int id, E entity);
 }

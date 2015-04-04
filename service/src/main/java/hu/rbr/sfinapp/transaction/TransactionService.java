@@ -1,6 +1,5 @@
 package hu.rbr.sfinapp.transaction;
 
-import hu.rbr.sfinapp.core.db.BaseDao;
 import hu.rbr.sfinapp.core.service.BaseService;
 
 import java.util.List;
@@ -8,11 +7,10 @@ import java.util.List;
 import static hu.rbr.sfinapp.transaction.TransactionType.Expense;
 import static hu.rbr.sfinapp.transaction.TransactionType.Income;
 
-public class TransactionService extends BaseService<Transaction> {
+public class TransactionService extends BaseService {
 
     private final TransactionDao transactionDao = new TransactionDao();
 
-    @Override
     public List<Transaction> getAll() {
         List<Transaction> transactions = transactionDao.getAll();
 
@@ -23,20 +21,21 @@ public class TransactionService extends BaseService<Transaction> {
         return transactions;
     }
 
-    @Override
     public Transaction get(int id) {
         Transaction transaction = transactionDao.get(id);
         return postProcess(transaction);
     }
 
-    @Override
     public Transaction create(Transaction transaction) {
         return transactionDao.create(preProcess(transaction));
     }
 
-    @Override
     public Transaction update(int id, Transaction entity) {
         return transactionDao.update(id, preProcess(entity));
+    }
+
+    public void delete(int id) {
+        transactionDao.delete(id);
     }
 
     private Transaction preProcess(Transaction transaction) {
@@ -63,11 +62,6 @@ public class TransactionService extends BaseService<Transaction> {
         }
 
         return Expense;
-    }
-
-    @Override
-    protected BaseDao<Transaction> getDao() {
-        return transactionDao;
     }
 
 }
