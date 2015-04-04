@@ -36,7 +36,9 @@
             var skeleton = {
                 date: new Date(),
                 description: '',
-                tags: []
+                tags: [],
+                type: 'Expense',
+                accountId: 1
             };
 
             return { data: skeleton };

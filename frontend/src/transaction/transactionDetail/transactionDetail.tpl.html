@@ -9,6 +9,24 @@
         </div>
 
         <div class="large-6 columns">
+            <label>Date
+                <input type="date" ng-model="vm.transaction.date" required />
+            </label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-6 columns">
+            <label>Type
+                <select ng-model="vm.transaction.type"
+                        required>
+                    <option value="Expense" selected>Expense</option>
+                    <option value="Income">Income</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="large-6 columns">
             <label>Amount
                 <input type="number" min="-10000000" max="10000000"
                        ng-model="vm.transaction.amount"
@@ -17,13 +35,8 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="large-6 columns">
-            <label>Date
-                <input type="date" ng-model="vm.transaction.date" required />
-            </label>
-        </div>
 
+    <div class="row">
         <div class="large-6 columns">
             <label>Account
                 <select ng-model="vm.transaction.accountId"
@@ -32,10 +45,7 @@
                 </select>
             </label>
         </div>
-    </div>
 
-
-    <div class="row">
         <div class="large-6 columns">
             <label>Tags
                 <select ng-model="vm.transaction.tags"
@@ -57,16 +67,20 @@
     </div>
 
     <div class="row">
-        <div class="large-12 small-6 columns">
-            <button class="button" ng-click="vm.save()">
+        <div class="large-2 small-6 columns">
+            <button class="button sf-button" ng-click="vm.save()">
                 Save
             </button>
+        </div>
 
-            <a class="button secondary" ui-sref="transaction">
+        <div class="large-2 small-6 columns">
+            <a class="button secondary sf-button" ui-sref="transaction">
                 Cancel
             </a>
+        </div>
 
-            <button ng-if="::!vm.isNew" class="button alert" ng-click="vm.delete()">
+        <div class="large-2 small-6 columns end">
+            <button ng-if="::!vm.isNew" class="button alert sf-button" ng-click="vm.delete()">
                 Delete
             </button>
         </div>
