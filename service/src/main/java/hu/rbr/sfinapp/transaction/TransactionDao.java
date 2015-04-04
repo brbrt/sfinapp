@@ -12,25 +12,6 @@ public class TransactionDao extends BaseDao<Transaction> {
         super("transactions", Transaction.class);
     }
 
-    public List<Transaction> getAll() {
-        final String sql =
-                "SELECT id, " +
-                "       date, " +
-                "       amount, " +
-                "       description, " +
-                "       account_id as accountId, " +
-                "       comment " +
-                "  FROM transactions";
-
-        List<Transaction> transactions = getAll(sql);
-
-        for (Transaction transaction : transactions) {
-            loadTags(transaction);
-        }
-
-        return transactions;
-    }
-
     public Transaction get(int id) {
         final String sql =
                 "SELECT id, " +

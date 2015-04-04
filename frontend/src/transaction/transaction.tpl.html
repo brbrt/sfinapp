@@ -10,6 +10,7 @@
                 <th>Date</th>
                 <th>Amount</th>
                 <th>Account</th>
+                <th>Tags</th>
             </tr>
         </thead>
         <tbody>
@@ -21,7 +22,8 @@
                 </td>
                 <td>{{ ::tr.date | date }}</td>
                 <td class="right">{{ ::tr.amount | currency : 'Ft' : 0 }}</td>
-                <td>{{ ::tr.accountId }}</td>
+                <td>{{ ::tr.accountName }}</td>
+                <td>{{ ::tr.tags }}</td>
             </tr>
         </tbody>
     </table>

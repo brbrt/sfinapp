@@ -1,5 +1,7 @@
 package hu.rbr.sfinapp.transaction;
 
+import hu.rbr.sfinapp.transaction.list.TransactionListItem;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -12,7 +14,7 @@ public class TransactionResource {
 	private TransactionService service = new TransactionService();
 
 	@GET
-	public List<Transaction> getAll() {
+	public List<TransactionListItem> getAll() {
 		return service.getAll();
 	}
 	

@@ -1,6 +1,8 @@
 package hu.rbr.sfinapp.transaction;
 
 import hu.rbr.sfinapp.core.service.BaseService;
+import hu.rbr.sfinapp.transaction.list.TransactionListDao;
+import hu.rbr.sfinapp.transaction.list.TransactionListItem;
 
 import java.util.List;
 
@@ -10,15 +12,10 @@ import static hu.rbr.sfinapp.transaction.TransactionType.Income;
 public class TransactionService extends BaseService {
 
     private final TransactionDao transactionDao = new TransactionDao();
+    private final TransactionListDao transactionListDao = new TransactionListDao();
 
-    public List<Transaction> getAll() {
-        List<Transaction> transactions = transactionDao.getAll();
-
-        for (Transaction transaction : transactions) {
-            postProcess(transaction);
-        }
-
-        return transactions;
+    public List<TransactionListItem> getAll() {
+        return transactionListDao.getAll();
     }
 
     public Transaction get(int id) {
