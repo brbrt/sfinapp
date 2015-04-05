@@ -21,6 +21,6 @@ def parse(filename):
             transactions.append(tr)
             log.debug(tr)
         except ParseError as e:
-            log.info('ParseError: "%s", row %s is skipped.', e, i)
+            log.warn('ParseError: "%s", row %s is skipped.', e, i)
 
     return transactions

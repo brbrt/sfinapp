@@ -16,7 +16,6 @@ class Transaction():
         if not re.match(r'\d{4}-\d{2}-\d{2}', date):
             raise ParseError('Invalid date column "{0}"'.format(date))
 
-        #self.date = time.strptime(list[0], '%Y-%m-%d')
         self.date = date
 
         self.description = list.pop(0)
