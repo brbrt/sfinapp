@@ -17,7 +17,7 @@
             <tbody>
                 <tr ng-repeat="tr in vm.diplayedTransactions">
                     <td>
-                        <a ui-sref="transaction-detail({id: tr.id})">
+                        <a ui-sref="transaction-detail({id: tr.id})" class="sf-block-link">
                             {{ ::tr.description }}
                         </a>
                     </td>
