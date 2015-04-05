@@ -23,7 +23,12 @@
                     </td>
                     <td>{{ ::tr.date | date : 'yyyy.MM.dd.' }}</td>
                     <td class="right">{{ ::tr.amount | currency : 'Ft' : 0 }}</td>
-                    <td>{{ ::tr.accountName }}</td>
+                    <td>
+                        {{ ::tr.accountName }}
+                        <span ng-if="::tr.toAccountName">
+                            -> {{ ::tr.toAccountName }}
+                        </span>
+                    </td>
                     <td>{{ ::tr.tags }}</td>
                 </tr>
             </tbody>

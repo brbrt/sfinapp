@@ -14,6 +14,7 @@ public class Transaction implements Serializable {
     public String description;
     public TransactionType type;
     public Integer accountId;
+    public Integer toAccountId;
     public String comment;
     public Collection<Integer> tags;
 

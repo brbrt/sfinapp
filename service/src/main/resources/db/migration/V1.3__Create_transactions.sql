@@ -4,11 +4,13 @@ CREATE TABLE `transactions` (
   `amount` DOUBLE NOT NULL,  
   `description` VARCHAR(200) NOT NULL,  
   `account_id` INT NOT NULL,
+  `to_account_id` INT,
   `comment` TEXT,
   
   PRIMARY KEY (`id`),
   
   FOREIGN KEY (`account_id`) REFERENCES accounts(`id`),
+  FOREIGN KEY (`to_account_id`) REFERENCES accounts(`id`),
   CONSTRAINT UNIQUE `transactions_uc` (`date`, `amount`, `description`, `account_id`)
 );
 

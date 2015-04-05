@@ -19,6 +19,7 @@ public class TransactionDao extends BaseDao<Transaction> {
                 "       amount, " +
                 "       description, " +
                 "       account_id as accountId, " +
+                "       to_account_id as toAccountId, " +
                 "       comment " +
                 "  FROM transactions" +
                 " WHERE id = :id";
@@ -30,8 +31,8 @@ public class TransactionDao extends BaseDao<Transaction> {
     public Transaction create(Transaction transaction) {
         final String sql =
                 "INSERT INTO transactions " +
-                "        (date, amount, description, account_id, comment) " +
-                "VALUES (:date, :amount, :description, :accountId, :comment)";
+                "        (date, amount, description, account_id, to_account_id, comment) " +
+                "VALUES (:date, :amount, :description, :accountId, :toAccountId, :comment)";
 
         try (Connection conn = sql2o.open()) {
             int newId = conn
@@ -54,6 +55,7 @@ public class TransactionDao extends BaseDao<Transaction> {
                 "       amount = :amount, " +
                 "       description = :description, " +
                 "       account_id = :accountId, " +
+                "       to_account_id = :toAccountId, " +
                 "       comment = :comment " +
                 " WHERE id = :id";
 

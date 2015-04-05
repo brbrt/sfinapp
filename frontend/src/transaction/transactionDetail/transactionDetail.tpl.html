@@ -13,15 +13,14 @@
                 <input type="date" ng-model="vm.transaction.date" required />
             </label>
         </div>
-    </div>
 
-    <div class="row">
         <div class="large-6 columns">
             <label>Type
                 <select ng-model="vm.transaction.type"
                         required>
                     <option value="Expense" selected>Expense</option>
                     <option value="Income">Income</option>
+                    <option value="Transfer">Transfer</option>
                 </select>
             </label>
         </div>
@@ -33,10 +32,7 @@
                        required />
             </label>
         </div>
-    </div>
 
-
-    <div class="row">
         <div class="large-6 columns">
             <label>Account
                 <select ng-model="vm.transaction.accountId"
@@ -46,7 +42,15 @@
             </label>
         </div>
 
-        <div class="large-6 columns">
+        <div class="large-6 columns" ng-if="vm.transaction.type === 'Transfer'">
+            <label>To account
+                <select ng-model="vm.transaction.toAccountId"
+                        ng-options="acc.id as acc.name for acc in vm.accounts">
+                </select>
+            </label>
+        </div>
+
+        <div class="large-6 columns end">
             <label>Tags
                 <select ng-model="vm.transaction.tags"
                         ng-options="tag.id as tag.name for tag in vm.tags"

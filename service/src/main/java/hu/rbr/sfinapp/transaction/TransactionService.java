@@ -8,6 +8,7 @@ import java.util.List;
 
 import static hu.rbr.sfinapp.transaction.TransactionType.Expense;
 import static hu.rbr.sfinapp.transaction.TransactionType.Income;
+import static hu.rbr.sfinapp.transaction.TransactionType.Transfer;
 
 public class TransactionService extends BaseService {
 
@@ -42,7 +43,8 @@ public class TransactionService extends BaseService {
 
     private void correctAmountBasedOnType(Transaction transaction) {
         if ((transaction.type == Expense && transaction.amount > 0) ||
-            (transaction.type == Income && transaction.amount < 0)) {
+            (transaction.type == Income && transaction.amount < 0) ||
+            (transaction.type == Transfer && transaction.amount < 0)) {
 
             transaction.amount *= -1;
         }
@@ -54,6 +56,10 @@ public class TransactionService extends BaseService {
     }
 
     private TransactionType calculateTransactionType(Transaction transaction) {
+        if (transaction.toAccountId != null) {
+            return Transfer;
+        }
+
         if (transaction.amount > 0) {
             return Income;
         }

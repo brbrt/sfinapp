@@ -11,8 +11,8 @@ public class TransactionListItem implements Serializable {
     public Date date;
     public Double amount;
     public String description;
-    public Integer accountId;
     public String accountName;
+    public String toAccountName;
     public String comment;
     public String tags;
 
