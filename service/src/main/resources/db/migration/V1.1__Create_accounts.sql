@@ -4,5 +4,5 @@ CREATE TABLE `accounts` (
   `description` TEXT,
 
   PRIMARY KEY (`id`),
-  CONSTRAINT ACCOUNT_NAME_UC UNIQUE (`name`)
+  CONSTRAINT `accounts_name_uc` UNIQUE (`name`)
 );

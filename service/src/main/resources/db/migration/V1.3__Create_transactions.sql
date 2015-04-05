@@ -8,8 +8,8 @@ CREATE TABLE `transactions` (
   
   PRIMARY KEY (`id`),
   
-  FOREIGN KEY (`account_id`)
-  REFERENCES accounts(`id`)
+  FOREIGN KEY (`account_id`) REFERENCES accounts(`id`),
+  CONSTRAINT UNIQUE `transactions_uc` (`date`, `amount`, `description`, `account_id`)
 );
 
 
@@ -19,9 +19,7 @@ CREATE TABLE `transaction_tags` (
   
   PRIMARY KEY (`transaction_id`, `tag_id`),
   
-  FOREIGN KEY (`transaction_id`)
-  REFERENCES transactions(`id`),
+  FOREIGN KEY (`transaction_id`) REFERENCES transactions(`id`),
   
-  FOREIGN KEY (`tag_id`)
-  REFERENCES tags(`id`)
+  FOREIGN KEY (`tag_id`) REFERENCES tags(`id`)
 );

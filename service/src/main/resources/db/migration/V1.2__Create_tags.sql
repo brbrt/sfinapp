@@ -5,5 +5,5 @@ CREATE TABLE `tags` (
   `parent_id` INT,
   
   PRIMARY KEY (`id`),
-  CONSTRAINT TAG_NAME_UC UNIQUE (`name`)
+  CONSTRAINT `tags_name_uc` UNIQUE (`name`)
 );
