@@ -8,6 +8,8 @@ def upload(apiurl, transactions):
 
     for tr in transactions:
         accounts.add(tr.account)
+        if hasattr(tr, 'to_account'):
+            accounts.add(tr.to_account)
 
     log.debug('All accounts: %s', accounts)
 

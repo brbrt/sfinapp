@@ -18,8 +18,17 @@ def upload(apiurl, transactions):
 
     for tr in transactions:
         log.info('Uploading transaction %s', tr);
+
         account_obj = next(a for a in accounts if a['name'] == tr.account)
         log.debug('Account %s, resolved account_obj %s', tr.account, account_obj)
+        del(tr.account)
+        tr.accountId = account_obj['id']
+
+        if hasattr(tr, 'to_account'):
+            to_account_obj = next(a for a in accounts if a['name'] == tr.to_account)
+            log.debug('ToAccount %s, resolved to_account_obj %s', tr.to_account, to_account_obj)
+            del(tr.to_account)
+            tr.toAccountId = to_account_obj['id']
 
         tag_objs = []
         for tr_tag in tr.tags:
@@ -27,10 +36,8 @@ def upload(apiurl, transactions):
             tag_objs.append(tag_obj)
 
         log.debug('Tags %s, resolved tag_objs %s', tr.tags, tag_objs)
-
-        del(tr.account)
-        tr.accountId = account_obj['id']
         tr.tags = [to['id'] for to in tag_objs]
+
         tr.date += 'T00:00:00'
 
         log.info('Request payload: %s', tr)
