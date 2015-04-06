@@ -6,6 +6,8 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.flywaydb.core.Flyway;
 
+import java.security.ProtectionDomain;
+
 public class App {
 
     public static void main(String[] args) throws Exception {
@@ -31,7 +33,10 @@ public class App {
 
         WebAppContext webapp = new WebAppContext();
         webapp.setContextPath(config.get("http.context"));
-        webapp.setWar("src/main/webapp");
+
+        ProtectionDomain protectionDomain = App.class.getProtectionDomain();
+        String warFile = protectionDomain.getCodeSource().getLocation().toExternalForm();
+        webapp.setWar(warFile);
 
         // A WebAppContext is a ContextHandler as well so it needs to be set to the server so it is aware of where to send the appropriate requests.
         server.setHandler(webapp);
