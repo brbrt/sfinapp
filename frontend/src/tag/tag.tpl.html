@@ -1,35 +1,31 @@
 <div class="row-fluid">
-    <h1 class="page-header">
+    <h2 class="page-header">
         Tags
-    </h1>
+    </h2>
 
-    <table st-table="vm.diplayedTags" st-safe-src="vm.tags">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="tag in vm.diplayedTags">
-                <td>{{ ::tag.name }}</td>
-                <td>{{ ::tag.description }}</td>
-                <td>
-                    <span ng-click="vm.openEditModal(tag)">
-                        Edit
-                    </span>
+    <div class="sf-table-container">
+        <table st-table="vm.diplayedTags" st-safe-src="vm.tags">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="tag in vm.diplayedTags">
+                    <td>
+                        <a ui-sref="tag-detail({id: tag.id})" class="sf-block-link">
+                            {{ ::tag.name }}
+                        </a>
+                    </td>
+                    <td>{{ ::tag.description }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-                    <span ng-click="vm.deleteItem(tag)">
-                        Delete
-                    </span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <button class="button" ng-click="vm.openAddModal()">
+    <a class="button" ui-sref="tag-detail({id: 'new'})">
         Add tag
-    </button>
+    </a>
 </div>
 

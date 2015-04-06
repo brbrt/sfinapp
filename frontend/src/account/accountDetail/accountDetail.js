@@ -33,14 +33,12 @@
         });
     }
 
-
     function accountDetailCtrl($state,
                                $log,
                                toastr,
                                accountSrv,
                                isNew,
                                account) {
-
         var vm = this;
 
         vm.isNew = isNew;

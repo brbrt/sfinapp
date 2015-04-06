@@ -1,5 +1,5 @@
 <form>
-    <h2>{{ ::vm.title }}</h2>
+    <h2>{{ ::(vm.isNew ? 'Create' : 'Edit' ) }} tag </h2>
 
     <div class="row">
         <div class="large-12 columns">
@@ -15,14 +15,32 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" ng-if="::vm.isNew" >
         <div class="large-12 columns">
-            <button class="button" ng-click="vm.ok()">
-                OK
-            </button>
+            <label>
+                <input type="checkbox" value="false"
+                       ng-model="vm.createAnother">
+                Create another
+            </label>
+        </div>
+    </div>
 
-            <button class="button secondary" ng-click="vm.cancel()">
+    <div class="row">
+        <div class="large-2 small-6 columns">
+            <button class="button sf-button" ng-click="vm.save()">
+                Save
+            </button>
+        </div>
+
+        <div class="large-2 small-6 columns">
+            <a class="button secondary sf-button" ui-sref="tag">
                 Cancel
+            </a>
+        </div>
+
+        <div class="large-2 small-6 columns end">
+            <button ng-if="::!vm.isNew" class="button alert sf-button" ng-click="vm.delete()">
+                Delete
             </button>
         </div>
     </div>
