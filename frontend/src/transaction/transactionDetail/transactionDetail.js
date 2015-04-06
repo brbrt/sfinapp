@@ -6,6 +6,7 @@
             'ui.router',
             'toastr',
 
+            'sfinapp.core',
             'sfinapp.account.accountSrv',
             'sfinapp.tag.tagSrv',
             'sfinapp.transaction.transactionSrv'
@@ -43,6 +44,7 @@
     function transactionDetailCtrl($log,
                                    $state,
                                    toastr,
+                                   confirmSrv,
                                    transactionSrv,
                                    accounts,
                                    isNew,
@@ -67,6 +69,10 @@
         }
 
         function delete_() {
+            confirmSrv.confirm('Are you sure you want to delete this transaction?', callDelete);
+        }
+
+        function callDelete() {
             transactionSrv.delete(vm.transaction).then(
                 function success() {
                     toastr.success('Transaction is deleted.');

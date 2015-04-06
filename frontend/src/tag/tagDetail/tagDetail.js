@@ -6,6 +6,7 @@
             'ui.router',
             'smart-table',
 
+            'sfinapp.core',
             'sfinapp.tag.tagSrv'
         ])
         .config(tagDetailConfig)
@@ -35,6 +36,7 @@
     function tagDetailCtrl($state,
                            $log,
                            toastr,
+                           confirmSrv,
                            tagSrv,
                            isNew,
                            tag) {
@@ -54,6 +56,10 @@
         }
 
         function delete_() {
+            confirmSrv.confirm('Are you sure you want to delete this tag?', callDelete);
+        }
+
+        function callDelete() {
             tagSrv.delete(vm.tag).then(
                 function success() {
                     toastr.success('Tag is deleted.');

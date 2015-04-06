@@ -7,6 +7,7 @@
             'smart-table',
             'toastr',
 
+            'sfinapp.core',
             'sfinapp.account.accountSrv'
         ])
         .config(accountDetailConfig)
@@ -36,6 +37,7 @@
     function accountDetailCtrl($state,
                                $log,
                                toastr,
+                               confirmSrv,
                                accountSrv,
                                isNew,
                                account) {
@@ -55,6 +57,10 @@
         }
 
         function delete_() {
+            confirmSrv.confirm('Are you sure you want to delete this account?', callDelete);
+        }
+
+        function callDelete() {
             accountSrv.delete(vm.account).then(
                 function success() {
                     toastr.success('Account is deleted.');

@@ -14,6 +14,7 @@
 
             // Internal modules.
             'sfinapp.config',
+            'sfinapp.core',
 
             'sfinapp.account',
             'sfinapp.home',
