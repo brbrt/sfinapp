@@ -13,6 +13,7 @@
 
         var factory = {
             getAll: getAll,
+            get: get,
             skeleton: skeleton,
             create: create,
             update: update,
@@ -25,6 +26,10 @@
 
         function getAll() {
             return $http.get(url);
+        }
+
+        function get(id) {
+            return $http.get(url + id);
         }
 
         function skeleton() {
@@ -46,7 +51,6 @@
             return $http.delete(url + account.id);
         }
     }
-
 
 })();
 

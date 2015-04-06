@@ -27,10 +27,7 @@
         });
     }
 
-    function transactionCtrl($log,
-                             $state,
-                             transactions) {
-
+    function transactionCtrl(transactions) {
         var vm = this;
 
         vm.transactions = transactions.data;

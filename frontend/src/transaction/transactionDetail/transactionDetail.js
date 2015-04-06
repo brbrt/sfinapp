@@ -4,7 +4,7 @@
     angular
         .module('sfinapp.transaction.transactionDetail', [
             'ui.router',
-            'smart-table',
+            'toastr',
 
             'sfinapp.account.accountSrv',
             'sfinapp.tag.tagSrv',

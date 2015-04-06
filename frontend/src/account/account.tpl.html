@@ -1,36 +1,31 @@
 <div class="row-fluid">
-    <h1 class="page-header">
+    <h2 class="page-header">
         Accounts
-    </h1>
+    </h2>
 
+    <div class="sf-table-container">
+        <table st-table="vm.diplayedAccounts" st-safe-src="vm.accounts">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="acc in vm.diplayedAccounts">
+                    <td>
+                        <a ui-sref="account-detail({id: acc.id})" class="sf-block-link">
+                            {{ ::acc.name }}
+                        </a>
+                    </td>
+                    <td>{{ ::acc.description }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <table st-table="vm.diplayedAccounts" st-safe-src="vm.accounts">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="acc in vm.diplayedAccounts">
-                <td>{{ ::acc.name }}</td>
-                <td>{{ ::acc.description }}</td>
-                <td>
-                    <span ng-click="vm.openEditModal(acc)">
-                        Edit
-                    </span>
-
-                    <span ng-click="vm.deleteItem(acc)">
-                        Delete
-                    </span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <button class="button" ng-click="vm.openAddModal()">
+    <a class="button" ui-sref="account-detail({id: 'new'})">
         Add account
-    </button>
+    </a>
 </div>
 
