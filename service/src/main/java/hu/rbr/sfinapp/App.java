@@ -2,50 +2,40 @@ package hu.rbr.sfinapp;
 
 import hu.rbr.sfinapp.core.config.Config;
 import hu.rbr.sfinapp.core.config.PropertyConfig;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.webapp.WebAppContext;
-import org.flywaydb.core.Flyway;
-
-import java.security.ProtectionDomain;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class App {
 
+    private final Logger log = LoggerFactory.getLogger(App.class);
+
+    private JettyRunner jettyRunner;
+
     public static void main(String[] args) throws Exception {
+        App app = new App();
+        app.run();
+    }
+
+    public void run() throws Exception {
+        log.info("Starting application");
+
+        addShutdownHook();
+
         Config config = new PropertyConfig();
 
-        initFlyway(config);
-        initJetty(config);
+        new FlywayRunner(config).run();
+
+        jettyRunner = new JettyRunner(config);
+        jettyRunner.run();
     }
 
-    private static void initFlyway(Config config) {
-        // Create the Flyway instance
-        Flyway flyway = new Flyway();
-
-        // Point it to the database
-        flyway.setDataSource(config.get("db.url"), config.get("db.username"), config.get("db.password"));
-
-        // Start the migration
-        flyway.migrate();
+    private void addShutdownHook() {
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                log.info("Shutting down application");
+                jettyRunner.stop();
+            }
+        });
     }
 
-    private static void initJetty(Config config) throws Exception {
-        Server server = new Server(config.getInt("http.port"));
-
-        WebAppContext webapp = new WebAppContext();
-        webapp.setContextPath(config.get("http.context"));
-
-        ProtectionDomain protectionDomain = App.class.getProtectionDomain();
-        String warFile = protectionDomain.getCodeSource().getLocation().toExternalForm();
-        webapp.setWar(warFile);
-
-        // A WebAppContext is a ContextHandler as well so it needs to be set to the server so it is aware of where to send the appropriate requests.
-        server.setHandler(webapp);
-
-
-        // Start things up!
-        server.start();
-
-        // The use of server.join() the will make the current thread join and wait until the server is done executing.
-        server.join();
-    }
 }
