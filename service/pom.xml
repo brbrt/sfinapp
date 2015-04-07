@@ -21,6 +21,7 @@
         <slf4j.version>1.7.10</slf4j.version>
         <flyway.version>3.2.1</flyway.version>
         <jackson.version>2.5.2</jackson.version>
+        <genson.version>1.2</genson.version>
     </properties>
 
 	<build>
@@ -127,9 +128,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
-            <version>${jackson.version}</version>
+            <groupId>com.owlike</groupId>
+            <artifactId>genson</artifactId>
+            <version>${genson.version}</version>
         </dependency>
 
         <dependency>
