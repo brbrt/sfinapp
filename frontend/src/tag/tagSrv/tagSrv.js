@@ -9,7 +9,7 @@
 
 
     function tagSrv($http) {
-        var url = '/api/tags/';
+        var url = 'api/tags/';
 
         var factory = {
             getAll: getAll,

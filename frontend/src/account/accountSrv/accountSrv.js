@@ -9,7 +9,7 @@
 
 
     function accountSrv($http) {
-        var url = '/api/accounts/';
+        var url = 'api/accounts/';
 
         var factory = {
             getAll: getAll,

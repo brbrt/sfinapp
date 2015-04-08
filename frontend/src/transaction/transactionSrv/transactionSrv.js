@@ -9,7 +9,7 @@
 
 
     function transactionSrv($http) {
-        var url = '/api/transactions/';
+        var url = 'api/transactions/';
 
         var factory = {
             getAll: getAll,

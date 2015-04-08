@@ -33,8 +33,8 @@ gulp.task('index', function() {
     var appStream = gulp.src(config.appSources, {read: false});
 
     gulp.src(config.indexHtml)
-        .pipe(inject(vendorStream, {name: 'vendor'}))
-        .pipe(inject(appStream, {name: 'app'}))
+        .pipe(inject(vendorStream, {name: 'vendor', addRootSlash: false}))
+        .pipe(inject(appStream, {name: 'app', addRootSlash: false}))
         .pipe(gulp.dest(config.buildDir));
 });
 
