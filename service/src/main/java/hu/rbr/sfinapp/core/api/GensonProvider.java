@@ -19,6 +19,7 @@ public class GensonProvider implements ContextResolver<Genson> {
         genson = new GensonBuilder()
                 .useIndentation(true)
                 .useDateFormat(new SimpleDateFormat(API_DATE_FORMAT))
+                .setSkipNull(true)
                 .create();
     }
 
