@@ -36,7 +36,8 @@ def upload(apiurl, transactions):
             tag_objs.append(tag_obj)
 
         log.debug('Tags %s, resolved tag_objs %s', tr.tags, tag_objs)
-        tr.tags = [to['id'] for to in tag_objs]
+        del(tr.tags)
+        tr.tagIds = [to['id'] for to in tag_objs]
 
         tr.date += 'T00:00:00'
 
