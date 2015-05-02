@@ -16,7 +16,13 @@ public class TransactionService extends BaseService {
     private final TransactionListDao transactionListDao = new TransactionListDao();
 
     public List<TransactionListItem> getAll() {
-        return transactionListDao.getAll();
+        List<TransactionListItem> transactions = transactionListDao.getAll();
+
+        for (TransactionListItem transaction : transactions) {
+            postProcess(transaction);
+        }
+
+        return transactions;
     }
 
     public Transaction get(int id) {

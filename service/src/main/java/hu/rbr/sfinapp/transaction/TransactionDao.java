@@ -83,7 +83,7 @@ public class TransactionDao extends BaseDao<Transaction> {
             return null;
         }
 
-        transaction.tags = getTags(transaction.id);
+        transaction.tagIds = getTags(transaction.id);
         return transaction;
     }
 
@@ -117,7 +117,7 @@ public class TransactionDao extends BaseDao<Transaction> {
 
             Query query = conn.createQuery(insertSql);
 
-            for (Integer tagId : transaction.tags) {
+            for (Integer tagId : transaction.tagIds) {
                 query.addParameter("transactionId", transaction.id)
                      .addParameter("tagId", tagId)
                      .addToBatch();

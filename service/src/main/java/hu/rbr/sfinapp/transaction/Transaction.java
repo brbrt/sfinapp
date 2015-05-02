@@ -16,6 +16,6 @@ public class Transaction implements Serializable {
     public Integer accountId;
     public Integer toAccountId;
     public String comment;
-    public Collection<Integer> tags;
+    public Collection<Integer> tagIds;
 
 }

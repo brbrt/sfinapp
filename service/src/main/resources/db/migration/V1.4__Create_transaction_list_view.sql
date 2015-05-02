@@ -4,9 +4,12 @@ SELECT tr.id AS id,
        tr.description AS description,
        tr.date,
        tr.amount,
+       tr.comment,
+       acc.id AS accountId,
        acc.name AS accountName,
+       toacc.id AS toAccountId,
        toacc.name AS toAccountName,
-       GROUP_CONCAT(ta.name ORDER BY ta.name) AS tags
+       GROUP_CONCAT(ta.name ORDER BY ta.name) AS tagNames
   FROM transactions tr 
        LEFT JOIN accounts acc
            ON tr.account_id = acc.id

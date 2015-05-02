@@ -1,19 +1,15 @@
 package hu.rbr.sfinapp.transaction.list;
 
+import hu.rbr.sfinapp.transaction.Transaction;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.Date;
 
 @XmlRootElement
-public class TransactionListItem implements Serializable {
+public class TransactionListItem extends Transaction implements Serializable {
 
-    public Integer id;
-    public Date date;
-    public Double amount;
-    public String description;
     public String accountName;
     public String toAccountName;
-    public String comment;
-    public String tags;
+    public String tagNames;
 
 }
