@@ -1,10 +1,12 @@
+import codecs
 import csv
 import logging as log
 
 from transaction import *
 
 def parse(filename):
-    with open(filename, 'r') as f:
+
+    with codecs.open(filename, 'r', 'utf-8') as f:
         reader = csv.reader(f)
         rows = list(reader)
 
