@@ -81,7 +81,7 @@
 
         function serverError(err) {
             $log.error('Tag save error: ', err);
-            toastr.error('Server error.');
+            toastr.error(err.data.message);
         }
     }
 

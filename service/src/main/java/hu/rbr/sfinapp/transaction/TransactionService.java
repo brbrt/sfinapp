@@ -6,11 +6,10 @@ import hu.rbr.sfinapp.transaction.list.TransactionListItem;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.validation.Valid;
 import java.util.List;
 
-import static hu.rbr.sfinapp.transaction.TransactionType.Expense;
-import static hu.rbr.sfinapp.transaction.TransactionType.Income;
-import static hu.rbr.sfinapp.transaction.TransactionType.Transfer;
+import static hu.rbr.sfinapp.transaction.TransactionType.*;
 
 @Singleton
 public class TransactionService extends BaseService {
@@ -39,11 +38,11 @@ public class TransactionService extends BaseService {
         return postProcess(transaction);
     }
 
-    public Transaction create(Transaction transaction) {
+    public Transaction create(@Valid Transaction transaction) {
         return transactionDao.create(preProcess(transaction));
     }
 
-    public Transaction update(int id, Transaction entity) {
+    public Transaction update(int id, @Valid Transaction entity) {
         return transactionDao.update(id, preProcess(entity));
     }
 

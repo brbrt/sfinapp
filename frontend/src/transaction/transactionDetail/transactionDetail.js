@@ -94,7 +94,7 @@
 
         function serverError(err) {
             $log.error('Transaction save error: ', err);
-            toastr.error('Server error.');
+            toastr.error(err.data.message);
         }
 
     }

@@ -82,7 +82,7 @@
 
         function serverError(err) {
             $log.error('Account save error: ', err);
-            toastr.error('Server error.');
+            toastr.error(err.data.message);
         }
     }
 
