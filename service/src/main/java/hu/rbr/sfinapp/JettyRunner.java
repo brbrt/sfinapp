@@ -8,17 +8,19 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.security.ProtectionDomain;
 
 public class JettyRunner {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private Config config;
+    private final Config config;
 
     private Server server;
     private WebAppContext webAppContext;
 
+    @Inject
     public JettyRunner(Config config) {
         this.config = config;
     }

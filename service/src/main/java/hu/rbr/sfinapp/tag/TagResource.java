@@ -1,5 +1,7 @@
 package hu.rbr.sfinapp.tag;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -8,8 +10,13 @@ import java.util.List;
 @Path("tags")
 @Produces(MediaType.APPLICATION_JSON)
 public class TagResource {
-	
-	private TagService service = new TagService();
+
+	private final TagService service;
+
+	@Inject
+	public TagResource(TagService service, HttpServletRequest request) {
+		this.service = service;
+	}
 
 	@GET
 	public List<Tag> getAll() {

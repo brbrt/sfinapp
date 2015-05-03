@@ -4,12 +4,17 @@ import hu.rbr.sfinapp.core.db.BaseDao;
 import org.sql2o.Connection;
 import org.sql2o.Query;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import javax.sql.DataSource;
 import java.util.List;
 
+@Singleton
 public class TransactionDao extends BaseDao<Transaction> {
 
-    public TransactionDao() {
-        super("transactions", Transaction.class);
+    @Inject
+    public TransactionDao(DataSource dataSource) {
+        super(dataSource, "transactions", Transaction.class);
     }
 
     public Transaction get(int id) {

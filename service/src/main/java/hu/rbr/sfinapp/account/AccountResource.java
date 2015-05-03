@@ -1,5 +1,6 @@
 package hu.rbr.sfinapp.account;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -9,7 +10,12 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountResource {
 	
-	private AccountService service = new AccountService(); 
+	private final AccountService service;
+
+	@Inject
+	public AccountResource(AccountService service) {
+		this.service = service;
+	}
 
 	@GET
 	public List<Account> getAll() {

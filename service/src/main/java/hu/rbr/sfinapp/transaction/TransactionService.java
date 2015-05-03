@@ -4,16 +4,25 @@ import hu.rbr.sfinapp.core.service.BaseService;
 import hu.rbr.sfinapp.transaction.list.TransactionListDao;
 import hu.rbr.sfinapp.transaction.list.TransactionListItem;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.List;
 
 import static hu.rbr.sfinapp.transaction.TransactionType.Expense;
 import static hu.rbr.sfinapp.transaction.TransactionType.Income;
 import static hu.rbr.sfinapp.transaction.TransactionType.Transfer;
 
+@Singleton
 public class TransactionService extends BaseService {
 
-    private final TransactionDao transactionDao = new TransactionDao();
-    private final TransactionListDao transactionListDao = new TransactionListDao();
+    private final TransactionDao transactionDao;
+    private final TransactionListDao transactionListDao;
+
+    @Inject
+    public TransactionService(TransactionDao transactionDao, TransactionListDao transactionListDao) {
+        this.transactionDao = transactionDao;
+        this.transactionListDao = transactionListDao;
+    }
 
     public List<TransactionListItem> getAll() {
         List<TransactionListItem> transactions = transactionListDao.getAll();

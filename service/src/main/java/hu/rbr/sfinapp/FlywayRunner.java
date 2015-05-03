@@ -5,12 +5,15 @@ import org.flywaydb.core.Flyway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
+
 public class FlywayRunner {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private Config config;
+    private final Config config;
 
+    @Inject
     public FlywayRunner(Config config) {
         this.config = config;
     }

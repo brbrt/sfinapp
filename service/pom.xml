@@ -22,6 +22,8 @@
         <flyway.version>3.2.1</flyway.version>
         <jackson.version>2.5.2</jackson.version>
         <genson.version>1.2</genson.version>
+        <guice.version>4.0</guice.version>
+        <hk2.version>2.2.0</hk2.version>
     </properties>
 
 	<build>
@@ -96,6 +98,12 @@
 
 	<dependencies>
         <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
             <version>${jetty.version}</version>
@@ -125,6 +133,12 @@
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet-core</artifactId>
             <version>${jersey.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.hk2</groupId>
+            <artifactId>hk2</artifactId>
+            <version>${hk2.version}</version>
         </dependency>
 
         <dependency>

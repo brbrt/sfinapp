@@ -2,12 +2,19 @@ package hu.rbr.sfinapp.tag;
 
 import hu.rbr.sfinapp.core.service.BaseService;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.List;
 
-
+@Singleton
 public class TagService extends BaseService {
 
-    private final TagDao tagDao = new TagDao();
+    private final TagDao tagDao;
+
+    @Inject
+    public TagService(TagDao tagDao) {
+        this.tagDao = tagDao;
+    }
 
     public List<Tag> getAll() {
         return tagDao.getAll();
