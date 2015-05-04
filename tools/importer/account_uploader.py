@@ -23,6 +23,7 @@ def upload(apiurl, transactions):
 
         r = requests.post(url, data=json.dumps(payload), headers=headers)
         if r.status_code != 200:
-            log.warn('Api error: %s', r.json())
+            log.error('Api error: %s', r.json())
+            raise Exception('Api error')
 
     log.info('Account uploading is done.')

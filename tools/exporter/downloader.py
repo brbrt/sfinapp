@@ -11,6 +11,6 @@ def download(apiurl):
     r = requests.get(url)
     if r.status_code != 200:
         log.warn('Api error: %s', r.json())
-        return []
+        raise Exception('Api error')
 
     return r.json()
