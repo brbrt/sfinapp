@@ -1,6 +1,6 @@
 #!/bin/sh
 
-npm install --global bower gulp
+sudo npm install --global --quiet bower gulp
 
 npm install
 bower install
