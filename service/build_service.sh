@@ -1,3 +1,3 @@
 #!/bin/sh
 
-mvn install
+mvn install --batch-mode
