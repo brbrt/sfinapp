@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cat banner_frontend.txt
+
 npm install --quiet
 
 node_modules/bower/bin/bower install
