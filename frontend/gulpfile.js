@@ -40,7 +40,7 @@ gulp.task('index', function() {
 
 gulp.task('build', ['copy', 'less', 'index']);
 
-gulp.task('watch', function() {
+gulp.task('watch', ['build'], function() {
     var watchFor = []
         .concat(config.appSources)
         .concat(config.lessSources)
