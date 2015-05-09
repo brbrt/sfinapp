@@ -65,24 +65,10 @@
 
         function save() {
             var method = isNew ? transactionSrv.create : transactionSrv.update;
-            method(vm.transaction).then(serverSuccess, serverError);
+            method(vm.transaction).then(saveSuccess, toastr.apiError);
         }
 
-        function delete_() {
-            confirmSrv.confirm('Are you sure you want to delete this transaction?', callDelete);
-        }
-
-        function callDelete() {
-            transactionSrv.delete(vm.transaction).then(
-                function success() {
-                    toastr.success('Transaction is deleted.');
-                    $state.go('transaction');
-                },
-                serverError
-            );
-        }
-
-        function serverSuccess() {
+        function saveSuccess() {
             if ((isNew && vm.createAnother) || !isNew) {
                 $state.reload();
             } else {
@@ -92,11 +78,18 @@
             toastr.success('Transaction is saved.');
         }
 
-        function serverError(err) {
-            $log.error('Transaction save error: ', err);
-            toastr.error(err.data.message);
+        function delete_() {
+            confirmSrv.confirm('Are you sure you want to delete this transaction?', callDelete);
         }
 
+        function callDelete() {
+            transactionSrv.delete(vm.transaction).then(deleteSuccess, toastr.apiError);
+        }
+
+        function deleteSuccess() {
+            toastr.success('Transaction is deleted.');
+            $state.go('transaction');
+        }
     }
 
 })();

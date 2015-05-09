@@ -52,24 +52,10 @@
 
         function save() {
             var method = isNew ? tagSrv.create : tagSrv.update;
-            method(vm.tag).then(serverSuccess, serverError);
+            method(vm.tag).then(saveSuccess, toastr.apiError);
         }
 
-        function delete_() {
-            confirmSrv.confirm('Are you sure you want to delete this tag?', callDelete);
-        }
-
-        function callDelete() {
-            tagSrv.delete(vm.tag).then(
-                function success() {
-                    toastr.success('Tag is deleted.');
-                    $state.go('tag');
-                },
-                serverError
-            );
-        }
-
-        function serverSuccess() {
+        function saveSuccess() {
             if ((isNew && vm.createAnother) || !isNew) {
                 $state.reload();
             } else {
@@ -79,9 +65,17 @@
             toastr.success('Tag is saved.');
         }
 
-        function serverError(err) {
-            $log.error('Tag save error: ', err);
-            toastr.error(err.data.message);
+        function delete_() {
+            confirmSrv.confirm('Are you sure you want to delete this tag?', callDelete);
+        }
+
+        function callDelete() {
+            tagSrv.delete(vm.tag).then(deleteSuccess, toastr.apiError);
+        }
+
+        function deleteSuccess() {
+            toastr.success('Tag is deleted.');
+            $state.go('tag');
         }
     }
 

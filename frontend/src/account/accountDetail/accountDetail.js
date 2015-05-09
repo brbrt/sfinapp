@@ -53,24 +53,10 @@
 
         function save() {
             var method = isNew ? accountSrv.create : accountSrv.update;
-            method(vm.account).then(serverSuccess, serverError);
+            method(vm.account).then(saveSuccess, toastr.apiError);
         }
 
-        function delete_() {
-            confirmSrv.confirm('Are you sure you want to delete this account?', callDelete);
-        }
-
-        function callDelete() {
-            accountSrv.delete(vm.account).then(
-                function success() {
-                    toastr.success('Account is deleted.');
-                    $state.go('account');
-                },
-                serverError
-            );
-        }
-
-        function serverSuccess() {
+        function saveSuccess() {
             if ((isNew && vm.createAnother) || !isNew) {
                 $state.reload();
             } else {
@@ -80,9 +66,17 @@
             toastr.success('Account is saved.');
         }
 
-        function serverError(err) {
-            $log.error('Account save error: ', err);
-            toastr.error(err.data.message);
+        function delete_() {
+            confirmSrv.confirm('Are you sure you want to delete this account?', callDelete);
+        }
+
+        function callDelete() {
+            accountSrv.delete(vm.account).then(deleteSuccess, toastr.apiError);
+        }
+
+        function deleteSuccess() {
+            toastr.success('Account is deleted.');
+            $state.go('account');
         }
     }
 
