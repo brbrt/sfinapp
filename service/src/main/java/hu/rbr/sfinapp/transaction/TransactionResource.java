@@ -32,15 +32,22 @@ public class TransactionResource {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Transaction create(Transaction acc) {
-		return service.create(acc);
+	public Transaction create(Transaction transaction) {
+		return service.create(transaction);
+	}
+
+	@POST
+	@Path("/batch")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void createBatch(List<Transaction> transactions) {
+		service.createBatch(transactions);
 	}
 	
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Transaction update(@PathParam("id") int id, Transaction acc) {
-		return service.update(id, acc);
+	public Transaction update(@PathParam("id") int id, Transaction transaction) {
+		return service.update(id, transaction);
 	}
 	
 	@DELETE

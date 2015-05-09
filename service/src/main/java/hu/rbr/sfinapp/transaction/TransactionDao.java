@@ -7,6 +7,7 @@ import org.sql2o.Sql2o;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.List;
 
 @Singleton
 public class TransactionDao extends BaseDao<Transaction> {
@@ -37,27 +38,39 @@ public class TransactionDao extends BaseDao<Transaction> {
     }
 
     public Transaction create(Transaction transaction) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            int newId = create(conn, transaction);
+            conn.commit();
+            return get(newId);
+        }
+    }
+
+    public void createBatch(List<Transaction> transactions) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            for (Transaction transaction : transactions) {
+                create(conn, transaction);
+            }
+
+            conn.commit();
+        }
+    }
+
+    private int create(Connection conn, Transaction transaction) {
         final String sql =
                 "INSERT INTO transactions " +
                 "        (date, amount, description, account_id, to_account_id, comment) " +
                 "VALUES (:date, :amount, :description, :accountId, :toAccountId, :comment)";
 
-        try (Connection conn = sql2o.beginTransaction()) {
-            int newId = conn
-                    .createQuery(sql, true)
-                    .bind(transaction)
-                    .executeUpdate()
-                    .getKey(Integer.class);
+        int newId = conn
+                .createQuery(sql, true)
+                .bind(transaction)
+                .executeUpdate()
+                .getKey(Integer.class);
 
-            transaction.id = newId;
+        tagHelper.deleteTags(conn, newId);
+        tagHelper.saveTags(conn, newId, transaction.tagIds);
 
-            tagHelper.deleteTags(conn, newId);
-            tagHelper.saveTags(conn, newId, transaction.tagIds);
-
-            conn.commit();
-
-            return get(newId);
-        }
+        return newId;
     }
 
     public Transaction update(int id, Transaction transaction) {

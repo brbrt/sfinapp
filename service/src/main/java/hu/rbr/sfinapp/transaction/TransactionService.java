@@ -42,6 +42,14 @@ public class TransactionService extends BaseService {
         return transactionDao.create(preProcess(transaction));
     }
 
+    public void createBatch(@Valid List<Transaction> transactions) {
+        for (Transaction transaction : transactions) {
+            preProcess(transaction);
+        }
+
+        transactionDao.createBatch(transactions);
+    }
+
     public Transaction update(int id, @Valid Transaction entity) {
         return transactionDao.update(id, preProcess(entity));
     }
