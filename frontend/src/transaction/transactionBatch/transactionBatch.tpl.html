@@ -1,0 +1,67 @@
+<form>
+    <h2>Create multiple transactions</h2>
+
+    <table class="sf-transaction-batch-table">
+        <thead>
+            <th class="description-col">Description</th>
+            <th class="date-col">Date</th>
+            <th class="type-col">Type</th>
+            <th class="amount-col">Amount</th>
+            <th class="account-col">Account</th>
+            <th class="tags-col">Tags</th>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="transaction in vm.transactions">
+                <td class="description-col">
+                    <input type="text" ng-model="transaction.description" required />
+                </td>
+                <td class="date-col">
+                    <input type="date" ng-model="transaction.date" required />
+                </td>
+                <td class="type-col">
+                    <select ng-model="transaction.type" required>
+                        <option value="Expense" selected>Expense</option>
+                        <option value="Income">Income</option>
+                    </select>
+                </td>
+                <td class="amount-col">
+                    <input type="number" min="-10000000" max="10000000"
+                           ng-model="transaction.amount"
+                           required />
+                </td>
+                <td class="account-col">
+                    <select ng-model="transaction.accountId"
+                            ng-options="acc.id as acc.name for acc in vm.accounts"
+                            required>
+                    </select>
+                </td>
+                <td class="tags-col">
+                    <select ng-model="transaction.tagIds"
+                            ng-options="tag.id as tag.name for tag in vm.tags"
+                            multiple size="1">
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a ng-click="vm.extendTransactionList(2)">
+        Add more...
+    </a>
+    <br><br>
+
+    <div class="row sf-full-width">
+        <div class="large-2 small-6 columns">
+            <button class="button sf-button" ng-click="vm.save()">
+                Save
+            </button>
+        </div>
+
+        <div class="large-2 small-6 columns end">
+            <a class="button secondary sf-button" ui-sref="transaction">
+                Cancel
+            </a>
+        </div>
+    </div>
+</form>

@@ -7,6 +7,7 @@
             'smart-table',
 
             'sfinapp.core',
+            'sfinapp.transaction.transactionBatch',
             'sfinapp.transaction.transactionDetail',
             'sfinapp.transaction.transactionSrv'
         ])

@@ -16,6 +16,7 @@
             get: get,
             skeleton: skeleton,
             create: create,
+            createBatch: createBatch,
             update: update,
             delete: delete_
         };
@@ -46,6 +47,10 @@
 
         function create(item) {
             return $http.post(url, item);
+        }
+
+        function createBatch(items) {
+            return $http.post(url + 'batch', items);
         }
 
         function update(item) {
