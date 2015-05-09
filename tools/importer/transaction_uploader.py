@@ -12,12 +12,10 @@ def upload(apiurl, transactions):
     tags = r.json()
     log.debug('Tags: %s', tags);
 
-
-    url = apiurl + '/transactions/'
-    headers = {'Content-type': 'application/json'}
+    log.info('Converting transactions')
 
     for tr in transactions:
-        log.info('Uploading transaction %s', tr);
+        log.debug('Converting transaction %s', tr);
 
         account_obj = next(a for a in accounts if a['name'] == tr.account)
         log.debug('Account %s, resolved account_obj %s', tr.account, account_obj)
@@ -41,13 +39,18 @@ def upload(apiurl, transactions):
 
         tr.date += 'T00:00:00'
 
-        log.info('Request payload: %s', tr)
+    log.info('Uploading transactions')
 
-        r = requests.post(url, data=tr.__str__(), headers=headers)
-        if r.status_code != 200:
-            log.error('Api error: %s', r.json())
-            raise Exception('Api error')
+    url = apiurl + '/transactions/batch'
+    headers = {'Content-type': 'application/json'}
 
-        log.debug('#####')
+    request = '[%s]' % ',\n'.join([tr.__str__() for tr in reversed(transactions)])
+
+    log.debug('Request payload: %s', request)
+
+    r = requests.post(url, data=request, headers=headers)
+    if r.status_code != 204:
+        log.error('Api error: %s', r.json())
+        raise Exception('Api error')
 
     log.info('Transaction uploading is done.')

@@ -28,8 +28,7 @@ try:
     csvwriter.write(apiurl, filename, transactions)
 
 except Exception as ex:
-    log.error('Fatal error: %s', ex)
-    # raise ex
+    log.exception('Fatal error')
 
 elapsed = time.time() - start_time
 log.info('Export finished in %.1f seconds.', elapsed)
