@@ -24,8 +24,4 @@ public class TransactionListDao extends BaseDao<TransactionListItem> {
         return getAll(sql);
     }
 
-    @Override
-    public void delete(int id) {
-        throw new UnsupportedOperationException();
-    }
 }

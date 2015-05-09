@@ -17,7 +17,7 @@ public abstract class BaseDao<E> {
         this.entityClass = entityClass;
     }
 
-    protected List<E> getAll(final String sql) {
+    protected List<E> getAll(String sql) {
         try (Connection conn = sql2o.open()) {
             List<E> all = conn
                     .createQuery(sql)
@@ -26,7 +26,7 @@ public abstract class BaseDao<E> {
         }
     }
 
-    protected E get(final String sql, Integer id) {
+    protected E get(String sql, Integer id) {
         try (Connection conn = sql2o.open()) {
             E item = conn
                     .createQuery(sql)
@@ -36,16 +36,13 @@ public abstract class BaseDao<E> {
         }
     }
 
-    public void delete(final int id) {
-        final String sql =
-                "DELETE FROM " + tableName + " " +
-                 "WHERE id = :id";
+    protected void delete(Connection conn, int id) {
+        final String sql = "DELETE FROM " + tableName + " " +
+                           " WHERE id = :id";
 
-        try (Connection conn = sql2o.open()) {
-            conn.createQuery(sql)
+        conn.createQuery(sql)
                 .addParameter("id", id)
                 .executeUpdate();
-        }
     }
 
 }

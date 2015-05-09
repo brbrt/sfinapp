@@ -1,20 +1,23 @@
 package hu.rbr.sfinapp.transaction;
 
 import hu.rbr.sfinapp.core.db.BaseDao;
+import hu.rbr.sfinapp.transaction.list.TransactionTagDaoHelper;
 import org.sql2o.Connection;
-import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.List;
 
 @Singleton
 public class TransactionDao extends BaseDao<Transaction> {
 
+    private final TransactionTagDaoHelper tagHelper;
+
     @Inject
-    public TransactionDao(Sql2o sql2o) {
+    public TransactionDao(Sql2o sql2o, TransactionTagDaoHelper tagHelper) {
         super(sql2o, "transactions", Transaction.class);
+
+        this.tagHelper = tagHelper;
     }
 
     public Transaction get(int id) {
@@ -47,7 +50,9 @@ public class TransactionDao extends BaseDao<Transaction> {
                     .getKey(Integer.class);
 
             transaction.id = newId;
-            saveTags(conn, transaction);
+
+            tagHelper.deleteTags(conn, newId);
+            tagHelper.saveTags(conn, newId, transaction.tagIds);
 
             conn.commit();
 
@@ -73,7 +78,8 @@ public class TransactionDao extends BaseDao<Transaction> {
                 .bind(transaction)
                 .executeUpdate();
 
-            saveTags(conn, transaction);
+            tagHelper.deleteTags(conn, transaction.id);
+            tagHelper.saveTags(conn, transaction.id, transaction.tagIds);
 
             conn.commit();
 
@@ -81,10 +87,13 @@ public class TransactionDao extends BaseDao<Transaction> {
         }
     }
 
-    @Override
     public void delete(final int id) {
-        deleteTags(id);
-        super.delete(id);
+        try (Connection conn = sql2o.beginTransaction()) {
+            tagHelper.deleteTags(conn, id);
+            super.delete(conn, id);
+
+            conn.commit();
+        }
     }
 
     private Transaction loadTags(Transaction transaction) {
@@ -92,57 +101,9 @@ public class TransactionDao extends BaseDao<Transaction> {
             return null;
         }
 
-        transaction.tagIds = getTags(transaction.id);
-        return transaction;
-    }
-
-    private List<Integer> getTags(final int transactionId) {
-        final String sql =
-                "SELECT tag_id " +
-                "  FROM transaction_tags " +
-                " WHERE transaction_id = :transactionId";
-
         try (Connection conn = sql2o.open()) {
-            return conn
-                    .createQuery(sql)
-                    .addParameter("transactionId", transactionId)
-                    .executeScalarList(Integer.class);
-        }
-    }
-
-    private void saveTags(Connection conn, final Transaction transaction) {
-        final String deleteSql = "DELETE FROM transaction_tags " +
-                                 " WHERE transaction_id = :transactionId";
-
-        conn.createQuery(deleteSql)
-                .addParameter("transactionId", transaction.id)
-                .executeUpdate();
-
-
-        final String insertSql = "INSERT INTO transaction_tags" +
-                                 "       (transaction_id, tag_id) " +
-                                 "VALUES (:transactionId, :tagId) ";
-
-        Query query = conn.createQuery(insertSql);
-
-        for (Integer tagId : transaction.tagIds) {
-            query.addParameter("transactionId", transaction.id)
-                 .addParameter("tagId", tagId)
-                 .addToBatch();
-        }
-
-        query.executeBatch();
-    }
-
-    private void deleteTags(final int transactionId) {
-        final String sql =
-                "DELETE FROM transaction_tags " +
-                      "WHERE transaction_id = :transactionId";
-
-        try (Connection conn = sql2o.open()) {
-            conn.createQuery(sql)
-                    .addParameter("transactionId", transactionId)
-                    .executeUpdate();
+            transaction.tagIds = tagHelper.getTags(conn, transaction.id);
+            return transaction;
         }
     }
 

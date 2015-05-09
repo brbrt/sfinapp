@@ -73,4 +73,10 @@ public class AccountDao extends BaseDao<Account> {
         }
     }
 
+    public void delete(int id) {
+        try (Connection conn = sql2o.open()) {
+            delete(conn, id);
+        }
+    }
+
 }

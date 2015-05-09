@@ -73,4 +73,10 @@ public class TagDao extends BaseDao<Tag> {
             return get(id);
         }
     }
+
+    public void delete(int id) {
+        try (Connection conn = sql2o.open()) {
+            delete(conn, id);
+        }
+    }
 }
