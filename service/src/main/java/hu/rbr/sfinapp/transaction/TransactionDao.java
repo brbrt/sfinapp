@@ -39,7 +39,7 @@ public class TransactionDao extends BaseDao<Transaction> {
                 "        (date, amount, description, account_id, to_account_id, comment) " +
                 "VALUES (:date, :amount, :description, :accountId, :toAccountId, :comment)";
 
-        try (Connection conn = sql2o.open()) {
+        try (Connection conn = sql2o.beginTransaction()) {
             int newId = conn
                     .createQuery(sql, true)
                     .bind(transaction)
@@ -47,7 +47,9 @@ public class TransactionDao extends BaseDao<Transaction> {
                     .getKey(Integer.class);
 
             transaction.id = newId;
-            saveTags(transaction);
+            saveTags(conn, transaction);
+
+            conn.commit();
 
             return get(newId);
         }
@@ -66,12 +68,14 @@ public class TransactionDao extends BaseDao<Transaction> {
 
         transaction.id = id;
 
-        try (Connection conn = sql2o.open()) {
+        try (Connection conn = sql2o.beginTransaction()) {
             conn.createQuery(sql)
                 .bind(transaction)
                 .executeUpdate();
 
-            saveTags(transaction);
+            saveTags(conn, transaction);
+
+            conn.commit();
 
             return get(id);
         }
@@ -106,30 +110,28 @@ public class TransactionDao extends BaseDao<Transaction> {
         }
     }
 
-    private void saveTags(final Transaction transaction) {
-        try (Connection conn = sql2o.open()) {
-            final String deleteSql = "DELETE FROM transaction_tags " +
-                                     " WHERE transaction_id = :transactionId";
+    private void saveTags(Connection conn, final Transaction transaction) {
+        final String deleteSql = "DELETE FROM transaction_tags " +
+                                 " WHERE transaction_id = :transactionId";
 
-            conn.createQuery(deleteSql)
+        conn.createQuery(deleteSql)
                 .addParameter("transactionId", transaction.id)
                 .executeUpdate();
 
 
-            final String insertSql = "INSERT INTO transaction_tags" +
-                                     "       (transaction_id, tag_id) " +
-                                     "VALUES (:transactionId, :tagId) ";
+        final String insertSql = "INSERT INTO transaction_tags" +
+                                 "       (transaction_id, tag_id) " +
+                                 "VALUES (:transactionId, :tagId) ";
 
-            Query query = conn.createQuery(insertSql);
+        Query query = conn.createQuery(insertSql);
 
-            for (Integer tagId : transaction.tagIds) {
-                query.addParameter("transactionId", transaction.id)
-                     .addParameter("tagId", tagId)
-                     .addToBatch();
-            }
-
-            query.executeBatch();
+        for (Integer tagId : transaction.tagIds) {
+            query.addParameter("transactionId", transaction.id)
+                 .addParameter("tagId", tagId)
+                 .addToBatch();
         }
+
+        query.executeBatch();
     }
 
     private void deleteTags(final int transactionId) {
