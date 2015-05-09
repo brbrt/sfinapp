@@ -1,7 +1,6 @@
 package hu.rbr.sfinapp.transaction;
 
 import hu.rbr.sfinapp.core.db.BaseDao;
-import hu.rbr.sfinapp.transaction.list.TransactionTagDaoHelper;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 

@@ -1,4 +1,4 @@
-package hu.rbr.sfinapp.transaction.list;
+package hu.rbr.sfinapp.transaction;
 
 import org.sql2o.Connection;
 import org.sql2o.Query;
