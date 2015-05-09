@@ -50,13 +50,12 @@
                                    isNew,
                                    tags,
                                    transaction) {
-
         var vm = this;
 
-        vm.accounts = accounts.data;
-        vm.tags = tags.data;
+        vm.accounts = accounts;
+        vm.tags = tags;
         vm.isNew = isNew;
-        vm.transaction = transaction.data;
+        vm.transaction = transaction;
 
         vm.save = save;
         vm.delete = delete_;

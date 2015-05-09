@@ -26,23 +26,21 @@
         ////////////
 
         function getAll() {
-            return $http.get(url);
+            return $http.get(url).then(getResponseData);
         }
 
         function get(id) {
-            return $http.get(url + id);
+            return $http.get(url + id).then(getResponseData);
         }
 
         function skeleton() {
-            var skeleton = {
+            return {
                 date: new Date(),
                 description: '',
                 tags: [],
                 type: 'Expense',
                 accountId: 1
             };
-
-            return { data: skeleton };
         }
 
         function create(item) {
@@ -59,6 +57,10 @@
 
         function delete_(item) {
             return $http.delete(url + item.id);
+        }
+
+        function getResponseData(resp) {
+            return resp.data;
         }
 
     }

@@ -25,11 +25,11 @@
         ////////////
 
         function getAll() {
-            return $http.get(url);
+            return $http.get(url).then(getResponseData);
         }
 
         function get(id) {
-            return $http.get(url + id);
+            return $http.get(url + id).then(getResponseData);
         }
 
         function skeleton() {
@@ -49,6 +49,10 @@
 
         function delete_(account) {
             return $http.delete(url + account.id);
+        }
+
+        function getResponseData(resp) {
+            return resp.data;
         }
     }
 

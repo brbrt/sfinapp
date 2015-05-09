@@ -44,7 +44,7 @@
         var vm = this;
 
         vm.isNew = isNew;
-        vm.account = account.data;
+        vm.account = account;
 
         vm.save = save;
         vm.delete = delete_;

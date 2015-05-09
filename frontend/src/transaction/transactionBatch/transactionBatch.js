@@ -40,8 +40,8 @@
                                   tags) {
         var vm = this;
 
-        vm.accounts = accounts.data;
-        vm.tags = tags.data;
+        vm.accounts = accounts;
+        vm.tags = tags;
         vm.transactions = [];
 
         vm.extendTransactionList = extendTransactionList;
@@ -57,7 +57,7 @@
 
         function extendTransactionList(count) {
             for (var i = 0; i < count; i++) {
-                vm.transactions.push(transactionSrv.skeleton().data);
+                vm.transactions.push(transactionSrv.skeleton());
             }
         }
 

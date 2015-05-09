@@ -30,7 +30,7 @@
     function accountCtrl(accounts) {
         var vm = this;
 
-        vm.accounts = accounts.data;
+        vm.accounts = accounts;
 
         init();
 

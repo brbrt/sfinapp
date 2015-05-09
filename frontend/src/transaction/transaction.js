@@ -33,7 +33,7 @@
                              transactions) {
         var vm = this;
 
-        vm.transactions = transactions.data;
+        vm.transactions = transactions;
         vm.filter = {};
 
         init();

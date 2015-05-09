@@ -43,7 +43,7 @@
         var vm = this;
 
         vm.isNew = isNew;
-        vm.tag = tag.data;
+        vm.tag = tag;
 
         vm.save = save;
         vm.delete = delete_;

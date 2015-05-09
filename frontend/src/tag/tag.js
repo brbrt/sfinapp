@@ -30,7 +30,7 @@
     function tagCtrl(tags) {
         var vm = this;
 
-        vm.tags = tags.data;
+        vm.tags = tags;
 
         init();
 
