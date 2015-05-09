@@ -35,11 +35,13 @@ public class TransactionService extends BaseService {
 
     public Transaction get(int id) {
         Transaction transaction = transactionDao.get(id);
-        return postProcess(transaction);
+        postProcess(transaction);
+        return transaction;
     }
 
     public Transaction create(@Valid Transaction transaction) {
-        return transactionDao.create(preProcess(transaction));
+        preProcess(transaction);
+        return transactionDao.create(transaction);
     }
 
     public void createBatch(@Valid List<Transaction> transactions) {
@@ -50,17 +52,17 @@ public class TransactionService extends BaseService {
         transactionDao.createBatch(transactions);
     }
 
-    public Transaction update(int id, @Valid Transaction entity) {
-        return transactionDao.update(id, preProcess(entity));
+    public Transaction update(int id, @Valid Transaction transaction) {
+        preProcess(transaction);
+        return transactionDao.update(id, transaction);
     }
 
     public void delete(int id) {
         transactionDao.delete(id);
     }
 
-    private Transaction preProcess(Transaction transaction) {
+    private void preProcess(Transaction transaction) {
         correctAmountBasedOnType(transaction);
-        return transaction;
     }
 
     private void correctAmountBasedOnType(Transaction transaction) {
@@ -72,9 +74,12 @@ public class TransactionService extends BaseService {
         }
     }
 
-    private Transaction postProcess(Transaction transaction) {
+    private void postProcess(Transaction transaction) {
+        if (transaction == null) {
+            return;
+        }
+
         transaction.type = calculateTransactionType(transaction);
-        return transaction;
     }
 
     private TransactionType calculateTransactionType(Transaction transaction) {
