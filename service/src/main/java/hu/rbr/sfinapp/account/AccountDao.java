@@ -20,9 +20,10 @@ public class AccountDao extends BaseDao<Account> {
         final String sql =
                 "SELECT id, " +
                 "       name, " +
-                "       description " +
+                "       description, " +
+                "       technical " +
                 "  FROM accounts" +
-                " ORDER BY name";
+                " ORDER BY technical, name";
 
         return getAll(sql);
     }
@@ -31,7 +32,8 @@ public class AccountDao extends BaseDao<Account> {
         final String sql =
                 "SELECT id, " +
                 "       name, " +
-                "       description " +
+                "       description, " +
+                "       technical " +
                 "  FROM accounts" +
                 " WHERE id = :id";
 
@@ -40,14 +42,13 @@ public class AccountDao extends BaseDao<Account> {
 
     public Account create(Account acc) {
         final String sql =
-                "INSERT INTO accounts(name, description)" +
-                "     VALUES (:name, :description)";
+                "INSERT INTO accounts(name, description, technical)" +
+                "     VALUES (:name, :description, :technical)";
 
         try (Connection conn = sql2o.open()) {
             int newId = conn
                     .createQuery(sql, true)
-                    .addParameter("name", acc.name)
-                    .addParameter("description", acc.description)
+                    .bind(acc)
                     .executeUpdate()
                     .getKey(Integer.class);
 
@@ -59,14 +60,13 @@ public class AccountDao extends BaseDao<Account> {
         final String sql =
                 "UPDATE accounts" +
                 "   SET name = :name, " +
-                "       description = :description" +
+                "       description = :description, " +
+                "       technical = :technical " +
                 " WHERE id = :id";
 
         try (Connection conn = sql2o.open()) {
             conn.createQuery(sql)
-                .addParameter("id", id)
-                .addParameter("name", acc.name)
-                .addParameter("description", acc.description)
+                .bind(acc)
                 .executeUpdate();
 
             return get(id);

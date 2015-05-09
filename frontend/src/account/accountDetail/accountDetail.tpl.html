@@ -2,13 +2,20 @@
     <h2>{{ ::(vm.isNew ? 'Create' : 'Edit' ) }} account </h2>
 
     <div class="row">
-        <div class="large-12 columns">
+        <div class="large-11 columns">
             <label>Name
                 <input type="text" ng-model="vm.account.name" />
             </label>
         </div>
 
-        <div class="large-12 columns">
+        <div class="large-1 columns">
+            <label> Technical
+                <input type="checkbox" class="sf-checkbox"
+                       ng-model="vm.account.technical">
+            </label>
+        </div>
+
+        <div class="large-12 columns end">
             <label>Description
                 <input type="text" ng-model="vm.account.description" />
             </label>

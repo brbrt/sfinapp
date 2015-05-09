@@ -16,5 +16,7 @@ public class Account implements Serializable {
     public String name;
 
     public String description;
+
+    public boolean technical;
 	
 }

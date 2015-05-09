@@ -9,6 +9,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Technical</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,6 +20,9 @@
                         </a>
                     </td>
                     <td>{{ ::acc.description }}</td>
+                    <td>
+                        <input type="checkbox" ng-model="acc.technical" disabled>
+                    </td>
                 </tr>
             </tbody>
         </table>
