@@ -2,18 +2,18 @@ package hu.rbr.sfinapp.account;
 
 import hu.rbr.sfinapp.core.db.BaseDao;
 import org.sql2o.Connection;
+import org.sql2o.Sql2o;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.sql.DataSource;
 import java.util.List;
 
 @Singleton
 public class AccountDao extends BaseDao<Account> {
 
     @Inject
-    public AccountDao(DataSource dataSource) {
-        super(dataSource, "accounts", Account.class);
+    public AccountDao(Sql2o sql2o) {
+        super(sql2o, "accounts", Account.class);
     }
 
     public List<Account> getAll() {

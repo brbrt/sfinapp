@@ -1,18 +1,18 @@
 package hu.rbr.sfinapp.transaction.list;
 
 import hu.rbr.sfinapp.core.db.BaseDao;
+import org.sql2o.Sql2o;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.sql.DataSource;
 import java.util.List;
 
 @Singleton
 public class TransactionListDao extends BaseDao<TransactionListItem> {
 
     @Inject
-    public TransactionListDao(DataSource dataSource) {
-        super(dataSource, "transaction_list", TransactionListItem.class);
+    public TransactionListDao(Sql2o sql2o) {
+        super(sql2o, "transaction_list", TransactionListItem.class);
     }
 
     public List<TransactionListItem> getAll() {

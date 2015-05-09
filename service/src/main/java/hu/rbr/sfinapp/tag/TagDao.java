@@ -2,18 +2,18 @@ package hu.rbr.sfinapp.tag;
 
 import hu.rbr.sfinapp.core.db.BaseDao;
 import org.sql2o.Connection;
+import org.sql2o.Sql2o;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.sql.DataSource;
 import java.util.List;
 
 @Singleton
 public class TagDao extends BaseDao<Tag> {
 
     @Inject
-    public TagDao(DataSource dataSource) {
-        super(dataSource, "tags", Tag.class);
+    public TagDao(Sql2o sql2o) {
+        super(sql2o, "tags", Tag.class);
     }
 
     public List<Tag> getAll() {

@@ -3,18 +3,18 @@ package hu.rbr.sfinapp.transaction;
 import hu.rbr.sfinapp.core.db.BaseDao;
 import org.sql2o.Connection;
 import org.sql2o.Query;
+import org.sql2o.Sql2o;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.sql.DataSource;
 import java.util.List;
 
 @Singleton
 public class TransactionDao extends BaseDao<Transaction> {
 
     @Inject
-    public TransactionDao(DataSource dataSource) {
-        super(dataSource, "transactions", Transaction.class);
+    public TransactionDao(Sql2o sql2o) {
+        super(sql2o, "transactions", Transaction.class);
     }
 
     public Transaction get(int id) {
