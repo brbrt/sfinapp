@@ -27,6 +27,9 @@
                 },
                 tags: function getTags(tagSrv) {
                     return tagSrv.getAll();
+                },
+                transactionSkeleton: function getTransactionSkeleton(transactionSrv) {
+                    return transactionSrv.skeleton();
                 }
             }
         });
@@ -37,7 +40,8 @@
                                   toastr,
                                   transactionSrv,
                                   accounts,
-                                  tags) {
+                                  tags,
+                                  transactionSkeleton) {
         var vm = this;
 
         vm.accounts = accounts;
@@ -57,7 +61,7 @@
 
         function extendTransactionList(count) {
             for (var i = 0; i < count; i++) {
-                vm.transactions.push(transactionSrv.skeleton());
+                vm.transactions.push(angular.copy(transactionSkeleton));
             }
         }
 

@@ -34,13 +34,7 @@
         }
 
         function skeleton() {
-            return {
-                date: new Date(),
-                description: '',
-                tags: [],
-                type: 'Expense',
-                accountId: 1
-            };
+            return $http.get(url + 'skeleton').then(getResponseData);
         }
 
         function create(item) {

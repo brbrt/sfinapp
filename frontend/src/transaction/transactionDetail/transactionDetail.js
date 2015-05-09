@@ -34,7 +34,7 @@
                 isNew: function isNew(transactionId) {
                     return transactionId === 'new';
                 },
-                transaction: function getTransactions(transactionId, isNew, transactionSrv) {
+                transaction: function getTransaction(transactionId, isNew, transactionSrv) {
                     return isNew ? transactionSrv.skeleton() : transactionSrv.get(transactionId);
                 }
             }

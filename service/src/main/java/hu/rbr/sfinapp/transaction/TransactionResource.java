@@ -29,6 +29,12 @@ public class TransactionResource {
 	public Transaction getById(@PathParam("id") int id) {
         return service.get(id);
 	}
+
+	@GET
+	@Path("/skeleton")
+	public Transaction skeleton() {
+		return service.skeleton();
+	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

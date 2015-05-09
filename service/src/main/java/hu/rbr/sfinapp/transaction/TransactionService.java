@@ -1,5 +1,7 @@
 package hu.rbr.sfinapp.transaction;
 
+import hu.rbr.sfinapp.account.Account;
+import hu.rbr.sfinapp.account.AccountService;
 import hu.rbr.sfinapp.core.service.BaseService;
 import hu.rbr.sfinapp.transaction.list.TransactionListDao;
 import hu.rbr.sfinapp.transaction.list.TransactionListItem;
@@ -7,6 +9,8 @@ import hu.rbr.sfinapp.transaction.list.TransactionListItem;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static hu.rbr.sfinapp.transaction.TransactionType.*;
@@ -16,11 +20,13 @@ public class TransactionService extends BaseService {
 
     private final TransactionDao transactionDao;
     private final TransactionListDao transactionListDao;
+    private final AccountService accountService;
 
     @Inject
-    public TransactionService(TransactionDao transactionDao, TransactionListDao transactionListDao) {
+    public TransactionService(TransactionDao transactionDao, TransactionListDao transactionListDao, AccountService accountService) {
         this.transactionDao = transactionDao;
         this.transactionListDao = transactionListDao;
+        this.accountService = accountService;
     }
 
     public List<TransactionListItem> getAll() {
@@ -37,6 +43,21 @@ public class TransactionService extends BaseService {
         Transaction transaction = transactionDao.get(id);
         postProcess(transaction);
         return transaction;
+    }
+
+    public Transaction skeleton() {
+        Transaction skeleton = new Transaction();
+
+        skeleton.date = new Date();
+        skeleton.type = Expense;
+        skeleton.tagIds = new ArrayList<>();
+
+        List<Account> accounts = accountService.getAll();
+        if (!accounts.isEmpty()) {
+            skeleton.accountId = accounts.get(0).id;
+        }
+
+        return skeleton;
     }
 
     public Transaction create(@Valid Transaction transaction) {
@@ -93,5 +114,4 @@ public class TransactionService extends BaseService {
 
         return Expense;
     }
-
 }
