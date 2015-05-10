@@ -8,6 +8,7 @@
 
             // External modules.
             'ui.router',
+            'isteven-multi-select',
             'mm.foundation',
             'smart-table',
             'toastr',

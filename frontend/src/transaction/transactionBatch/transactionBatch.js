@@ -4,6 +4,7 @@
     angular
         .module('sfinapp.transaction.transactionBatch', [
             'ui.router',
+            'isteven-multi-select',
             'toastr',
 
             'sfinapp.core',
@@ -45,7 +46,7 @@
         var vm = this;
 
         vm.accounts = accounts;
-        vm.tags = tags;
+        vm.tagOptions = [];
         vm.transactions = [];
 
         vm.extendTransactionList = extendTransactionList;
@@ -61,6 +62,7 @@
 
         function extendTransactionList(count) {
             for (var i = 0; i < count; i++) {
+                vm.tagOptions.push(angular.copy(tags));
                 vm.transactions.push(angular.copy(transactionSkeleton));
             }
         }
@@ -71,11 +73,22 @@
                 return;
             }
 
-            transactionSrv.createBatch(filtered).then(saveSuccess, toastr.apiError);
+            var data = filtered.map(mapTags);
+
+            transactionSrv.createBatch(data).then(saveSuccess, toastr.apiError);
         }
 
         function providedInput(tr) {
             return tr.description && tr.description.length > 0;
+        }
+
+        function mapTags(orig) {
+            var tr = angular.copy(orig);
+            tr.tagIds = orig.tags.map(function(tag) {
+                return tag.id;
+            });
+            delete  tr.tags;
+            return tr;
         }
 
         function saveSuccess() {

@@ -1,4 +1,3 @@
-
 module.exports = {
     buildDir:'./build',
 
@@ -12,7 +11,9 @@ module.exports = {
         './vendor/foundation/css/normalize.css',
         './vendor/angular-smart-table/dist/smart-table.js',
         './vendor/angular-toastr/dist/angular-toastr.tpls.js',
-        './vendor/angular-toastr/dist/angular-toastr.css'
+        './vendor/angular-toastr/dist/angular-toastr.css',
+        './vendor/isteven-angular-multiselect/isteven-multi-select.js',
+        './vendor/isteven-angular-multiselect/isteven-multi-select.css'
     ],
 
     appSources: [

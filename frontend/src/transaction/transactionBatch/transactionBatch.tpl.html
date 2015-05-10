@@ -37,10 +37,17 @@
                     </select>
                 </td>
                 <td class="tags-col">
-                    <select ng-model="transaction.tagIds"
-                            ng-options="tag.id as tag.name for tag in vm.tags"
-                            multiple size="1">
-                    </select>
+                    <div isteven-multi-select
+                         input-model="vm.tagOptions[$index]"
+                         output-model="transaction.tags"
+                         output-properties="id"
+                         button-label="name"
+                         item-label="name"
+                         tick-property="isSelected"
+                         helper-elements="none filter"
+                         max-height="280px"
+                         translation="{ 'nothingSelected': '', 'search': 'Search...', 'selectNone': 'Select None' }">
+                    </div>
                 </td>
             </tr>
         </tbody>
