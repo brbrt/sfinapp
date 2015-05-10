@@ -5,6 +5,7 @@ import hu.rbr.sfinapp.core.service.BaseService;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Singleton
@@ -25,11 +26,11 @@ public class AccountService extends BaseService {
         return accountDao.get(id);
     }
 
-    public Account create(@Valid Account account) {
+    public Account create(@Valid @NotNull Account account) {
         return accountDao.create(account);
     }
 
-    public Account update(int id, @Valid Account account) {
+    public Account update(int id, @Valid @NotNull Account account) {
         return accountDao.update(id, account);
     }
 

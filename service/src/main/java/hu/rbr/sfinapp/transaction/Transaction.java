@@ -1,5 +1,6 @@
 package hu.rbr.sfinapp.transaction;
 
+import hu.rbr.sfinapp.transaction.validator.ValidTransferType;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import java.util.Collection;
 import java.util.Date;
 
 @XmlRootElement
+@ValidTransferType
 public class Transaction implements Serializable {
 
     public Integer id;

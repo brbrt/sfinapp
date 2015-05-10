@@ -9,6 +9,7 @@ import hu.rbr.sfinapp.transaction.list.TransactionListItem;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,12 +61,12 @@ public class TransactionService extends BaseService {
         return skeleton;
     }
 
-    public Transaction create(@Valid Transaction transaction) {
+    public Transaction create(@Valid @NotNull Transaction transaction) {
         preProcess(transaction);
         return transactionDao.create(transaction);
     }
 
-    public void createBatch(@Valid List<Transaction> transactions) {
+    public void createBatch(@Valid @NotNull List<Transaction> transactions) {
         for (Transaction transaction : transactions) {
             preProcess(transaction);
         }
@@ -73,7 +74,7 @@ public class TransactionService extends BaseService {
         transactionDao.createBatch(transactions);
     }
 
-    public Transaction update(int id, @Valid Transaction transaction) {
+    public Transaction update(int id, @Valid @NotNull Transaction transaction) {
         preProcess(transaction);
         return transactionDao.update(id, transaction);
     }

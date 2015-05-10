@@ -30,8 +30,8 @@ public class SfinappModule extends AbstractModule {
     }
 
     private void configureValidation() {
-        bind(Validator.class).toProvider(ValidatorProvider.class);
-        bind(ExecutableValidator.class).toProvider(ExecutableValidatorProvider.class);
+        bind(Validator.class).toProvider(ValidatorProvider.class).in(Singleton.class);
+        bind(ExecutableValidator.class).toProvider(ExecutableValidatorProvider.class).in(Singleton.class);
 
         final ValidatorInterceptor interceptor = new ValidatorInterceptor();
         requestInjection(interceptor);
