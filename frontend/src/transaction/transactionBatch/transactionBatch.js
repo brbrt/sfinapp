@@ -68,18 +68,19 @@
         }
 
         function save() {
-            var filtered = vm.transactions.filter(providedInput);
+            var data = vm.transactions.map(mapTags);
+
+            var filtered = data.filter(providedInput);
             if (filtered.length === 0) {
+                toastr.info('Nothing to save.');
                 return;
             }
 
-            var data = filtered.map(mapTags);
-
-            transactionSrv.createBatch(data).then(saveSuccess, toastr.apiError);
+            transactionSrv.createBatch(filtered).then(saveSuccess, toastr.apiError);
         }
 
         function providedInput(tr) {
-            return tr.description && tr.description.length > 0;
+            return !angular.equals(tr, transactionSkeleton);
         }
 
         function mapTags(orig) {
@@ -87,7 +88,7 @@
             tr.tagIds = orig.tags.map(function(tag) {
                 return tag.id;
             });
-            delete  tr.tags;
+            delete tr.tags;
             return tr;
         }
 
