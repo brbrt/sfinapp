@@ -3,6 +3,10 @@
         Accounts
     </h2>
 
+    <a class="button" ui-sref="account-detail({id: 'new'})">
+        Add
+    </a>
+
     <div class="sf-table-container">
         <table st-table="vm.diplayedAccounts" st-safe-src="vm.accounts">
             <thead>
@@ -27,9 +31,5 @@
             </tbody>
         </table>
     </div>
-
-    <a class="button" ui-sref="account-detail({id: 'new'})">
-        Add account
-    </a>
 </div>
 

@@ -3,6 +3,10 @@
         Tags
     </h2>
 
+    <a class="button" ui-sref="tag-detail({id: 'new'})">
+        Add
+    </a>
+
     <div class="sf-table-container">
         <table st-table="vm.diplayedTags" st-safe-src="vm.tags">
             <thead>
@@ -23,9 +27,5 @@
             </tbody>
         </table>
     </div>
-
-    <a class="button" ui-sref="tag-detail({id: 'new'})">
-        Add tag
-    </a>
 </div>
 
