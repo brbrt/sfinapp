@@ -13,12 +13,21 @@ gulp.task('clean', function(cb) {
     return del(config.buildDir, cb);
 });
 
-gulp.task('copy', function() {
+gulp.task('vendor', function() {
     // The base option sets the relative root for the set of files, preserving the folder structure
-    var vendorStream = gulp.src(config.vendorSources, { base: './' });
-    var appStream = gulp.src(config.appSources, { base: './' });
+    gulp.src(config.vendorSources, { base: './' })
+        .pipe(gulp.dest(config.buildDir));
+});
 
-    series(vendorStream, appStream)
+gulp.task('js', function() {
+    // The base option sets the relative root for the set of files, preserving the folder structure
+    gulp.src(config.jsSources, { base: './' })
+        .pipe(gulp.dest(config.buildDir));
+});
+
+gulp.task('templates', function() {
+    // The base option sets the relative root for the set of files, preserving the folder structure
+    gulp.src(config.templateSources, { base: './' })
         .pipe(gulp.dest(config.buildDir));
 });
 
@@ -29,9 +38,9 @@ gulp.task('less', function() {
         .pipe(gulp.dest(config.buildDir));
 });
 
-gulp.task('index', function() {
+gulp.task('index', ['vendor', 'js', 'templates', 'less'], function() {
     var vendorStream = gulp.src(config.vendorSources, {read: false});
-    var appStream = gulp.src(config.appSources, {read: false});
+    var appStream = gulp.src(config.jsSources, {read: false});
 
     gulp.src(config.indexHtml)
         .pipe(inject(vendorStream, {name: 'vendor', addRootSlash: false}))
@@ -39,11 +48,12 @@ gulp.task('index', function() {
         .pipe(gulp.dest(config.buildDir));
 });
 
-gulp.task('build', ['copy', 'less', 'index']);
+gulp.task('build', ['vendor', 'js', 'templates', 'less', 'index']);
 
 gulp.task('watch', ['build'], function() {
     var watchFor = []
-        .concat(config.appSources)
+        .concat(config.jsSources)
+        .concat(config.templateSources)
         .concat(config.lessSources)
         .concat([config.indexHtml]);
 

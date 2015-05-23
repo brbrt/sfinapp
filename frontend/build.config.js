@@ -16,8 +16,11 @@ module.exports = {
         './vendor/isteven-angular-multiselect/isteven-multi-select.css'
     ],
 
-    appSources: [
-        './src/**/*.js', '!src/**/*.spec.js',
+    jsSources: [
+        './src/**/*.js', '!src/**/*.spec.js'
+    ],
+
+    templateSources: [
         './src/**/*.tpl.html'
     ],
 
