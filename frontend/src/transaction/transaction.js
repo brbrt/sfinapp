@@ -1,67 +1,61 @@
-(function () {
-    'use strict';
+angular
+    .module('sfinapp.transaction', [
+        'ui.router',
+        'smart-table',
 
-    angular
-        .module('sfinapp.transaction', [
-            'ui.router',
-            'smart-table',
-
-            'sfinapp.core',
-            'sfinapp.transaction.transactionBatch',
-            'sfinapp.transaction.transactionDetail',
-            'sfinapp.transaction.transactionSrv'
-        ])
-        .config(transactionConfig)
-        .controller('transactionCtrl', transactionCtrl);
+        'sfinapp.core',
+        'sfinapp.transaction.transactionBatch',
+        'sfinapp.transaction.transactionDetail',
+        'sfinapp.transaction.transactionSrv'
+    ])
+    .config(transactionConfig)
+    .controller('transactionCtrl', transactionCtrl);
 
 
-    function transactionConfig($stateProvider) {
-        $stateProvider.state('transaction', {
-            url: '/transactions',
-            controller: 'transactionCtrl',
-            controllerAs: 'vm',
-            templateUrl: 'src/transaction/transaction.tpl.html',
-            resolve: {
-                transactions: function getTransactions(transactionSrv) {
-                    return transactionSrv.getAll();
-                }
+function transactionConfig($stateProvider) {
+    $stateProvider.state('transaction', {
+        url: '/transactions',
+        controller: 'transactionCtrl',
+        controllerAs: 'vm',
+        templateUrl: 'src/transaction/transaction.tpl.html',
+        resolve: {
+            transactions: function getTransactions(transactionSrv) {
+                return transactionSrv.getAll();
             }
-        });
+        }
+    });
+}
+
+function transactionCtrl(filterSrv,
+                         transactions) {
+    var vm = this;
+
+    vm.transactions = transactions;
+    vm.filter = {};
+
+    init();
+
+    ////////////
+
+    function init() {
+        var from = new Date();
+        from.setDate(from.getDate() - 30);
+
+        vm.filter = {
+            date: {
+                from: from,
+                to: new Date(),
+                description: ''
+            },
+            fn: filterFn
+        };
     }
 
-    function transactionCtrl(filterSrv,
-                             transactions) {
-        var vm = this;
-
-        vm.transactions = transactions;
-        vm.filter = {};
-
-        init();
-
-        ////////////
-
-        function init() {
-            var from = new Date();
-            from.setDate(from.getDate() - 30);
-
-            vm.filter = {
-                date: {
-                    from: from,
-                    to: new Date(),
-                    description: ''
-                },
-                fn: filterFn
-            };
-        }
-
-        function filterFn(item) {
-            return (
-                filterSrv.dateInterval(vm.filter.date, item.date) &&
-                filterSrv.substring(vm.filter.description, item.description)
-            );
-        }
-
+    function filterFn(item) {
+        return (
+            filterSrv.dateInterval(vm.filter.date, item.date) &&
+            filterSrv.substring(vm.filter.description, item.description)
+        );
     }
 
-})();
-
+}

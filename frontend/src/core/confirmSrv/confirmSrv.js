@@ -1,36 +1,30 @@
-(function () {
-    'use strict';
+angular
+    .module('sfinapp.core.confirmSrv', [
 
-    angular
-        .module('sfinapp.core.confirmSrv', [
-
-        ])
-        .factory('confirmSrv', confirmSrv);
+    ])
+    .factory('confirmSrv', confirmSrv);
 
 
-    function confirmSrv($window) {
+function confirmSrv($window) {
 
-        var factory = {
-            confirm: confirm
-        };
+    var factory = {
+        confirm: confirm
+    };
 
-        return factory;
+    return factory;
 
-        ////////////
+    ////////////
 
-        function confirm(message, action) {
-            if (!message || !angular.isFunction(action)) {
-                return;
-            }
-
-            if (!$window.confirm(message)) {
-                return;
-            }
-
-            action();
+    function confirm(message, action) {
+        if (!message || !angular.isFunction(action)) {
+            return;
         }
 
+        if (!$window.confirm(message)) {
+            return;
+        }
+
+        action();
     }
 
-})();
-
+}

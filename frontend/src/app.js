@@ -1,43 +1,38 @@
-(function () {
-    'use strict';
+angular
+    .module('sfinapp', [
+        // AngularJS modules.
+        'ngAnimate',
 
-    angular
-        .module('sfinapp', [
-            // AngularJS modules.
-            'ngAnimate',
+        // External modules.
+        'ui.router',
+        'isteven-multi-select',
+        'mm.foundation',
+        'smart-table',
+        'toastr',
 
-            // External modules.
-            'ui.router',
-            'isteven-multi-select',
-            'mm.foundation',
-            'smart-table',
-            'toastr',
+        // Internal modules.
+        'sfinapp.config',
+        'sfinapp.core',
 
-            // Internal modules.
-            'sfinapp.config',
-            'sfinapp.core',
-
-            'sfinapp.account',
-            'sfinapp.home',
-            'sfinapp.tag',
-            'sfinapp.transaction'
-        ])
-        .controller('mainCtrl', mainCtrl);
+        'sfinapp.account',
+        'sfinapp.home',
+        'sfinapp.tag',
+        'sfinapp.transaction'
+    ])
+    .controller('mainCtrl', mainCtrl);
 
 
-    function mainCtrl($rootScope,
-                      $log,
-                      $state,
-                      toastr) {
+function mainCtrl($rootScope,
+                  $log,
+                  $state,
+                  toastr) {
 
-        $log.debug('Sfinapp states', $state.get());
+    $log.debug('Sfinapp states', $state.get());
 
-        // Display errors on state changes (e.g. in resolve...)
-        $rootScope.$on('$stateChangeError', function scError(event, toState, toParams, fromState, fromParams, error) {
-            $log.error('$stateChangeError (' + fromState.name + ' -> ' + toState.name + '): ', error);
+    // Display errors on state changes (e.g. in resolve...)
+    $rootScope.$on('$stateChangeError', function scError(event, toState, toParams, fromState, fromParams, error) {
+        $log.error('$stateChangeError (' + fromState.name + ' -> ' + toState.name + '): ', error);
 
-            toastr.error('$stateChangeError');
-        });
-    }
-
-})();
+        toastr.error('$stateChangeError');
+    });
+}

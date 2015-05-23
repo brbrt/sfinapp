@@ -1,48 +1,42 @@
-(function () {
-    'use strict';
+angular
+    .module('sfinapp.core.filterSrv', [
 
-    angular
-        .module('sfinapp.core.filterSrv', [
-
-        ])
-        .factory('filterSrv', filterSrv);
+    ])
+    .factory('filterSrv', filterSrv);
 
 
-    function filterSrv() {
+function filterSrv() {
 
-        var factory = {
-            dateInterval: dateInterval,
-            substring: substring
-        };
+    var factory = {
+        dateInterval: dateInterval,
+        substring: substring
+    };
 
-        return factory;
+    return factory;
 
-        ////////////
+    ////////////
 
-        function dateInterval(expected, actual) {
-            if (!expected) {
-                return true;
-            }
-
-            if (!actual) {
-                return false;
-            }
-
-            var expStartDate = expected.from;
-            var expEndDate = expected.to;
-            var t = actual.getTime();
-
-            return (
-                (!expStartDate || t >= expStartDate.getTime()) &&
-                (!expEndDate || t <= expEndDate.getTime())
-            );
+    function dateInterval(expected, actual) {
+        if (!expected) {
+            return true;
         }
 
-        function substring(expected, actual) {
-            return !expected || (!!actual && actual.toLowerCase().indexOf(expected.toLowerCase()) > -1);
+        if (!actual) {
+            return false;
         }
 
+        var expStartDate = expected.from;
+        var expEndDate = expected.to;
+        var t = actual.getTime();
+
+        return (
+            (!expStartDate || t >= expStartDate.getTime()) &&
+            (!expEndDate || t <= expEndDate.getTime())
+        );
     }
 
-})();
+    function substring(expected, actual) {
+        return !expected || (!!actual && actual.toLowerCase().indexOf(expected.toLowerCase()) > -1);
+    }
 
+}
