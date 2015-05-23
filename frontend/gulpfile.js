@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var del = require('del');
+var ext_replace = require('gulp-ext-replace');
 var gutil = require('gulp-util');
 var inject = require('gulp-inject');
 var less = require('gulp-less');
@@ -33,18 +34,22 @@ gulp.task('templates', function() {
 
 gulp.task('less', function() {
     gulp.src(config.lessSources)
-        .pipe(concat('app.less'))
+        //.pipe(concat('app.less'))
         .pipe(less())
-        .pipe(gulp.dest(config.buildDir));
+        .pipe(gulp.dest(config.buildDir + '/src'));
 });
 
 gulp.task('index', ['vendor', 'js', 'templates', 'less'], function() {
-    var vendorStream = gulp.src(config.vendorSources, {read: false});
-    var appStream = gulp.src(config.jsSources, {read: false});
+    var vendor = gulp.src(config.vendorSources, {read: false});
+    var app = series(
+        gulp.src(config.jsSources, {read: false}),
+        gulp.src(config.lessSources, {read: false})
+            .pipe(ext_replace('.css', '.less'))
+    );
 
     gulp.src(config.indexHtml)
-        .pipe(inject(vendorStream, {name: 'vendor', addRootSlash: false}))
-        .pipe(inject(appStream, {name: 'app', addRootSlash: false}))
+        .pipe(inject(vendor, {name: 'vendor', addRootSlash: false}))
+        .pipe(inject(app, {name: 'app', addRootSlash: false}))
         .pipe(gulp.dest(config.buildDir));
 });
 
