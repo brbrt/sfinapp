@@ -6,7 +6,9 @@ var gutil = require('gulp-util');
 var gulpif = require('gulp-if');
 var inject = require('gulp-inject');
 var less = require('gulp-less');
+var minifycss = require('gulp-minify-css');
 var series = require('stream-series');
+var uglify = require('gulp-uglify');
 var watch = require('gulp-watch');
 var argv = require('yargs').argv;
 var config = require('./build.config.js');
@@ -22,12 +24,14 @@ gulp.task('vendor-js', function() {
     // The base option sets the relative root for the set of files, preserving the folder structure
     return gulp.src(config.vendorJs, { base: './' })
         .pipe(gulpif(argv.production, concat('vendor.js')))
+        .pipe(gulpif(argv.production, uglify()))
         .pipe(gulp.dest(config.buildDir));
 });
 
 gulp.task('vendor-css', function() {
     return gulp.src(config.vendorCss, { base: './' })
         .pipe(gulpif(argv.production, concat('vendor.css')))
+        .pipe(gulpif(argv.production, minifycss()))
         .pipe(gulp.dest(config.buildDir));
 });
 
@@ -35,7 +39,9 @@ gulp.task('app', ['js', 'templates', 'less']);
 
 gulp.task('js', function() {
     return gulp.src(config.jsSources, { base: './' })
+        .pipe(require('gulp-ng-annotate')({single_quotes: true}))
         .pipe(gulpif(argv.production, concat('app.js')))
+        .pipe(gulpif(argv.production, uglify()))
         .pipe(gulp.dest(config.buildDir));
 });
 
@@ -48,6 +54,8 @@ gulp.task('less', function() {
     return gulp.src(config.lessSources, { base: './' })
         .pipe(gulpif(argv.production, concat('app.less')))
         .pipe(less())
+        .pipe(gulpif(argv.production, concat('app.css')))
+        .pipe(gulpif(argv.production, minifycss()))
         .pipe(gulp.dest(config.buildDir));
 });
 
