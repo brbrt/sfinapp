@@ -13,10 +13,12 @@
     "gulp": "~3.8.5",
     "gulp-concat": "~2.5.2",
     "gulp-ext-replace": "^0.2.0",
+    "gulp-if": "^1.2.5",
     "gulp-inject": "~1.2.0",
     "gulp-less": "~3.0.2",
     "gulp-util": "^3.0.4",
     "gulp-watch": "~4.2.4",
-    "stream-series": "^0.1.1"
+    "stream-series": "^0.1.1",
+    "yargs": "^3.9.1"
   }
 }

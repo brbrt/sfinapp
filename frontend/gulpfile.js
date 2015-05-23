@@ -3,10 +3,12 @@ var concat = require('gulp-concat');
 var del = require('del');
 var ext_replace = require('gulp-ext-replace');
 var gutil = require('gulp-util');
+var gulpif = require('gulp-if');
 var inject = require('gulp-inject');
 var less = require('gulp-less');
 var series = require('stream-series');
 var watch = require('gulp-watch');
+var argv = require('yargs').argv;
 var config = require('./build.config.js');
 
 
@@ -19,11 +21,13 @@ gulp.task('vendor', ['vendor-js', 'vendor-css']);
 gulp.task('vendor-js', function() {
     // The base option sets the relative root for the set of files, preserving the folder structure
     gulp.src(config.vendorJs, { base: './' })
+        .pipe(gulpif(argv.production, concat('vendor.js')))
         .pipe(gulp.dest(config.buildDir));
 });
 
 gulp.task('vendor-css', function() {
     gulp.src(config.vendorCss, { base: './' })
+        .pipe(gulpif(argv.production, concat('vendor.css')))
         .pipe(gulp.dest(config.buildDir));
 });
 
@@ -31,6 +35,7 @@ gulp.task('app', ['js', 'templates', 'less']);
 
 gulp.task('js', function() {
     gulp.src(config.jsSources, { base: './' })
+        .pipe(gulpif(argv.production, concat('app.js')))
         .pipe(gulp.dest(config.buildDir));
 });
 
@@ -40,10 +45,10 @@ gulp.task('templates', function() {
 });
 
 gulp.task('less', function() {
-    gulp.src(config.lessSources)
-        //.pipe(concat('app.less'))
+    gulp.src(config.lessSources, { base: './' })
+        .pipe(gulpif(argv.production, concat('app.less')))
         .pipe(less())
-        .pipe(gulp.dest(config.buildDir + '/src'));
+        .pipe(gulp.dest(config.buildDir));
 });
 
 gulp.task('index', ['vendor', 'app'], function() {
@@ -56,6 +61,11 @@ gulp.task('index', ['vendor', 'app'], function() {
         gulp.src(config.lessSources, {read: false})
             .pipe(ext_replace('.css', '.less'))
     );
+
+    if (argv.production) {
+        vendor = gulp.src(['vendor.css', 'vendor.js'], {read: false, cwd: config.buildDir});
+        app = gulp.src(['app.css', 'app.js'], {read: false, cwd: config.buildDir});
+    }
 
     gulp.src(config.indexHtml)
         .pipe(inject(vendor, {name: 'vendor', addRootSlash: false}))
