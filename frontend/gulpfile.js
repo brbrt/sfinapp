@@ -14,20 +14,27 @@ gulp.task('clean', function(cb) {
     return del(config.buildDir, cb);
 });
 
-gulp.task('vendor', function() {
+gulp.task('vendor', ['vendor-js', 'vendor-css']);
+
+gulp.task('vendor-js', function() {
     // The base option sets the relative root for the set of files, preserving the folder structure
-    gulp.src(config.vendorSources, { base: './' })
+    gulp.src(config.vendorJs, { base: './' })
         .pipe(gulp.dest(config.buildDir));
 });
 
+gulp.task('vendor-css', function() {
+    gulp.src(config.vendorCss, { base: './' })
+        .pipe(gulp.dest(config.buildDir));
+});
+
+gulp.task('app', ['js', 'templates', 'less']);
+
 gulp.task('js', function() {
-    // The base option sets the relative root for the set of files, preserving the folder structure
     gulp.src(config.jsSources, { base: './' })
         .pipe(gulp.dest(config.buildDir));
 });
 
 gulp.task('templates', function() {
-    // The base option sets the relative root for the set of files, preserving the folder structure
     gulp.src(config.templateSources, { base: './' })
         .pipe(gulp.dest(config.buildDir));
 });
@@ -39,8 +46,11 @@ gulp.task('less', function() {
         .pipe(gulp.dest(config.buildDir + '/src'));
 });
 
-gulp.task('index', ['vendor', 'js', 'templates', 'less'], function() {
-    var vendor = gulp.src(config.vendorSources, {read: false});
+gulp.task('index', ['vendor', 'app'], function() {
+    var vendor = series(
+        gulp.src(config.vendorJs, {read: false}),
+        gulp.src(config.vendorCss, {read: false})
+    );
     var app = series(
         gulp.src(config.jsSources, {read: false}),
         gulp.src(config.lessSources, {read: false})
@@ -53,7 +63,7 @@ gulp.task('index', ['vendor', 'js', 'templates', 'less'], function() {
         .pipe(gulp.dest(config.buildDir));
 });
 
-gulp.task('build', ['vendor', 'js', 'templates', 'less', 'index']);
+gulp.task('build', ['vendor', 'app', 'index']);
 
 gulp.task('watch', ['build'], function() {
     var watchFor = []
