@@ -6,6 +6,7 @@ var gutil = require('gulp-util');
 var gulpif = require('gulp-if');
 var headerfooter = require('gulp-headerfooter');
 var inject = require('gulp-inject');
+var jshint = require('gulp-jshint');
 var less = require('gulp-less');
 var minifycss = require('gulp-minify-css');
 var series = require('stream-series');
@@ -40,6 +41,8 @@ gulp.task('app', ['js', 'templates', 'less']);
 
 gulp.task('js', function() {
     return gulp.src(config.jsSources, { base: './' })
+        .pipe(jshint())
+        .pipe(jshint.reporter(require('jshint-stylish'), { verbose: true }))
         .pipe(headerfooter.header('./js_header.txt'))
         .pipe(headerfooter.footer('./js_footer.txt'))
         .pipe(require('gulp-ng-annotate')({single_quotes: true}))

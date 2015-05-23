@@ -18,6 +18,6 @@ function homeConfig($stateProvider) {
 function homeCtrl() {
     var vm = this;
 
-    vm.title = "Sfinapp";
+    vm.title = 'Sfinapp';
 
 }
