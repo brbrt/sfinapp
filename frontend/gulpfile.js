@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var del = require('del');
+var gutil = require('gulp-util');
 var inject = require('gulp-inject');
 var less = require('gulp-less');
 var series = require('stream-series');
@@ -46,7 +47,10 @@ gulp.task('watch', ['build'], function() {
         .concat(config.lessSources)
         .concat([config.indexHtml]);
 
-    gulp.watch(watchFor, ['build']);
+    var watcher = gulp.watch(watchFor, ['build']);
+    watcher.on('change', function(event) {
+        gutil.log(gutil.colors.magenta(event.path) +  ' ' + event.type + ', building now...');
+    });
 });
 
 gulp.task('default', ['watch']);
