@@ -43,6 +43,7 @@ gulp.task('js', function() {
     return gulp.src(config.jsSources, { base: './' })
         .pipe(jshint())
         .pipe(jshint.reporter(require('jshint-stylish'), { verbose: true }))
+        .pipe(require('gulp-babel')())
         .pipe(headerfooter.header('./js_header.txt'))
         .pipe(headerfooter.footer('./js_footer.txt'))
         .pipe(require('gulp-ng-annotate')({single_quotes: true}))
