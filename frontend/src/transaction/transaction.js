@@ -44,9 +44,9 @@ function transactionCtrl(filterSrv,
         vm.filter = {
             date: {
                 from: from,
-                to: new Date(),
-                description: ''
+                to: new Date()
             },
+            description: '',
             fn: filterFn
         };
     }
