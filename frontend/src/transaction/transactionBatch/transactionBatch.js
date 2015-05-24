@@ -20,15 +20,9 @@ function transactionBatchConfig($stateProvider) {
         controllerAs: 'vm',
         templateUrl: 'src/transaction/transactionBatch/transactionBatch.tpl.html',
         resolve: {
-            accounts: function getAccounts(accountSrv) {
-                return accountSrv.getAll();
-            },
-            tags: function getTags(tagSrv) {
-                return tagSrv.getAll();
-            },
-            transactionSkeleton: function getTransactionSkeleton(transactionSrv) {
-                return transactionSrv.skeleton();
-            }
+            accounts: (accountSrv) => { return accountSrv.getAll(); },
+            tags: (tagSrv) => { return tagSrv.getAll();},
+            transactionSkeleton: (transactionSrv) => { return transactionSrv.skeleton(); }
         }
     });
 }

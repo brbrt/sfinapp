@@ -17,13 +17,9 @@ function tagDetailConfig($stateProvider) {
         controllerAs: 'vm',
         templateUrl: 'src/tag/tagDetail/tagDetail.tpl.html',
         resolve: {
-            tagId: function getTagId($stateParams) {
-                return $stateParams.id;
-            },
-            isNew: function isNew(tagId) {
-                return tagId === 'new';
-            },
-            tag: function getTag(tagId, isNew, tagSrv) {
+            tagId: ($stateParams) => { return $stateParams.id; },
+            isNew: (tagId) => { return tagId === 'new'; },
+            tag: (tagId, isNew, tagSrv) => {
                 return isNew ? tagSrv.skeleton() : tagSrv.get(tagId);
             }
         }

@@ -18,13 +18,9 @@ function accountDetailConfig($stateProvider) {
         controllerAs: 'vm',
         templateUrl: 'src/account/accountDetail/accountDetail.tpl.html',
         resolve: {
-            accountId: function getAccountId($stateParams) {
-                return $stateParams.id;
-            },
-            isNew: function isNew(accountId) {
-                return accountId === 'new';
-            },
-            account: function getAccount(accountId, isNew, accountSrv) {
+            accountId: ($stateParams) => { return $stateParams.id; },
+            isNew: (accountId) => { return accountId === 'new';},
+            account: (accountId, isNew, accountSrv) => {
                 return isNew ? accountSrv.skeleton() : accountSrv.get(accountId);
             }
         }

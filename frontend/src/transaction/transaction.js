@@ -19,9 +19,7 @@ function transactionConfig($stateProvider) {
         controllerAs: 'vm',
         templateUrl: 'src/transaction/transaction.tpl.html',
         resolve: {
-            transactions: function getTransactions(transactionSrv) {
-                return transactionSrv.getAll();
-            }
+            transactions: (transactionSrv) => { return transactionSrv.getAll(); }
         }
     });
 }

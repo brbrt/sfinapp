@@ -17,9 +17,7 @@ function tagConfig($stateProvider) {
         controllerAs: 'vm',
         templateUrl: 'src/tag/tag.tpl.html',
         resolve: {
-            tags: function getTags(tagSrv) {
-                return tagSrv.getAll();
-            }
+            tags: (tagSrv) => { return tagSrv.getAll(); }
         }
     });
 }

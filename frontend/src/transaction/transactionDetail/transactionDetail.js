@@ -19,19 +19,11 @@ function transactionDetailConfig($stateProvider) {
         controllerAs: 'vm',
         templateUrl: 'src/transaction/transactionDetail/transactionDetail.tpl.html',
         resolve: {
-            accounts: function getAccounts(accountSrv) {
-                return accountSrv.getAll();
-            },
-            tags: function getTags(tagSrv) {
-                return tagSrv.getAll();
-            },
-            transactionId: function getTransactionId($stateParams) {
-                return $stateParams.id;
-            },
-            isNew: function isNew(transactionId) {
-                return transactionId === 'new';
-            },
-            transaction: function getTransaction(transactionId, isNew, transactionSrv) {
+            accounts: (accountSrv) => { return accountSrv.getAll(); },
+            tags: (tagSrv) => { return tagSrv.getAll();},
+            transactionId: ($stateParams) => { return $stateParams.id; },
+            isNew: (transactionId) => { return transactionId === 'new'; },
+            transaction: (transactionId, isNew, transactionSrv) => {
                 return isNew ? transactionSrv.skeleton() : transactionSrv.get(transactionId);
             }
         }

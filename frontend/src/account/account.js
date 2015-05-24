@@ -17,9 +17,7 @@ function accountConfig($stateProvider) {
         controllerAs: 'vm',
         templateUrl: 'src/account/account.tpl.html',
         resolve: {
-            accounts: function getAccounts(accountSrv) {
-                return accountSrv.getAll();
-            }
+            accounts: (accountSrv) => { return accountSrv.getAll(); }
         }
     });
 }
