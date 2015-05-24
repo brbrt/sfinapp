@@ -4,7 +4,6 @@ var del = require('del');
 var ext_replace = require('gulp-ext-replace');
 var gutil = require('gulp-util');
 var gulpif = require('gulp-if');
-var headerfooter = require('gulp-headerfooter');
 var inject = require('gulp-inject');
 var jshint = require('gulp-jshint');
 var less = require('gulp-less');
@@ -44,8 +43,7 @@ gulp.task('js', function() {
         .pipe(jshint())
         .pipe(jshint.reporter(require('jshint-stylish'), { verbose: true }))
         .pipe(require('gulp-babel')())
-        .pipe(headerfooter.header('./js_header.txt'))
-        .pipe(headerfooter.footer('./js_footer.txt'))
+        .pipe(require('gulp-wrap')({ src: 'js_wrap.txt'}))
         .pipe(require('gulp-ng-annotate')({single_quotes: true}))
         .pipe(gulpif(argv.production, concat('app.js')))
         .pipe(gulpif(argv.production, uglify()))
