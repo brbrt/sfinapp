@@ -15,7 +15,6 @@ angular
         'sfinapp.core',
 
         'sfinapp.account',
-        'sfinapp.home',
         'sfinapp.tag',
         'sfinapp.transaction'
     ])

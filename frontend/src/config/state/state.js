@@ -9,7 +9,7 @@ angular
 function stateConfig($stateProvider,
                      $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/transactions');
 }
 
 function stateRun($log,
