@@ -2,10 +2,12 @@ angular
     .module('sfinapp', [
         // AngularJS modules.
         'ngAnimate',
+        'ngSanitize',
 
         // External modules.
         'ui.router',
         'isteven-multi-select',
+        'MassAutoComplete',
         'mm.foundation',
         'smart-table',
         'toastr',

@@ -10,12 +10,14 @@ function transactionSrv($http) {
 
     var factory = {
         getAll: getAll,
+        getAllDescriptions: getAllDescriptions,
         get: get,
         skeleton: skeleton,
         create: create,
         createBatch: createBatch,
         update: update,
-        delete: delete_
+        delete: delete_,
+        suggestDescription: suggestDescription
     };
 
     return factory;
@@ -24,6 +26,10 @@ function transactionSrv($http) {
 
     function getAll() {
         return $http.get(url).then(getResponseData);
+    }
+
+    function getAllDescriptions() {
+        return $http.get(url + 'descriptions').then(getResponseData);
     }
 
     function get(id) {
@@ -52,6 +58,21 @@ function transactionSrv($http) {
 
     function getResponseData(resp) {
         return resp.data;
+    }
+
+    function suggestDescription(descriptions, term) {
+        var q = term.toLowerCase().trim();
+        var results = [];
+
+        // Find first 10 states that start with `term`.
+        for (var i = 0; i < descriptions.length && results.length < 5; i++) {
+            var description = descriptions[i];
+            if (description.toLowerCase().indexOf(q) === 0) {
+                results.push({label: description, value: description});
+            }
+        }
+
+        return results;
     }
 
 }

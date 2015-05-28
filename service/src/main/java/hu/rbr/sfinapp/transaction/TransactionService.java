@@ -40,6 +40,10 @@ public class TransactionService extends BaseService {
         return transactions;
     }
 
+    public List<String> getAllDescriptions() {
+        return transactionListDao.getAllDescriptions();
+    }
+
     public Transaction get(int id) {
         Transaction transaction = transactionDao.get(id);
         postProcess(transaction);

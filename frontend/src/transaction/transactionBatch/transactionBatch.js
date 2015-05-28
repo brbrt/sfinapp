@@ -1,7 +1,10 @@
 angular
     .module('sfinapp.transaction.transactionBatch', [
+        'ngSanitize',
+
         'ui.router',
         'isteven-multi-select',
+        'MassAutoComplete',
         'toastr',
 
         'sfinapp.core',
@@ -21,6 +24,7 @@ function transactionBatchConfig($stateProvider) {
         templateUrl: 'src/transaction/transactionBatch/transactionBatch.tpl.html',
         resolve: {
             accounts: (accountSrv) => { return accountSrv.getAll(); },
+            descriptions: (transactionSrv) => { return transactionSrv.getAllDescriptions(); },
             tags: (tagSrv) => { return tagSrv.getAll();},
             transactionSkeleton: (transactionSrv) => { return transactionSrv.skeleton(); }
         }
@@ -32,6 +36,7 @@ function transactionBatchCtrl($log,
                               toastr,
                               transactionSrv,
                               accounts,
+                              descriptions,
                               tags,
                               transactionSkeleton) {
     var vm = this;
@@ -42,6 +47,7 @@ function transactionBatchCtrl($log,
 
     vm.extendTransactionList = extendTransactionList;
     vm.save = save;
+    vm.suggestDescription = (term) => { return transactionSrv.suggestDescription(descriptions, term); };
 
     init();
 

@@ -23,6 +23,12 @@ public class TransactionResource {
 	public List<TransactionListItem> getAll() {
 		return service.getAll();
 	}
+
+    @GET
+    @Path("/descriptions")
+	public List<String> getAllDescriptions() {
+        return service.getAllDescriptions();
+    }
 	
 	@GET
 	@Path("/{id}")

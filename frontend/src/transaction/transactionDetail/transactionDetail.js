@@ -20,6 +20,7 @@ function transactionDetailConfig($stateProvider) {
         templateUrl: 'src/transaction/transactionDetail/transactionDetail.tpl.html',
         resolve: {
             accounts: (accountSrv) => { return accountSrv.getAll(); },
+            descriptions: (transactionSrv) => { return transactionSrv.getAllDescriptions(); },
             tags: (tagSrv) => { return tagSrv.getAll();},
             transactionId: ($stateParams) => { return $stateParams.id; },
             isNew: (transactionId) => { return transactionId === 'new'; },
@@ -36,6 +37,7 @@ function transactionDetailCtrl($log,
                                confirmSrv,
                                transactionSrv,
                                accounts,
+                               descriptions,
                                isNew,
                                tags,
                                transaction) {
@@ -48,6 +50,7 @@ function transactionDetailCtrl($log,
 
     vm.save = save;
     vm.delete = delete_;
+    vm.suggestDescription = (term) => { return transactionSrv.suggestDescription(descriptions, term); };
 
     ////////////
 
