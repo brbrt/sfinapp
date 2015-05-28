@@ -6,6 +6,8 @@ angular
 
 
 function httpConfig($httpProvider, dateUtilSrvProvider) {
+    $httpProvider.useApplyAsync(true);
+
     $httpProvider.defaults.transformResponse.push(parseResponseDates);
 
     function parseResponseDates(responseData) {
