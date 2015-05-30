@@ -1,0 +1,82 @@
+
+@sf-loading-bar-size: 120px;
+@sf-loading-bar-border-size: 10px;
+@sf-loading-bar-color-1: hsl(0, 0, 60%);
+@sf-loading-bar-color-2: rgb(255, 114, 80);
+
+.sf-loading-bar-container {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.25);
+
+  .spinner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    width: @sf-loading-bar-size;
+    height: @sf-loading-bar-size;
+
+    border-left: @sf-loading-bar-border-size solid @sf-loading-bar-color-1;
+    border-right: @sf-loading-bar-border-size solid @sf-loading-bar-color-1;
+    border-bottom: @sf-loading-bar-border-size solid @sf-loading-bar-color-1;
+    border-top: @sf-loading-bar-border-size solid @sf-loading-bar-color-2;
+    border-radius:100%;
+
+    .sf-animation(sf-rotation .6s infinite linear);
+  }
+
+  .text {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    font-size: large;
+    text-align: center;
+
+    width: @sf-loading-bar-size;
+    height: @sf-loading-bar-size;;
+
+    padding-top: (@sf-loading-bar-size * 1.5);
+
+    color: @sf-loading-bar-color-2;
+  }
+}
+
+.sf-animation(@anim) {
+  -webkit-animation: @anim; /* Safari 4+ */
+  -moz-animation:    @anim; /* Fx 5+ */
+  -o-animation:      @anim; /* Opera 12+ */
+  animation:         @anim; /* IE 10+ */
+}
+
+@-webkit-keyframes sf-rotation {
+  from {-webkit-transform: rotate(0deg);}
+  to {-webkit-transform: rotate(359deg);}
+}
+
+@-moz-keyframes sf-rotation {
+  from {-moz-transform: rotate(0deg);}
+  to {-moz-transform: rotate(359deg);}
+}
+
+@-o-keyframes sf-rotation {
+  from {-o-transform: rotate(0deg);}
+  to {-o-transform: rotate(359deg);}
+}
+
+@keyframes sf-rotation {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(359deg);}
+}

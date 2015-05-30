@@ -1,18 +1,14 @@
 angular
     .module('sfinapp.config.http', [
-        'sfinapp.core.dateUtilSrv'
+        'sfinapp.config.http.infoDispatcher',
+        'sfinapp.config.http.responseDateParser'
     ])
     .config(httpConfig);
 
 
-function httpConfig($httpProvider, dateUtilSrvProvider) {
+function httpConfig($httpProvider) {
     $httpProvider.useApplyAsync(true);
 
-    $httpProvider.defaults.transformResponse.push(parseResponseDates);
-
-    function parseResponseDates(responseData) {
-        var dateUtilSrv = dateUtilSrvProvider.$get();
-        dateUtilSrv.parseDates(responseData);
-        return responseData;
-    }
+    $httpProvider.interceptors.push('responseDateParserInterceptor');
+    $httpProvider.interceptors.push('infoDispatcherInterceptor');
 }

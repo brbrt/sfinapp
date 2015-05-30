@@ -15,6 +15,7 @@ angular
         // Internal modules.
         'sfinapp.config',
         'sfinapp.core',
+        'sfinapp.layout',
 
         'sfinapp.account',
         'sfinapp.tag',
@@ -23,6 +24,18 @@ angular
     .controller('mainCtrl', mainCtrl);
 
 
-function mainCtrl() {
+function mainCtrl($rootScope) {
+    var vm = this;
+
+    vm.isLoading = false;
+
+    init();
+
+    ////////////
+
+    function init() {
+        $rootScope.$on('http.start', () => { vm.isLoading = true; });
+        $rootScope.$on('http.stop', () => { vm.isLoading = false; });
+    }
 
 }

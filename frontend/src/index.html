@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="en" ng-controller="mainCtrl">
+<html lang="en" ng-controller="mainCtrl as main">
 <head>
     <meta charset="utf-8">
 
@@ -39,6 +39,8 @@
         <!--Main content-->
         <div class="small-12 large-12 columns" ui-view></div>
     </div>
+
+    <loading-bar ng-if="main.isLoading"></loading-bar>
 
 
     <!-- vendor:js -->
