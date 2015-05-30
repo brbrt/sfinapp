@@ -51,7 +51,13 @@ gulp.task('js', function() {
 });
 
 gulp.task('templates', function() {
-    return gulp.src(config.templateSources, { base: './' })
+    var fileName = (argv.production) ? 'templates.js' : 'src/templates.js';
+    return gulp.src(config.templateSources)
+        .pipe(require('gulp-angular-templatecache')(fileName, {
+            root: 'src',
+            module: 'sfinapp.templates',
+            standalone: true
+        }))
         .pipe(gulp.dest(config.buildDir));
 });
 
@@ -70,6 +76,7 @@ gulp.task('index', ['vendor', 'app'], function() {
         gulp.src(config.vendorCss, {read: false})
     );
     var app = series(
+        gulp.src('src/templates.js', {read: false, cwd: config.buildDir}),
         gulp.src(config.jsSources, {read: false}),
         gulp.src(config.lessSources, {read: false})
             .pipe(ext_replace('.css', '.less'))
@@ -77,7 +84,7 @@ gulp.task('index', ['vendor', 'app'], function() {
 
     if (argv.production) {
         vendor = gulp.src(['vendor.css', 'vendor.js'], {read: false, cwd: config.buildDir});
-        app = gulp.src(['app.css', 'app.js'], {read: false, cwd: config.buildDir});
+        app = gulp.src(['app.css', 'app.js', 'templates.js' ], {read: false, cwd: config.buildDir});
     }
 
     return gulp.src(config.indexHtml)

@@ -16,6 +16,7 @@ angular
         'sfinapp.config',
         'sfinapp.core',
         'sfinapp.layout',
+        'sfinapp.templates', // Created during build.
 
         'sfinapp.account',
         'sfinapp.tag',
