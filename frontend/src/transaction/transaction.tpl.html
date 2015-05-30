@@ -51,34 +51,34 @@
     </div>
 
     <div class="sf-table-container">
-        <table st-table="vm.diplayedTransactions" st-safe-src="vm.filteredTransactions">
+        <table id="transactions-table" st-table="vm.diplayedTransactions" st-safe-src="vm.filteredTransactions">
             <filter-watch src="vm.transactions" dest="vm.filteredTransactions" filter="vm.filter"></filter-watch>
 
             <thead>
                 <tr>
-                    <th>Description</th>
-                    <th>Date</th>
-                    <th>Amount</th>
-                    <th>Account</th>
-                    <th>Tags</th>
+                    <th class="descr">Description</th>
+                    <th class="amount">Amount</th>
+                    <th class="date">Date</th>
+                    <th class="account">Account</th>
+                    <th class="tags">Tags</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="tr in vm.diplayedTransactions">
-                    <td>
+                    <td class="descr">
                         <a ui-sref="transaction-detail({id: tr.id})" class="sf-block-link">
                             {{ ::tr.description }}
                         </a>
                     </td>
-                    <td>{{ ::tr.date | date : 'yyyy.MM.dd.' }}</td>
-                    <td class="right">{{ ::tr.amount | currency : 'Ft' : 0 }}</td>
-                    <td>
+                    <td class="amount right">{{ ::tr.amount | currency : '' : 0 }}</td>
+                    <td class="date">{{ ::tr.date | date : 'yyyy.MM.dd.' }}</td>
+                    <td class="account">
                         {{ ::tr.accountName }}
                         <span ng-if="::tr.toAccountName">
                             -> {{ ::tr.toAccountName }}
                         </span>
                     </td>
-                    <td>{{ ::tr.tagNames }}</td>
+                    <td class="tags">{{ ::tr.tagNames }}</td>
                 </tr>
             </tbody>
         </table>
