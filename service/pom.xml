@@ -24,6 +24,7 @@
         <genson.version>1.2</genson.version>
         <guice.version>4.0</guice.version>
         <hk2.version>2.2.0</hk2.version>
+        <hikariCP.version>2.3.8</hikariCP.version>
     </properties>
 
 	<build>
@@ -157,6 +158,13 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>${hikariCP.version}</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
