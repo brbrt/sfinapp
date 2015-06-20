@@ -4,6 +4,7 @@ import hu.rbr.sfinapp.account.Account;
 import hu.rbr.sfinapp.account.AccountService;
 import hu.rbr.sfinapp.core.service.BaseService;
 import hu.rbr.sfinapp.transaction.list.TransactionListDao;
+import hu.rbr.sfinapp.transaction.list.TransactionListFilter;
 import hu.rbr.sfinapp.transaction.list.TransactionListItem;
 
 import javax.inject.Inject;
@@ -30,8 +31,8 @@ public class TransactionService extends BaseService {
         this.accountService = accountService;
     }
 
-    public List<TransactionListItem> getAll() {
-        List<TransactionListItem> transactions = transactionListDao.getAll();
+    public List<TransactionListItem> getAll(@Valid @NotNull TransactionListFilter filter) {
+        List<TransactionListItem> transactions = transactionListDao.getAll(filter);
 
         for (TransactionListItem transaction : transactions) {
             postProcess(transaction);

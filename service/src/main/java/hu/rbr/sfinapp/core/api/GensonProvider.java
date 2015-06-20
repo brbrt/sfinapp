@@ -11,14 +11,12 @@ import java.text.SimpleDateFormat;
 @Provider
 public class GensonProvider implements ContextResolver<Genson> {
 
-    public static final String API_DATE_FORMAT = "yyyy-MM-dd";
-
     private final Genson genson;
 
     public GensonProvider() {
         genson = new GensonBuilder()
                 .useIndentation(true)
-                .useDateFormat(new SimpleDateFormat(API_DATE_FORMAT))
+                .useDateFormat(new SimpleDateFormat(Dates.DATE_FORMAT))
                 .setSkipNull(true)
                 .create();
     }

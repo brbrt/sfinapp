@@ -20,7 +20,7 @@
                         FILTER
                     </button>
 
-                    {{ vm.filteredTransactions.length }} items
+                    {{ vm.transactions.length }} items
                 </div>
 
                 <div class="small-4 large-2 columns">
@@ -32,28 +32,29 @@
         <div class="sf-filter-body" ng-if="vm.layout.isFilterVisible">
             <div class="small-12 large-4 columns">
                 <label>From date
-                    <input type="date" ng-model="vm.filter.date.from" ng-model-options="{debounce: 200}"/>
+                    <input type="date" ng-change="vm.getTransactions()"
+                           ng-model="vm.filter.from" ng-model-options="{debounce: 300}"/>
                 </label>
             </div>
 
             <div class="small-12 large-4 columns">
                 <label>To date
-                    <input type="date" ng-model="vm.filter.date.to" ng-model-options="{debounce: 200}"/>
+                    <input type="date" ng-change="vm.getTransactions()"
+                           ng-model="vm.filter.to" ng-model-options="{debounce: 300}"/>
                 </label>
             </div>
 
             <div class="small-12 large-4 columns end">
                 <label>Description
-                    <input type="text" ng-model="vm.filter.description" ng-model-options="{debounce: 200}"/>
+                    <input type="text" ng-change="vm.getTransactions()"
+                           ng-model="vm.filter.description" ng-model-options="{debounce: 300}"/>
                 </label>
             </div>
         </div>
     </div>
 
     <div class="sf-table-container">
-        <table id="transactions-table" st-table="vm.diplayedTransactions" st-safe-src="vm.filteredTransactions">
-            <filter-watch src="vm.transactions" dest="vm.filteredTransactions" filter="vm.filter"></filter-watch>
-
+        <table id="transactions-table" st-table="vm.diplayedTransactions" st-safe-src="vm.transactions">
             <thead>
                 <tr>
                     <th class="descr">Description</th>

@@ -1,7 +1,7 @@
 package hu.rbr.sfinapp.transaction.list;
 
+import com.google.common.base.Strings;
 import hu.rbr.sfinapp.core.db.BaseDao;
-import hu.rbr.sfinapp.transaction.Transaction;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
@@ -17,13 +17,33 @@ public class TransactionListDao extends BaseDao<TransactionListItem> {
         super(sql2o, "transaction_list", TransactionListItem.class);
     }
 
-    public List<TransactionListItem> getAll() {
-        final String sql =
-                "SELECT * " +
-                "  FROM transaction_list" +
-                "  ORDER BY date DESC";
+    public List<TransactionListItem> getAll(TransactionListFilter filter) {
+        String sql = buildGetAllSql(filter);
 
-        return getAll(sql);
+        try (Connection conn = sql2o.open()) {
+            return conn
+                    .createQuery(sql)
+                    .bind(filter)
+                    .executeAndFetch(TransactionListItem.class);
+        }
+    }
+
+    private String buildGetAllSql(TransactionListFilter filter) {
+        String sql = "SELECT * FROM transaction_list WHERE 1 = 1 ";
+
+        if (filter.from != null) {
+            sql += " AND date >= :from ";
+        }
+        if (filter.to != null) {
+            sql += " AND date <= :to ";
+        }
+        if (!Strings.isNullOrEmpty(filter.description)) {
+            filter.description = wrapInWildcards(filter.description);
+            sql += " AND LOWER(description) LIKE LOWER(:description) ";
+        }
+        sql += " ORDER BY date DESC";
+
+        return sql;
     }
 
     public List<String> getAllDescriptions() {

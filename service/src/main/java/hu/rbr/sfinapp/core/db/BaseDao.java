@@ -45,4 +45,8 @@ public abstract class BaseDao<E> {
                 .executeUpdate();
     }
 
+    protected String wrapInWildcards(String toWrap) {
+        return "%" + toWrap + "%";
+    }
+
 }

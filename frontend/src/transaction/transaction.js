@@ -17,42 +17,38 @@ function transactionConfig($stateProvider) {
         url: '/transactions',
         controller: 'transactionCtrl',
         controllerAs: 'vm',
-        templateUrl: 'src/transaction/transaction.tpl.html',
-        resolve: {
-            transactions: (transactionSrv) => { return transactionSrv.getAll(); }
-        }
+        templateUrl: 'src/transaction/transaction.tpl.html'
     });
 }
 
-function transactionCtrl(filterSrv,
-                         transactions) {
+function transactionCtrl(toastr,
+                         transactionSrv) {
     var vm = this;
 
-    vm.transactions = transactions;
     vm.filter = {};
+    vm.transactions = [];
+    vm.getTransactions = getTransactions;
 
     init();
 
     ////////////
 
     function init() {
-        var from = new Date();
-        from.setDate(from.getDate() - 30);
-
         vm.filter = {
-            date: {
-                from: from,
-                to: new Date()
-            },
-            description: '',
-            fn: filterFn
+            from: moment().subtract(15, 'days').toDate(),
+            to: moment().toDate(),
+            description: ''
         };
+
+        getTransactions();
     }
 
-    function filterFn(item) {
-        return (
-            filterSrv.dateInterval(vm.filter.date, item.date) &&
-            filterSrv.substring(vm.filter.description, item.description)
+    function getTransactions() {
+        transactionSrv.getAll(vm.filter).then(
+            function success(data) {
+                vm.transactions = data;
+            },
+            toastr.apiError
         );
     }
 

@@ -1,5 +1,6 @@
 package hu.rbr.sfinapp.transaction;
 
+import hu.rbr.sfinapp.transaction.list.TransactionListFilter;
 import hu.rbr.sfinapp.transaction.list.TransactionListItem;
 
 import javax.inject.Inject;
@@ -7,6 +8,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+
+import static hu.rbr.sfinapp.core.api.Dates.parseAsDate;
 
 @Path("transactions")
 @Produces(MediaType.APPLICATION_JSON)
@@ -20,8 +23,12 @@ public class TransactionResource {
 	}
 
 	@GET
-	public List<TransactionListItem> getAll() {
-		return service.getAll();
+	public List<TransactionListItem> getAll(@QueryParam("from") String from,
+											@QueryParam("to") String to,
+                                            @QueryParam("description") String description) {
+
+        TransactionListFilter filter = new TransactionListFilter(parseAsDate(from), parseAsDate(to), description);
+		return service.getAll(filter);
 	}
 
     @GET

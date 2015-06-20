@@ -24,8 +24,8 @@ function transactionSrv($http) {
 
     ////////////
 
-    function getAll() {
-        return $http.get(url).then(getResponseData);
+    function getAll(params) {
+        return $http.get(url, {params: angular.copy(params)}).then(getResponseData);
     }
 
     function getAllDescriptions() {
