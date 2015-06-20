@@ -6,6 +6,7 @@ var gutil = require('gulp-util');
 var gulpif = require('gulp-if');
 var inject = require('gulp-inject');
 var jshint = require('gulp-jshint');
+var karma = require('karma').server;
 var less = require('gulp-less');
 var minifycss = require('gulp-minify-css');
 var series = require('stream-series');
@@ -93,11 +94,22 @@ gulp.task('index', ['vendor', 'app'], function() {
         .pipe(gulp.dest(config.buildDir));
 });
 
-gulp.task('build', ['vendor', 'app', 'index']);
+gulp.task('test', function(done) {
+    var karmaConfig = require(__dirname + '/karma/karma-unit.js');
+
+    Array.prototype.unshift.apply(karmaConfig.files, config.vendorJs);
+    Array.prototype.push.apply(karmaConfig.files, config.jsSources);
+    Array.prototype.push.apply(karmaConfig.files, config.testSources);
+
+    karma.start(karmaConfig, done);
+});
+
+gulp.task('build', ['vendor', 'app', 'index', 'test']);
 
 gulp.task('watch', ['build'], function() {
     var watchFor = []
         .concat(config.jsSources)
+        .concat(config.testSources)
         .concat(config.templateSources)
         .concat(config.lessSources)
         .concat([config.indexHtml]);

@@ -17,6 +17,7 @@
     "gulp-ext-replace": "^0.2.0",
     "gulp-if": "^1.2.5",
     "gulp-inject": "~1.2.0",
+    "gulp-jasmine": "^2.0.1",
     "gulp-jshint": "^1.11.0",
     "gulp-less": "~3.0.2",
     "gulp-minify-css": "^1.1.1",
@@ -25,7 +26,14 @@
     "gulp-util": "^3.0.4",
     "gulp-watch": "~4.2.4",
     "gulp-wrap": "^0.11.0",
+    "jasmine-core": "^2.3.4",
     "jshint-stylish": "^1.0.2",
+    "karma": "^0.12.36",
+    "karma-babel-preprocessor": "^5.2.1",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "karma-spec-reporter": "0.0.19",
+    "phantomjs": "^1.9.17",
     "stream-series": "^0.1.1",
     "yargs": "^3.9.1"
   }

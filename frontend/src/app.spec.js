@@ -1,17 +1,14 @@
-describe( 'AppCtrl', function() {
-  describe( 'isCurrentUrl', function() {
-    var AppCtrl, $location, $scope;
+describe('mainCtrl', function() {
+    var mainCtrl, $scope;
 
-    beforeEach( module( 'sfinapp-web' ) );
+    beforeEach(module('sfinapp'));
 
-    beforeEach( inject( function( $controller, _$location_, $rootScope ) {
-      $location = _$location_;
-      $scope = $rootScope.$new();
-      AppCtrl = $controller( 'AppCtrl', { $location: $location, $scope: $scope });
+    beforeEach(inject(function($controller, $rootScope) {
+        $scope = $rootScope.$new();
+        mainCtrl = $controller('mainCtrl', { $scope: $scope });
     }));
 
-    it( 'should pass a dummy test', inject( function() {
-      expect( AppCtrl ).toBeTruthy();
+    it('exists', inject( function() {
+        expect(mainCtrl).toBeTruthy();
     }));
-  });
 });

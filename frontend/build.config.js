@@ -23,7 +23,11 @@ module.exports = {
     ],
 
     jsSources: [
-        './src/**/*.js', '!src/**/*.spec.js'
+        './src/**/*.js', '!./src/**/*.spec.js'
+    ],
+
+    testSources: [
+        './src/**/*.spec.js'
     ],
 
     templateSources: [
