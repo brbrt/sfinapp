@@ -6,7 +6,7 @@
 
   // Predefined globals whom JSHint will ignore.
   "predef"        : [
-    "angular"
+    "angular", "moment"
   ],
 
 
