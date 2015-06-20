@@ -6,23 +6,49 @@ angular
 
 
 function dateUtilSrvProvider() {
-    var dateRegex = /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(\.\d{3})?/;
+    var dateRegex = /^(\d{4})-(\d{2})-(\d{2})/;
+    var dateFormat = 'YYYY-MM-DD';
 
     this.$get = () => { return new DateUtilSrv(); };
 
 
     function DateUtilSrv() {
         return {
+            formatDate: formatDate,
+            formatDates: formatDates,
             parseDate: parseDate,
             parseDates: parseDates
         };
 
-        function parseDate(str) {
-            var milliseconds = Date.parse(str);
-            if (isNaN(milliseconds)) {
-                return null;
+        function formatDate(date) {
+            return moment(date).format(dateFormat);
+        }
+
+        function formatDates(input) {
+            // Ignore things that aren't objects.
+            if (typeof input !== 'object') {
+                return;
             }
-            return new Date(milliseconds);
+
+            for (var key in input) {
+                if (!input.hasOwnProperty(key)) {
+                    continue;
+                }
+
+                var value = input[key];
+
+                if (angular.isDate(value)) {
+                    input[key] = formatDate(value);
+                } else if (typeof value === 'object') {
+                    formatDates(value);
+                }
+            }
+
+            return input;
+        }
+
+        function parseDate(str) {
+            return moment(str, dateFormat).toDate();
         }
 
         function parseDates(input) {
@@ -46,7 +72,6 @@ function dateUtilSrvProvider() {
                         input[key] = parsed;
                     }
                 } else if (typeof value === 'object') {
-                    // Recurse into object
                     parseDates(value);
                 }
             }

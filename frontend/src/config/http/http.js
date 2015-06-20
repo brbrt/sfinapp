@@ -1,7 +1,7 @@
 angular
     .module('sfinapp.config.http', [
-        'sfinapp.config.http.infoDispatcher',
-        'sfinapp.config.http.responseDateParser'
+        'sfinapp.config.http.apiDate',
+        'sfinapp.config.http.infoDispatcher'
     ])
     .config(httpConfig);
 
@@ -9,6 +9,6 @@ angular
 function httpConfig($httpProvider) {
     $httpProvider.useApplyAsync(true);
 
-    $httpProvider.interceptors.push('responseDateParserInterceptor');
+    $httpProvider.interceptors.push('apiDateInterceptor');
     $httpProvider.interceptors.push('infoDispatcherInterceptor');
 }

@@ -11,7 +11,8 @@ module.exports = {
         './vendor/angular-mass-autocomplete/massautocomplete.js',
         './vendor/angular-smart-table/dist/smart-table.js',
         './vendor/angular-toastr/dist/angular-toastr.tpls.js',
-        './vendor/isteven-angular-multiselect/isteven-multi-select.js'
+        './vendor/isteven-angular-multiselect/isteven-multi-select.js',
+        './vendor/moment/moment.js'
     ],
 
     vendorCss: [
