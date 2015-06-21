@@ -8,8 +8,9 @@ angular
 function apiDateInterceptor(dateUtilSrv) {
     return {
         request: (request) => {
-            dateUtilSrv.formatDates(request);
-            return request;
+            var copy = angular.copy(request);
+            dateUtilSrv.formatDates(copy);
+            return copy;
         },
         response: (response) => {
             dateUtilSrv.parseDates(response);
