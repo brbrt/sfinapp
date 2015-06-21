@@ -15,7 +15,7 @@ function decorateToastr($delegate, $log) {
     return toastr;
 
     function apiError(err) {
-        var msg = err.data.message;
+        var msg = err.errorMessage;
         $log.info('Api error: ' + msg);
         toastr.error(msg);
     }

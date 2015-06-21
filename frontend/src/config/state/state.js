@@ -20,18 +20,7 @@ function stateRun($log,
     $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
         $log.error('$stateChangeError (' + fromState.name + ' -> ' + toState.name + '): ', error);
 
-        toastr.error(getErrorMessage(error));
+        toastr.apiError(error);
     });
 
-    function getErrorMessage(error) {
-        if (error.status === 502) {
-            return 'Service unavailable.';
-        }
-
-        if (error.data && error.data.message) {
-            return error.data.message;
-        }
-
-        return 'Unknown error.';
-    }
 }
