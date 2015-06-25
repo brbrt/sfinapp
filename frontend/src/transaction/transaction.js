@@ -30,7 +30,7 @@ function transactionCtrl(tags,
                          transactionSrv) {
     var vm = this;
 
-    vm.tags = tags;
+    vm.tags = [].concat({name: ''}, tags);
     vm.filter = {};
     vm.transactions = [];
     vm.getTransactions = getTransactions;
