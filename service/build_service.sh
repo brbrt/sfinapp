@@ -2,4 +2,4 @@
 
 cat banner_service.txt
 
-mvn install --batch-mode
+mvn clean install --batch-mode
