@@ -25,9 +25,10 @@ public class TransactionResource {
 	@GET
 	public List<TransactionListItem> getAll(@QueryParam("from") String from,
 											@QueryParam("to") String to,
-                                            @QueryParam("description") String description) {
+                                            @QueryParam("description") String description,
+                                            @QueryParam("tag") String tag) {
 
-        TransactionListFilter filter = new TransactionListFilter(parseAsDate(from), parseAsDate(to), description);
+        TransactionListFilter filter = new TransactionListFilter(parseAsDate(from), parseAsDate(to), description, tag);
 		return service.getAll(filter);
 	}
 
@@ -75,4 +76,5 @@ public class TransactionResource {
         service.delete(id);
 		return Response.ok().build();
 	}
+
 }

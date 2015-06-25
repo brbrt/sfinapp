@@ -4,6 +4,7 @@ angular
         'smart-table',
 
         'sfinapp.core',
+        'sfinapp.tag.tagSrv',
         'sfinapp.transaction.transactionBatch',
         'sfinapp.transaction.transactionDetail',
         'sfinapp.transaction.transactionSrv'
@@ -17,14 +18,19 @@ function transactionConfig($stateProvider) {
         url: '/transactions',
         controller: 'transactionCtrl',
         controllerAs: 'vm',
-        templateUrl: 'src/transaction/transaction.tpl.html'
+        templateUrl: 'src/transaction/transaction.tpl.html',
+        resolve: {
+            tags: (tagSrv) => { return tagSrv.getAll(); }
+        }
     });
 }
 
-function transactionCtrl(toastr,
+function transactionCtrl(tags,
+                         toastr,
                          transactionSrv) {
     var vm = this;
 
+    vm.tags = tags;
     vm.filter = {};
     vm.transactions = [];
     vm.getTransactions = getTransactions;
@@ -37,7 +43,8 @@ function transactionCtrl(toastr,
         vm.filter = {
             from: moment().subtract(15, 'days').toDate(),
             to: moment().toDate(),
-            description: ''
+            description: '',
+            tag: ''
         };
 
         getTransactions();

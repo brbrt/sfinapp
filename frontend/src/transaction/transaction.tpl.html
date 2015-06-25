@@ -30,24 +30,33 @@
         </div>
 
         <div class="sf-filter-body" ng-if="vm.layout.isFilterVisible">
-            <div class="small-12 large-4 columns">
+            <div class="small-12 large-3 columns">
                 <label>From date
                     <input type="date" ng-change="vm.getTransactions()"
                            ng-model="vm.filter.from" ng-model-options="{debounce: 300}"/>
                 </label>
             </div>
 
-            <div class="small-12 large-4 columns">
+            <div class="small-12 large-3 columns">
                 <label>To date
                     <input type="date" ng-change="vm.getTransactions()"
                            ng-model="vm.filter.to" ng-model-options="{debounce: 300}"/>
                 </label>
             </div>
 
-            <div class="small-12 large-4 columns end">
+            <div class="small-12 large-3 columns">
                 <label>Description
                     <input type="text" ng-change="vm.getTransactions()"
                            ng-model="vm.filter.description" ng-model-options="{debounce: 300}"/>
+                </label>
+            </div>
+
+            <div class="small-12 large-3 columns end">
+                <label>Tag
+                    <select ng-change="vm.getTransactions()"
+                            ng-model="vm.filter.tag" ng-model-options="{debounce: 300}"
+                            ng-options="tag.name as tag.name for tag in vm.tags">
+                    </select>
                 </label>
             </div>
         </div>

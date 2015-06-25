@@ -41,6 +41,10 @@ public class TransactionListDao extends BaseDao<TransactionListItem> {
             filter.description = wrapInWildcards(filter.description);
             sql += " AND LOWER(description) LIKE LOWER(:description) ";
         }
+        if (!Strings.isNullOrEmpty(filter.tag)) {
+            filter.tag = wrapInWildcards(filter.tag);
+            sql += " AND LOWER(tagNames) LIKE LOWER(:tag) ";
+        }
         sql += " ORDER BY date DESC";
 
         return sql;
