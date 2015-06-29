@@ -1,9 +1,8 @@
 http.port = 8181
 http.context = /
 
-db.server = localhost
-db.port = 3306
-db.database_name = sfinapp
+db.url = jdbc:mysql://localhost:3306/sfinapp
 db.username = sfinapp
 db.password =
-db.max_pool_size = 5
+db.pool_minimum_idle = 3
+db.pool_max_size = 3

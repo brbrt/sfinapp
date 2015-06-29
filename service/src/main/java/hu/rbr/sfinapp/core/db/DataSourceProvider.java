@@ -1,6 +1,5 @@
 package hu.rbr.sfinapp.core.db;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import com.zaxxer.hikari.HikariDataSource;
 import hu.rbr.sfinapp.core.config.Config;
 
@@ -21,17 +20,11 @@ public class DataSourceProvider implements Provider<DataSource> {
     public DataSource get() {
         HikariDataSource ds = new HikariDataSource();
 
-        ds.setDataSourceClassName(MysqlDataSource.class.getName());
-        ds.addDataSourceProperty("serverName", config.get("db.server"));
-        ds.addDataSourceProperty("port", config.getInt("db.port"));
-        ds.addDataSourceProperty("databaseName", config.get("db.database_name"));
+        ds.setJdbcUrl(config.get("db.url"));
         ds.addDataSourceProperty("user", config.get("db.username"));
         ds.addDataSourceProperty("password", config.get("db.password"));
-
-        ds.setMaximumPoolSize(config.getInt("db.max_pool_size"));
-        ds.addDataSourceProperty("cachePrepStmts", true);
-        ds.addDataSourceProperty("prepStmtCacheSize", 25);
-        ds.addDataSourceProperty("prepStmtCacheSqlLimit", 2048);
+        ds.setMinimumIdle(config.getInt("db.pool_minimum_idle"));
+        ds.setMaximumPoolSize(config.getInt("db.pool_max_size"));
 
         return ds;
     }
