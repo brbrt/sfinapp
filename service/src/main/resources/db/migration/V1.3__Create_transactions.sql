@@ -11,7 +11,7 @@ CREATE TABLE `transactions` (
   
   FOREIGN KEY (`account_id`) REFERENCES accounts(`id`),
   FOREIGN KEY (`to_account_id`) REFERENCES accounts(`id`),
-  CONSTRAINT UNIQUE `transactions_uc` (`date`, `amount`, `description`, `account_id`)
+  UNIQUE KEY `transactions_uc` (`date`, `amount`, `description`, `account_id`)
 );
 
 
