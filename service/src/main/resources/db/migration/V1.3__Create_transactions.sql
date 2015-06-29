@@ -8,7 +8,6 @@ CREATE TABLE `transactions` (
   `comment` TEXT,
   
   PRIMARY KEY (`id`),
-  
   FOREIGN KEY (`account_id`) REFERENCES accounts(`id`),
   FOREIGN KEY (`to_account_id`) REFERENCES accounts(`id`),
   UNIQUE KEY `transactions_uc` (`date`, `amount`, `description`, `account_id`)
@@ -20,8 +19,6 @@ CREATE TABLE `transaction_tags` (
   `tag_id` INT NOT NULL,
   
   PRIMARY KEY (`transaction_id`, `tag_id`),
-  
   FOREIGN KEY (`transaction_id`) REFERENCES transactions(`id`),
-  
   FOREIGN KEY (`tag_id`) REFERENCES tags(`id`)
 );

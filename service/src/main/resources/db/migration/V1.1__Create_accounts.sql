@@ -5,5 +5,5 @@ CREATE TABLE `accounts` (
   `technical` TINYINT(1) NOT NULL DEFAULT 0,
 
   PRIMARY KEY (`id`),
-  CONSTRAINT `accounts_name_uc` UNIQUE (`name`)
+  UNIQUE KEY `accounts_name_uc` (`name`)
 );
