@@ -12,47 +12,11 @@
         </thead>
 
         <tbody>
-            <tr ng-repeat="transaction in vm.transactions">
-                <td class="description-col">
-                    <div mass-autocomplete>
-                        <input type="text" required
-                               ng-model="transaction.description"
-                               mass-autocomplete-item="{'suggest': vm.suggestDescription}"/>
-                    </div>
-                </td>
-                <td class="date-col">
-                    <input type="date" ng-model="transaction.date" required />
-                </td>
-                <td class="type-col">
-                    <select ng-model="transaction.type" required>
-                        <option value="Expense" selected>Expense</option>
-                        <option value="Income">Income</option>
-                    </select>
-                </td>
-                <td class="amount-col">
-                    <input type="number" min="-10000000" max="10000000"
-                           ng-model="transaction.amount"
-                           required />
-                </td>
-                <td class="account-col">
-                    <select ng-model="transaction.accountId"
-                            ng-options="acc.id as acc.name for acc in vm.accounts"
-                            required>
-                    </select>
-                </td>
-                <td class="tags-col">
-                    <div isteven-multi-select
-                         input-model="vm.tagOptions[$index]"
-                         output-model="transaction.tags"
-                         output-properties="id"
-                         button-label="name"
-                         item-label="name"
-                         tick-property="isSelected"
-                         helper-elements="none filter"
-                         max-height="280px"
-                         translation="{ 'nothingSelected': '', 'search': 'Search...', 'selectNone': 'Select None' }">
-                    </div>
-                </td>
+            <tr ng-repeat="transaction in vm.transactions"
+                transaction-item="transaction"
+                descriptions="vm.descriptions"
+                accounts="vm.accounts"
+                tags="vm.tagOptions[$index]">
             </tr>
         </tbody>
     </table>

@@ -1,16 +1,14 @@
 angular
     .module('sfinapp.transaction.transactionBatch', [
-        'ngSanitize',
-
         'ui.router',
-        'isteven-multi-select',
-        'MassAutoComplete',
         'toastr',
 
         'sfinapp.core',
         'sfinapp.account.accountSrv',
         'sfinapp.tag.tagSrv',
-        'sfinapp.transaction.transactionSrv'
+        'sfinapp.transaction.transactionSrv',
+
+        'sfinapp.transaction.transactionBatch.transactionItem'
     ])
     .config(transactionBatchConfig)
     .controller('transactionBatchCtrl', transactionBatchCtrl);
@@ -42,12 +40,12 @@ function transactionBatchCtrl($log,
     var vm = this;
 
     vm.accounts = accounts;
+    vm.descriptions = descriptions;
     vm.tagOptions = [];
     vm.transactions = [];
 
     vm.extendTransactionList = extendTransactionList;
     vm.save = save;
-    vm.suggestDescription = (term) => { return transactionSrv.suggestDescription(descriptions, term); };
 
     init();
 
