@@ -1,6 +1,7 @@
-package hu.rbr.sfinapp.account;
+package hu.rbr.sfinapp.tag;
 
 import hu.rbr.sfinapp.IntegrationTestBase;
+import hu.rbr.sfinapp.account.Account;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -13,37 +14,36 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 @Ignore
-public class AccountTest extends IntegrationTestBase {
+public class TagIT extends IntegrationTestBase {
 
-    private static class AccountListType extends GenericType<List<Account>> {}
+    private static class TagListType extends GenericType<List<Tag>> {}
 
     @Test
     public void addAndQuery() throws Exception {
-        List<Account> accounts = webTarget("accounts")
+        List<Tag> accounts = webTarget("tags")
                 .request()
-                .get(new AccountListType());
+                .get(new TagListType());
 
         assertThat(accounts.size(), equalTo(0));
 
 
         Account newAccount = new Account();
-        newAccount.name = "ACC1";
+        newAccount.name = "TG";
         newAccount.description = "DSCR";
 
-        webTarget("accounts")
-            .request()
-            .post(Entity.json(newAccount));
-
-
-        accounts = webTarget("accounts")
+        webTarget("tags")
                 .request()
-                .get(new AccountListType());
+                .post(Entity.json(newAccount));
+
+
+        accounts = webTarget("tags")
+                .request()
+                .get(new TagListType());
 
         assertThat(accounts.size(), equalTo(1));
         assertThat(accounts.get(0).id, notNullValue());
-        assertThat(accounts.get(0).name, equalTo("ACC1"));
+        assertThat(accounts.get(0).name, equalTo("TG"));
         assertThat(accounts.get(0).description, equalTo("DSCR"));
-        assertThat(accounts.get(0).technical, equalTo(false));
     }
 
 }
