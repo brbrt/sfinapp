@@ -1,7 +1,6 @@
 package hu.rbr.sfinapp.account;
 
 import hu.rbr.sfinapp.IntegrationTestBase;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.ws.rs.client.Entity;
@@ -12,7 +11,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-@Ignore
 public class AccountIT extends IntegrationTestBase {
 
     private static class AccountListType extends GenericType<List<Account>> {}
