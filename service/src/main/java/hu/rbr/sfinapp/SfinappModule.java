@@ -4,7 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.matcher.Matchers;
 import hu.rbr.sfinapp.core.config.Config;
-import hu.rbr.sfinapp.core.config.PropertyConfig;
+import hu.rbr.sfinapp.core.config.TypeSafeConfig;
 import hu.rbr.sfinapp.core.db.DataSourceProvider;
 import hu.rbr.sfinapp.core.db.Sql2oProvider;
 import hu.rbr.sfinapp.core.service.BaseService;
@@ -21,7 +21,7 @@ public class SfinappModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(Config.class).to(PropertyConfig.class).in(Singleton.class);
+        bind(Config.class).to(TypeSafeConfig.class).in(Singleton.class);
 
         bind(DataSource.class).toProvider(DataSourceProvider.class).in(Singleton.class);
         bind(Sql2o.class).toProvider(Sql2oProvider.class).in(Singleton.class);
