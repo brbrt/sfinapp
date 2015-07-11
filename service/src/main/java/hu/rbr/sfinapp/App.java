@@ -1,7 +1,6 @@
 package hu.rbr.sfinapp;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import hu.rbr.sfinapp.core.guice.GuiceHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,17 +8,17 @@ import javax.inject.Inject;
 
 public class App {
 
-    public static final Injector INJECTOR = Guice.createInjector(new SfinappModule());
+    private static final Logger log = LoggerFactory.getLogger(App.class);
 
-    public static void main(String[] args) throws Exception {
-        App app = INJECTOR.getInstance(App.class);
-        app.run();
-    }
-
-
-    private final Logger log = LoggerFactory.getLogger(getClass());
     private final FlywayRunner flywayRunner;
     private final ServerRunner serverRunner;
+
+    public static void main(String[] args) throws Exception {
+        log.info("Starting application...");
+
+        App app = GuiceHolder.getInjector().getInstance(App.class);
+        app.run();
+    }
 
     @Inject
     public App(FlywayRunner flywayRunner, ServerRunner serverRunner) {
@@ -28,8 +27,6 @@ public class App {
     }
 
     public void run() throws Exception {
-        log.info("Starting application...");
-
         addShutdownHook();
 
         flywayRunner.run();

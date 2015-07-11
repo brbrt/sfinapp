@@ -3,6 +3,7 @@ package hu.rbr.sfinapp;
 import com.google.inject.servlet.GuiceFilter;
 import hu.rbr.sfinapp.core.api.JerseyApplication;
 import hu.rbr.sfinapp.core.config.Config;
+import hu.rbr.sfinapp.core.guice.GuiceListener;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.servlet.FilterRegistration;
 import org.glassfish.grizzly.servlet.WebappContext;

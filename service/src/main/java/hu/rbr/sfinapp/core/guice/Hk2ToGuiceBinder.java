@@ -1,4 +1,4 @@
-package hu.rbr.sfinapp.core.hk2toguice;
+package hu.rbr.sfinapp.core.guice;
 
 import org.glassfish.hk2.api.InjectionResolver;
 import org.glassfish.hk2.api.TypeLiteral;

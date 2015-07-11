@@ -25,4 +25,5 @@ public class GensonProvider implements ContextResolver<Genson> {
     public Genson getContext(Class<?> type) {
         return genson;
     }
+
 }

@@ -39,5 +39,4 @@ public class SfinappModule extends AbstractModule {
         bindInterceptor(Matchers.subclassesOf(BaseService.class), Matchers.any(), interceptor);
     }
 
-
 }

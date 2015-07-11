@@ -1,7 +1,6 @@
-package hu.rbr.sfinapp.core.hk2toguice;
+package hu.rbr.sfinapp.core.guice;
 
 import com.google.inject.Key;
-import hu.rbr.sfinapp.App;
 import org.glassfish.hk2.api.Injectee;
 import org.glassfish.hk2.api.InjectionResolver;
 import org.glassfish.hk2.api.ServiceHandle;
@@ -23,7 +22,7 @@ public class Hk2ToGuiceInjectionResolver implements InjectionResolver<Inject> {
             return hk2SystemResolver.resolve(injectee, serviceHandle);
         } catch (Exception ex) {
             Type requiredType = injectee.getRequiredType();
-            return App.INJECTOR.getInstance(Key.get(requiredType));
+            return GuiceHolder.getInjector().getInstance(Key.get(requiredType));
         }
     }
 
