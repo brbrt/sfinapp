@@ -19,28 +19,29 @@ public class App {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final FlywayRunner flywayRunner;
-    private final JettyRunner jettyRunner;
+    private final ServerRunner serverRunner;
 
     @Inject
-    public App(FlywayRunner flywayRunner, JettyRunner jettyRunner) {
+    public App(FlywayRunner flywayRunner, ServerRunner serverRunner) {
         this.flywayRunner = flywayRunner;
-        this.jettyRunner = jettyRunner;
+        this.serverRunner = serverRunner;
     }
 
     public void run() throws Exception {
-        log.info("Starting application");
+        log.info("Starting application...");
 
         addShutdownHook();
 
         flywayRunner.run();
-        jettyRunner.run();
+        serverRunner.run();
     }
 
     private void addShutdownHook() {
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
-                log.info("Shutting down application");
-                jettyRunner.stop();
+                log.info("Stopping application...");
+                serverRunner.stop();
+                log.info("Application stopped.");
             }
         });
     }

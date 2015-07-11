@@ -2,6 +2,7 @@ package hu.rbr.sfinapp.tag;
 
 import hu.rbr.sfinapp.IntegrationTestBase;
 import hu.rbr.sfinapp.account.Account;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.ws.rs.client.Entity;
@@ -12,7 +13,8 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-public class TagTest extends IntegrationTestBase {
+@Ignore
+public class TagIT extends IntegrationTestBase {
 
     private static class TagListType extends GenericType<List<Tag>> {}
 
