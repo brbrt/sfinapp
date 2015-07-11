@@ -78,41 +78,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <plugin>
-                <groupId>com.bazaarvoice.maven.plugins</groupId>
-                <artifactId>process-exec-maven-plugin</artifactId>
-                <version>0.7</version>
-                <executions>
-                    <execution>
-                        <id>switchboard-process</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>start</goal>
-                        </goals>
-                        <configuration>
-                            <name>sfinapp</name>
-                            <waitForInterrupt>false</waitForInterrupt>
-                            <healthcheckUrl>http://localhost:28282/api/sample</healthcheckUrl>
-                            <arguments>
-                                <argument>java</argument>
-                                <argument>-cp</argument>
-                                <argument>.:${project.build.finalName}-standalone.jar</argument>
-                                <argument>-Dhttp.port=28282</argument>
-                                <argument>-Ddb.url=jdbc:h2:mem:sfinapp</argument>
-                                <argument>${application.main.class}</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>stop-all</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop-all</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
 		</plugins>
 
         <resources>
