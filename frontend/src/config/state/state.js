@@ -9,6 +9,11 @@ angular
 function stateConfig($stateProvider,
                      $urlRouterProvider) {
 
+    $stateProvider.state('app', {
+        abstract: true,
+        template: '<ui-view/>'
+    });
+
     $urlRouterProvider.otherwise('/transactions');
 }
 

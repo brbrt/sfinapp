@@ -12,7 +12,7 @@ angular
 
 
 function accountDetailConfig($stateProvider) {
-    $stateProvider.state('account-detail', {
+    $stateProvider.state('app.account-detail', {
         url: '/accounts/:id',
         controller: 'accountDetailCtrl',
         controllerAs: 'vm',
@@ -53,7 +53,7 @@ function accountDetailCtrl($state,
         if ((isNew && vm.createAnother) || !isNew) {
             $state.reload();
         } else {
-            $state.go('account');
+            $state.go('app.account');
         }
 
         toastr.success('Account is saved.');
@@ -69,6 +69,6 @@ function accountDetailCtrl($state,
 
     function deleteSuccess() {
         toastr.success('Account is deleted.');
-        $state.go('account');
+        $state.go('app.account');
     }
 }

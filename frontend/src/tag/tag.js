@@ -11,7 +11,7 @@ angular
 
 
 function tagConfig($stateProvider) {
-    $stateProvider.state('tag', {
+    $stateProvider.state('app.tag', {
         url: '/tags',
         controller: 'tagCtrl',
         controllerAs: 'vm',

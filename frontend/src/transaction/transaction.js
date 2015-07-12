@@ -14,7 +14,7 @@ angular
 
 
 function transactionConfig($stateProvider) {
-    $stateProvider.state('transaction', {
+    $stateProvider.state('app.transaction', {
         url: '/transactions',
         controller: 'transactionCtrl',
         controllerAs: 'vm',

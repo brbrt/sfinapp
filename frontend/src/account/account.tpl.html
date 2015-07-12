@@ -3,7 +3,7 @@
         Accounts
     </h2>
 
-    <a class="button" ui-sref="account-detail({id: 'new'})">
+    <a class="button" ui-sref="app.account-detail({id: 'new'})">
         Add
     </a>
 
@@ -19,7 +19,7 @@
             <tbody>
                 <tr ng-repeat="acc in vm.diplayedAccounts">
                     <td>
-                        <a ui-sref="account-detail({id: acc.id})" class="sf-block-link">
+                        <a ui-sref="app.account-detail({id: acc.id})" class="sf-block-link">
                             {{ ::acc.name }}
                         </a>
                     </td>

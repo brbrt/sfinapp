@@ -11,7 +11,7 @@ angular
 
 
 function accountConfig($stateProvider) {
-    $stateProvider.state('account', {
+    $stateProvider.state('app.account', {
         url: '/accounts',
         controller: 'accountCtrl',
         controllerAs: 'vm',

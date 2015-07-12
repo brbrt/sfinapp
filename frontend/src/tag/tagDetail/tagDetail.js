@@ -11,7 +11,7 @@ angular
 
 
 function tagDetailConfig($stateProvider) {
-    $stateProvider.state('tag-detail', {
+    $stateProvider.state('app.tag-detail', {
         url: '/tags/:id',
         controller: 'tagDetailCtrl',
         controllerAs: 'vm',
@@ -52,7 +52,7 @@ function tagDetailCtrl($state,
         if ((isNew && vm.createAnother) || !isNew) {
             $state.reload();
         } else {
-            $state.go('tag');
+            $state.go('app.tag');
         }
 
         toastr.success('Tag is saved.');
@@ -68,6 +68,6 @@ function tagDetailCtrl($state,
 
     function deleteSuccess() {
         toastr.success('Tag is deleted.');
-        $state.go('tag');
+        $state.go('app.tag');
     }
 }

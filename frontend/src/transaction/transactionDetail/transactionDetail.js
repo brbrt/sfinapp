@@ -13,7 +13,7 @@ angular
 
 
 function transactionDetailConfig($stateProvider) {
-    $stateProvider.state('transaction-detail', {
+    $stateProvider.state('app.transaction-detail', {
         url: '/transactions/:id',
         controller: 'transactionDetailCtrl',
         controllerAs: 'vm',
@@ -63,7 +63,7 @@ function transactionDetailCtrl($log,
         if ((isNew && vm.createAnother) || !isNew) {
             $state.reload();
         } else {
-            $state.go('transaction');
+            $state.go('app.transaction');
         }
 
         toastr.success('Transaction is saved.');
@@ -79,6 +79,6 @@ function transactionDetailCtrl($log,
 
     function deleteSuccess() {
         toastr.success('Transaction is deleted.');
-        $state.go('transaction');
+        $state.go('app.transaction');
     }
 }
