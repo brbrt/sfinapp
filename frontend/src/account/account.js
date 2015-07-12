@@ -11,15 +11,21 @@ angular
 
 
 function accountConfig($stateProvider) {
-    $stateProvider.state('app.account', {
-        url: '/accounts',
-        controller: 'accountCtrl',
-        controllerAs: 'vm',
-        templateUrl: 'src/account/account.tpl.html',
-        resolve: {
-            accounts: (accountSrv) => { return accountSrv.getAll(); }
-        }
-    });
+    $stateProvider
+        .state('app.account', {
+            abstract: true,
+            template: '<ui-view/>',
+            url: '/accounts'
+        })
+        .state('app.account.list', {
+            url: '',
+            controller: 'accountCtrl',
+            controllerAs: 'vm',
+            templateUrl: 'src/account/account.tpl.html',
+            resolve: {
+                accounts: (accountSrv) => { return accountSrv.getAll(); }
+            }
+        });
 }
 
 function accountCtrl(accounts) {

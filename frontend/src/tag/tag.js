@@ -11,15 +11,21 @@ angular
 
 
 function tagConfig($stateProvider) {
-    $stateProvider.state('app.tag', {
-        url: '/tags',
-        controller: 'tagCtrl',
-        controllerAs: 'vm',
-        templateUrl: 'src/tag/tag.tpl.html',
-        resolve: {
-            tags: (tagSrv) => { return tagSrv.getAll(); }
-        }
-    });
+    $stateProvider
+        .state('app.tag', {
+            abstract: true,
+            template: '<ui-view/>',
+            url: '/tags'
+        })
+        .state('app.tag.list', {
+            url: '',
+            controller: 'tagCtrl',
+            controllerAs: 'vm',
+            templateUrl: 'src/tag/tag.tpl.html',
+            resolve: {
+                tags: (tagSrv) => { return tagSrv.getAll(); }
+            }
+        });
 }
 
 function tagCtrl(tags) {

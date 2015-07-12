@@ -3,7 +3,7 @@
         Tags
     </h2>
 
-    <a class="button" ui-sref="app.tag-detail({id: 'new'})">
+    <a class="button" state-ref="app.tag.detail({id: 'new'})">
         Add
     </a>
 
@@ -18,7 +18,7 @@
             <tbody>
                 <tr ng-repeat="tag in vm.diplayedTags">
                     <td>
-                        <a ui-sref="app.tag-detail({id: tag.id})" class="sf-block-link">
+                        <a state-ref="app.tag.detail({id: tag.id})" class="sf-block-link">
                             {{ ::tag.name }}
                         </a>
                     </td>

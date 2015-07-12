@@ -11,8 +11,8 @@ angular
 
 
 function tagDetailConfig($stateProvider) {
-    $stateProvider.state('app.tag-detail', {
-        url: '/tags/:id',
+    $stateProvider.state('app.tag.detail', {
+        url: '/:id',
         controller: 'tagDetailCtrl',
         controllerAs: 'vm',
         templateUrl: 'src/tag/tagDetail/tagDetail.tpl.html',
@@ -26,10 +26,10 @@ function tagDetailConfig($stateProvider) {
     });
 }
 
-function tagDetailCtrl($state,
-                       $log,
+function tagDetailCtrl($log,
                        toastr,
                        confirmSrv,
+                       locationSrv,
                        tagSrv,
                        isNew,
                        tag) {
@@ -50,9 +50,9 @@ function tagDetailCtrl($state,
 
     function saveSuccess() {
         if ((isNew && vm.createAnother) || !isNew) {
-            $state.reload();
+            locationSrv.reload();
         } else {
-            $state.go('app.tag');
+            locationSrv.goToUrl('tags');
         }
 
         toastr.success('Tag is saved.');
@@ -68,6 +68,6 @@ function tagDetailCtrl($state,
 
     function deleteSuccess() {
         toastr.success('Tag is deleted.');
-        $state.go('app.tag');
+        locationSrv.goToUrl('tags');
     }
 }

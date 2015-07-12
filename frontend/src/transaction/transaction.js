@@ -14,15 +14,21 @@ angular
 
 
 function transactionConfig($stateProvider) {
-    $stateProvider.state('app.transaction', {
-        url: '/transactions',
-        controller: 'transactionCtrl',
-        controllerAs: 'vm',
-        templateUrl: 'src/transaction/transaction.tpl.html',
-        resolve: {
-            tags: (tagSrv) => { return tagSrv.getAll(); }
-        }
-    });
+    $stateProvider
+        .state('app.transaction', {
+            abstract: true,
+            template: '<ui-view/>',
+            url: '/transactions'
+        })
+        .state('app.transaction.list', {
+            url: '',
+            controller: 'transactionCtrl',
+            controllerAs: 'vm',
+            templateUrl: 'src/transaction/transaction.tpl.html',
+            resolve: {
+                tags: (tagSrv) => { return tagSrv.getAll(); }
+            }
+        });
 }
 
 function transactionCtrl(tags,

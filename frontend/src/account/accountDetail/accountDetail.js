@@ -12,8 +12,8 @@ angular
 
 
 function accountDetailConfig($stateProvider) {
-    $stateProvider.state('app.account-detail', {
-        url: '/accounts/:id',
+    $stateProvider.state('app.account.detail', {
+        url: '/:id',
         controller: 'accountDetailCtrl',
         controllerAs: 'vm',
         templateUrl: 'src/account/accountDetail/accountDetail.tpl.html',
@@ -27,10 +27,10 @@ function accountDetailConfig($stateProvider) {
     });
 }
 
-function accountDetailCtrl($state,
-                           $log,
+function accountDetailCtrl($log,
                            toastr,
                            confirmSrv,
+                           locationSrv,
                            accountSrv,
                            isNew,
                            account) {
@@ -51,9 +51,10 @@ function accountDetailCtrl($state,
 
     function saveSuccess() {
         if ((isNew && vm.createAnother) || !isNew) {
-            $state.reload();
+            locationSrv.reload();
+
         } else {
-            $state.go('app.account');
+            locationSrv.goToUrl('accounts');
         }
 
         toastr.success('Account is saved.');
@@ -69,6 +70,6 @@ function accountDetailCtrl($state,
 
     function deleteSuccess() {
         toastr.success('Account is deleted.');
-        $state.go('app.account');
+        locationSrv.goToUrl('accounts');
     }
 }

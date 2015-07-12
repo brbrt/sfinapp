@@ -21,6 +21,10 @@ function stateRun($log,
                   $rootScope,
                   toastr) {
 
+    $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams) => {
+        $log.debug('$stateChangeStart (' + fromState.name + ' -> ' + toState.name + ')');
+    });
+
     // Display errors on state changes (e.g. in resolve...)
     $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
         $log.error('$stateChangeError (' + fromState.name + ' -> ' + toState.name + '): ', error);

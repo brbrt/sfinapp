@@ -15,8 +15,8 @@ angular
 
 
 function transactionBatchConfig($stateProvider) {
-    $stateProvider.state('app.transaction-batch', {
-        url: '/transactions/batch',
+    $stateProvider.state('app.transaction.batch', {
+        url: '/batch',
         controller: 'transactionBatchCtrl',
         controllerAs: 'vm',
         templateUrl: 'src/transaction/transactionBatch/transactionBatch.tpl.html',
@@ -30,8 +30,8 @@ function transactionBatchConfig($stateProvider) {
 }
 
 function transactionBatchCtrl($log,
-                              $state,
                               toastr,
+                              locationSrv,
                               transactionSrv,
                               accounts,
                               descriptions,
@@ -88,8 +88,8 @@ function transactionBatchCtrl($log,
     }
 
     function saveSuccess() {
-        $state.go('app.transaction');
         toastr.success('Transactions are saved.');
+        locationSrv.goToUrl('transactions');
     }
 
 }

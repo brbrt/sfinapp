@@ -13,8 +13,8 @@ angular
 
 
 function transactionDetailConfig($stateProvider) {
-    $stateProvider.state('app.transaction-detail', {
-        url: '/transactions/:id',
+    $stateProvider.state('app.transaction.detail', {
+        url: '/:id',
         controller: 'transactionDetailCtrl',
         controllerAs: 'vm',
         templateUrl: 'src/transaction/transactionDetail/transactionDetail.tpl.html',
@@ -32,9 +32,9 @@ function transactionDetailConfig($stateProvider) {
 }
 
 function transactionDetailCtrl($log,
-                               $state,
                                toastr,
                                confirmSrv,
+                               locationSrv,
                                transactionSrv,
                                accounts,
                                descriptions,
@@ -61,9 +61,9 @@ function transactionDetailCtrl($log,
 
     function saveSuccess() {
         if ((isNew && vm.createAnother) || !isNew) {
-            $state.reload();
+            locationSrv.reload();
         } else {
-            $state.go('app.transaction');
+            locationSrv.goToUrl('transactions');
         }
 
         toastr.success('Transaction is saved.');
@@ -79,6 +79,6 @@ function transactionDetailCtrl($log,
 
     function deleteSuccess() {
         toastr.success('Transaction is deleted.');
-        $state.go('app.transaction');
+        locationSrv.goToUrl('transactions');
     }
 }
