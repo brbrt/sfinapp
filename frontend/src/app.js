@@ -15,6 +15,7 @@ angular
         // Internal modules.
         'sfinapp.config',
         'sfinapp.core',
+        'sfinapp.home',
         'sfinapp.layout',
         'sfinapp.templates',
 

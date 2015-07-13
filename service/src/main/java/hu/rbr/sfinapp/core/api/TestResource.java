@@ -5,12 +5,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("sample")
-@Produces(MediaType.APPLICATION_JSON)
-public class SampleResource {
+@Path("test")
+public class TestResource {
 
     @GET
+    @Produces(MediaType.TEXT_PLAIN)
     public String get() {
-        return "Sample";
+        return "Sfinapp service is available!";
     }
+
 }

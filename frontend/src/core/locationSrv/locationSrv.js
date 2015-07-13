@@ -1,6 +1,6 @@
 angular
     .module('sfinapp.core.locationSrv', [
-
+        'ui.router'
     ])
     .factory('locationSrv', locationSrv);
 

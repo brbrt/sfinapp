@@ -14,7 +14,7 @@ function stateConfig($stateProvider,
         template: '<ui-view/>'
     });
 
-    $urlRouterProvider.otherwise('/transactions');
+    $urlRouterProvider.otherwise('/home');
 }
 
 function stateRun($log,

@@ -40,7 +40,7 @@ public class TestApplication {
 
         try {
             process = processBuilder.start();
-            ApplicationChecker.waitUntilAvailable(url + "sample");
+            ApplicationChecker.waitUntilAvailable(url + "test");
         } catch (Exception e) {
             throw new RuntimeException("Application start error.", e);
         }
