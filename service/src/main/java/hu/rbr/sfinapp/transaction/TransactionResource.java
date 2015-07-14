@@ -1,7 +1,7 @@
 package hu.rbr.sfinapp.transaction;
 
+import hu.rbr.sfinapp.core.cache.ETagResponseBuilder;
 import hu.rbr.sfinapp.transaction.list.TransactionListFilter;
-import hu.rbr.sfinapp.transaction.list.TransactionListItem;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -16,32 +16,34 @@ import static hu.rbr.sfinapp.core.api.Dates.parseAsDate;
 public class TransactionResource {
 	
 	private final TransactionService service;
+	private final ETagResponseBuilder eTagResponseBuilder;
 
 	@Inject
-	public TransactionResource(TransactionService service) {
-		this.service = service;
-	}
+    public TransactionResource(TransactionService service, ETagResponseBuilder eTagResponseBuilder) {
+        this.service = service;
+        this.eTagResponseBuilder = eTagResponseBuilder;
+    }
 
-	@GET
-	public List<TransactionListItem> getAll(@QueryParam("from") String from,
-											@QueryParam("to") String to,
-                                            @QueryParam("description") String description,
-                                            @QueryParam("tag") String tag) {
+    @GET
+	public Response getAll(@QueryParam("from") String from,
+                           @QueryParam("to") String to,
+                           @QueryParam("description") String description,
+                           @QueryParam("tag") String tag) {
 
         TransactionListFilter filter = new TransactionListFilter(parseAsDate(from), parseAsDate(to), description, tag);
-		return service.getAll(filter);
+		return eTagResponseBuilder.build(service::getVersion, () -> service.getAll(filter));
 	}
 
     @GET
     @Path("/descriptions")
-	public List<String> getAllDescriptions() {
-        return service.getAllDescriptions();
+	public Response getAllDescriptions() {
+        return eTagResponseBuilder.build(service::getVersion, service::getAllDescriptions);
     }
 	
 	@GET
 	@Path("/{id}")
-	public Transaction getById(@PathParam("id") int id) {
-        return service.get(id);
+	public Response getById(@PathParam("id") int id) {
+        return eTagResponseBuilder.build(service::getVersion, () -> service.get(id));
 	}
 
 	@GET

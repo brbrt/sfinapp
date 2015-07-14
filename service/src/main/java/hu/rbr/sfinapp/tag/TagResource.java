@@ -1,31 +1,34 @@
 package hu.rbr.sfinapp.tag;
 
+import hu.rbr.sfinapp.core.cache.ETagResponseBuilder;
+
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 @Path("tags")
 @Produces(MediaType.APPLICATION_JSON)
 public class TagResource {
 
 	private final TagService service;
+	private final ETagResponseBuilder eTagResponseBuilder;
 
 	@Inject
-	public TagResource(TagService service) {
-		this.service = service;
-	}
+    public TagResource(TagService service, ETagResponseBuilder eTagResponseBuilder) {
+        this.service = service;
+        this.eTagResponseBuilder = eTagResponseBuilder;
+    }
 
-	@GET
-	public List<Tag> getAll() {
-		return service.getAll();
+    @GET
+	public Response getAll() {
+		return eTagResponseBuilder.build(service::getVersion, service::getAll);
 	}
 	
 	@GET
 	@Path("/{id}")
-	public Tag getById(@PathParam("id") int id) {
-        return service.get(id);
+	public Response getById(@PathParam("id") int id) {
+        return eTagResponseBuilder.build(service::getVersion, () -> service.get(id));
 	}
 	
 	@POST

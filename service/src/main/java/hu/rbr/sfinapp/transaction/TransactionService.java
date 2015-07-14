@@ -3,6 +3,7 @@ package hu.rbr.sfinapp.transaction;
 import hu.rbr.sfinapp.account.Account;
 import hu.rbr.sfinapp.account.AccountService;
 import hu.rbr.sfinapp.core.service.BaseService;
+import hu.rbr.sfinapp.core.service.Versioned;
 import hu.rbr.sfinapp.transaction.list.TransactionListDao;
 import hu.rbr.sfinapp.transaction.list.TransactionListFilter;
 import hu.rbr.sfinapp.transaction.list.TransactionListItem;
@@ -14,11 +15,14 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static hu.rbr.sfinapp.transaction.TransactionType.*;
 
 @Singleton
-public class TransactionService extends BaseService {
+public class TransactionService extends BaseService implements Versioned {
+
+    private final AtomicInteger version = new AtomicInteger();
 
     private final TransactionDao transactionDao;
     private final TransactionListDao transactionListDao;
@@ -68,7 +72,9 @@ public class TransactionService extends BaseService {
 
     public Transaction create(@Valid @NotNull Transaction transaction) {
         preProcess(transaction);
-        return transactionDao.create(transaction);
+        Transaction created = transactionDao.create(transaction);
+        incrementVersion();
+        return created;
     }
 
     public void createBatch(@Valid @NotNull List<Transaction> transactions) {
@@ -77,15 +83,19 @@ public class TransactionService extends BaseService {
         }
 
         transactionDao.createBatch(transactions);
+        incrementVersion();
     }
 
     public Transaction update(int id, @Valid @NotNull Transaction transaction) {
         preProcess(transaction);
-        return transactionDao.update(id, transaction);
+        Transaction updated = transactionDao.update(id, transaction);
+        incrementVersion();
+        return updated;
     }
 
     public void delete(int id) {
         transactionDao.delete(id);
+        incrementVersion();
     }
 
     private void preProcess(Transaction transaction) {
@@ -120,4 +130,14 @@ public class TransactionService extends BaseService {
 
         return Expense;
     }
+
+    @Override
+    public int getVersion() {
+        return version.get();
+    }
+
+    private void incrementVersion() {
+        version.incrementAndGet();
+    }
+
 }

@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Singleton
 public class AccountService extends BaseService implements Versioned {
 
-    private AtomicInteger version = new AtomicInteger();
+    private final AtomicInteger version = new AtomicInteger();
 
     private final AccountDao accountDao;
 
@@ -32,24 +32,28 @@ public class AccountService extends BaseService implements Versioned {
 
     public Account create(@Valid @NotNull Account account) {
         Account created = accountDao.create(account);
-        version.incrementAndGet();
+        incrementVersion();
         return created;
     }
 
     public Account update(int id, @Valid @NotNull Account account) {
         Account updated = accountDao.update(id, account);
-        version.incrementAndGet();
+        incrementVersion();
         return updated;
     }
 
     public void delete(int id) {
         accountDao.delete(id);
-        version.incrementAndGet();
+        incrementVersion();
     }
 
     @Override
     public int getVersion() {
         return version.get();
+    }
+
+    private void incrementVersion() {
+        version.incrementAndGet();
     }
 
 }
