@@ -1,33 +1,36 @@
 package hu.rbr.sfinapp.account;
 
+import hu.rbr.sfinapp.core.cache.ETagResponseBuilder;
+
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 @Path("accounts")
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountResource {
 	
 	private final AccountService service;
+    private final ETagResponseBuilder eTagResponseBuilder;
 
-	@Inject
-	public AccountResource(AccountService service) {
-		this.service = service;
-	}
+    @Inject
+    public AccountResource(AccountService service, ETagResponseBuilder eTagResponseBuilder) {
+        this.service = service;
+        this.eTagResponseBuilder = eTagResponseBuilder;
+    }
 
 	@GET
-	public List<Account> getAll() {
-		return service.getAll();
+	public Response getAll() {
+		return eTagResponseBuilder.build(service::getVersion, service::getAll);
 	}
 	
 	@GET
 	@Path("/{id}")
-	public Account getById(@PathParam("id") int id) {
-		return service.get(id);
+	public Response getById(@PathParam("id") int id) {
+		return eTagResponseBuilder.build(service::getVersion, () -> service.get(id));
 	}
-	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Account create(Account acc) {
@@ -47,4 +50,5 @@ public class AccountResource {
 		service.delete(id);
 		return Response.ok().build();
 	}
+
 }
