@@ -5,6 +5,7 @@ import hu.rbr.sfinapp.account.AccountService;
 import hu.rbr.sfinapp.core.service.BaseService;
 import hu.rbr.sfinapp.core.service.Versioned;
 import hu.rbr.sfinapp.core.version.VersionStore;
+import hu.rbr.sfinapp.tag.TagService;
 import hu.rbr.sfinapp.transaction.list.TransactionListDao;
 import hu.rbr.sfinapp.transaction.list.TransactionListFilter;
 import hu.rbr.sfinapp.transaction.list.TransactionListItem;
@@ -23,19 +24,22 @@ import static hu.rbr.sfinapp.transaction.TransactionType.*;
 @Singleton
 public class TransactionService extends BaseService implements Versioned {
 
-    private static final String VERSION_KEY = "transaction";
-    private final VersionStore versionStore;
+    public static final String VERSION_KEY = "transaction";
 
     private final TransactionDao transactionDao;
     private final TransactionListDao transactionListDao;
     private final AccountService accountService;
+    private final VersionStore versionStore;
 
     @Inject
-    public TransactionService(VersionStore versionStore, TransactionDao transactionDao, TransactionListDao transactionListDao, AccountService accountService) {
-        this.versionStore = versionStore;
+    public TransactionService(TransactionDao transactionDao,
+                              TransactionListDao transactionListDao,
+                              AccountService accountService,
+                              VersionStore versionStore) {
         this.transactionDao = transactionDao;
         this.transactionListDao = transactionListDao;
         this.accountService = accountService;
+        this.versionStore = versionStore;
     }
 
     public List<TransactionListItem> getAll(@Valid @NotNull TransactionListFilter filter) {
@@ -137,6 +141,10 @@ public class TransactionService extends BaseService implements Versioned {
     @Override
     public long getVersion() {
         return versionStore.getVersion(VERSION_KEY);
+    }
+
+    public long getListVersion() {
+        return versionStore.getVersion(VERSION_KEY, AccountService.VERSION_KEY, TagService.VERSION_KEY);
     }
 
     private void incrementVersion() {

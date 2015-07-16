@@ -31,7 +31,7 @@ public class TransactionResource {
                            @QueryParam("tag") String tag) {
 
         TransactionListFilter filter = new TransactionListFilter(parseAsDate(from), parseAsDate(to), description, tag);
-		return eTagResponseBuilder.build(service::getVersion, () -> service.getAll(filter));
+		return eTagResponseBuilder.build(service::getListVersion, () -> service.getAll(filter));
 	}
 
     @GET

@@ -13,15 +13,15 @@ import java.util.List;
 @Singleton
 public class AccountService extends BaseService implements Versioned {
 
-    private static final String VERSION_KEY = "account";
-    private final VersionStore versionStore;
+    public static final String VERSION_KEY = "account";
 
     private final AccountDao accountDao;
+    private final VersionStore versionStore;
 
     @Inject
-    public AccountService(VersionStore versionStore, AccountDao accountDao) {
-        this.versionStore = versionStore;
+    public AccountService(AccountDao accountDao, VersionStore versionStore) {
         this.accountDao = accountDao;
+        this.versionStore = versionStore;
     }
 
     public List<Account> getAll() {

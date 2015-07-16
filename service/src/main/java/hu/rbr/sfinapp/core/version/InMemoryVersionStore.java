@@ -17,6 +17,17 @@ public class InMemoryVersionStore implements VersionStore {
     }
 
     @Override
+    public long getVersion(String... keys) {
+        long result = 0;
+
+        for (String key : keys) {
+            result += getVersion(key);
+        }
+
+        return result;
+    }
+
+    @Override
     public void incrementVersion(String key) {
         Long version = store.get(key);
 

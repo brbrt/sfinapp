@@ -13,15 +13,15 @@ import java.util.List;
 @Singleton
 public class TagService extends BaseService implements Versioned {
 
-    private static final String VERSION_KEY = "tag";
-    private final VersionStore versionStore;
+    public static final String VERSION_KEY = "tag";
 
     private final TagDao tagDao;
+    private final VersionStore versionStore;
 
     @Inject
-    public TagService(VersionStore versionStore, TagDao tagDao) {
-        this.versionStore = versionStore;
+    public TagService(TagDao tagDao, VersionStore versionStore) {
         this.tagDao = tagDao;
+        this.versionStore = versionStore;
     }
 
     public List<Tag> getAll() {
