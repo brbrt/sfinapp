@@ -48,7 +48,7 @@ public class AccountService extends BaseService implements Versioned {
     }
 
     @Override
-    public int getVersion() {
+    public long getVersion() {
         return version.get();
     }
 

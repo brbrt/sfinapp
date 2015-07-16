@@ -17,7 +17,7 @@ public class ETagResponseBuilder {
         this.request = request;
     }
 
-    public Response build(Supplier<Integer> versionFn, Supplier<Object> dataFn) {
+    public Response build(Supplier<Long> versionFn, Supplier<Object> dataFn) {
         EntityTag eTag = ETagCalculator.calculate(getRequestString(), versionFn.get().toString());
 
         // Verify that the calculated eTag matches with the eTag in HTTP request.

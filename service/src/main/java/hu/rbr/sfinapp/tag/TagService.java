@@ -48,7 +48,7 @@ public class TagService extends BaseService implements Versioned {
     }
 
     @Override
-    public int getVersion() {
+    public long getVersion() {
         return version.get();
     }
 
