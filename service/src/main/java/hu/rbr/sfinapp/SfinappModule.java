@@ -11,6 +11,8 @@ import hu.rbr.sfinapp.core.service.BaseService;
 import hu.rbr.sfinapp.core.validation.ValidatorInterceptor;
 import hu.rbr.sfinapp.core.validation.ExecutableValidatorProvider;
 import hu.rbr.sfinapp.core.validation.ValidatorProvider;
+import hu.rbr.sfinapp.core.version.InMemoryVersionStore;
+import hu.rbr.sfinapp.core.version.VersionStore;
 import org.sql2o.Sql2o;
 
 import javax.sql.DataSource;
@@ -25,6 +27,8 @@ public class SfinappModule extends AbstractModule {
 
         bind(DataSource.class).toProvider(DataSourceProvider.class).in(Singleton.class);
         bind(Sql2o.class).toProvider(Sql2oProvider.class).in(Singleton.class);
+
+        bind(VersionStore.class).to(InMemoryVersionStore.class).in(Singleton.class);
 
         configureValidation();
     }

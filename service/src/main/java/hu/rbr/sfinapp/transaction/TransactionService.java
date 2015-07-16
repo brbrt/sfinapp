@@ -4,6 +4,7 @@ import hu.rbr.sfinapp.account.Account;
 import hu.rbr.sfinapp.account.AccountService;
 import hu.rbr.sfinapp.core.service.BaseService;
 import hu.rbr.sfinapp.core.service.Versioned;
+import hu.rbr.sfinapp.core.version.VersionStore;
 import hu.rbr.sfinapp.transaction.list.TransactionListDao;
 import hu.rbr.sfinapp.transaction.list.TransactionListFilter;
 import hu.rbr.sfinapp.transaction.list.TransactionListItem;
@@ -22,14 +23,16 @@ import static hu.rbr.sfinapp.transaction.TransactionType.*;
 @Singleton
 public class TransactionService extends BaseService implements Versioned {
 
-    private final AtomicInteger version = new AtomicInteger();
+    private static final String VERSION_KEY = "transaction";
+    private final VersionStore versionStore;
 
     private final TransactionDao transactionDao;
     private final TransactionListDao transactionListDao;
     private final AccountService accountService;
 
     @Inject
-    public TransactionService(TransactionDao transactionDao, TransactionListDao transactionListDao, AccountService accountService) {
+    public TransactionService(VersionStore versionStore, TransactionDao transactionDao, TransactionListDao transactionListDao, AccountService accountService) {
+        this.versionStore = versionStore;
         this.transactionDao = transactionDao;
         this.transactionListDao = transactionListDao;
         this.accountService = accountService;
@@ -133,11 +136,11 @@ public class TransactionService extends BaseService implements Versioned {
 
     @Override
     public long getVersion() {
-        return version.get();
+        return versionStore.getVersion(VERSION_KEY);
     }
 
     private void incrementVersion() {
-        version.incrementAndGet();
+        versionStore.incrementVersion(VERSION_KEY);
     }
 
 }

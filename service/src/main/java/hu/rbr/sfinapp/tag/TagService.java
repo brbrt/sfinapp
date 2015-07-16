@@ -2,23 +2,25 @@ package hu.rbr.sfinapp.tag;
 
 import hu.rbr.sfinapp.core.service.BaseService;
 import hu.rbr.sfinapp.core.service.Versioned;
+import hu.rbr.sfinapp.core.version.VersionStore;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Singleton
 public class TagService extends BaseService implements Versioned {
 
-    private final AtomicInteger version = new AtomicInteger();
+    private static final String VERSION_KEY = "tag";
+    private final VersionStore versionStore;
 
     private final TagDao tagDao;
 
     @Inject
-    public TagService(TagDao tagDao) {
+    public TagService(VersionStore versionStore, TagDao tagDao) {
+        this.versionStore = versionStore;
         this.tagDao = tagDao;
     }
 
@@ -49,11 +51,11 @@ public class TagService extends BaseService implements Versioned {
 
     @Override
     public long getVersion() {
-        return version.get();
+        return versionStore.getVersion(VERSION_KEY);
     }
 
     private void incrementVersion() {
-        version.incrementAndGet();
+        versionStore.incrementVersion(VERSION_KEY);
     }
 
 }
