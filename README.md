@@ -1,5 +1,5 @@
 sfinapp
 =======
-[![Build Status](https://drone.io/github.com/brbrt/sfinapp/status.png)](https://drone.io/github.com/brbrt/sfinapp/latest)
+[![Build Status](https://api.travis-ci.org/brbrt/sfinapp.svg?branch=master)](https://travis-ci.org/brbrt/sfinapp)
 
 Small and simple personal financial application.
