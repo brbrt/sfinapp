@@ -41,7 +41,7 @@ public class TagIT extends IntegrationTestBase {
         ));
 
 
-        Integer id = tags.get(1).id;
+        Integer id = tags.get(0).id;
 
         Tag tag = tagWebTarget()
                 .path(id.toString())

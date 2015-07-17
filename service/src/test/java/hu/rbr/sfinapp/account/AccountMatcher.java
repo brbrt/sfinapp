@@ -8,7 +8,7 @@ public class AccountMatcher extends CustomTypeSafeMatcher<Account> {
     private final Account base;
 
     public AccountMatcher(Account base) {
-        super("Account with ");
+        super("Account equal to " + base);
         this.base = base;
     }
 

@@ -9,7 +9,7 @@ public class TagMatcher extends CustomTypeSafeMatcher<Tag> {
     private final Tag base;
 
     public TagMatcher(Tag base) {
-        super("Tag with " + base);
+        super("Tag equal to " + base);
         this.base = base;
     }
 
