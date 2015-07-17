@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ev
+
 cd service
 ./build_service.sh
 
