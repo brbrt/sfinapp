@@ -12,6 +12,7 @@ import java.util.List;
 import static javax.ws.rs.core.Response.Status.NOT_MODIFIED;
 import static javax.ws.rs.core.Response.Status.OK;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.junit.Assert.assertThat;
 
 public class AccountIT extends IntegrationTestBase {
@@ -34,8 +35,10 @@ public class AccountIT extends IntegrationTestBase {
                 .get(new AccountListType());
 
         assertThat(accounts.size(), equalTo(2));
-        assertThat(accounts.get(0), new AccountMatcher(acc1));
-        assertThat(accounts.get(1), new AccountMatcher(acc2));
+        assertThat(accounts, hasItems(
+                new AccountMatcher(acc1),
+                new AccountMatcher(acc2)
+        ));
 
 
         Integer acc1Id = accounts.get(0).id;

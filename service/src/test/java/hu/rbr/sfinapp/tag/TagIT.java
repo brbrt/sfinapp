@@ -1,15 +1,15 @@
 package hu.rbr.sfinapp.tag;
 
 import hu.rbr.sfinapp.IntegrationTestBase;
-import hu.rbr.sfinapp.account.Account;
 import org.junit.Test;
 
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.junit.Assert.assertThat;
 
 public class TagIT extends IntegrationTestBase {
@@ -18,30 +18,54 @@ public class TagIT extends IntegrationTestBase {
 
     @Test
     public void addAndQuery() throws Exception {
-        List<Tag> accounts = webTarget("tags")
+        List<Tag> tags = tagWebTarget()
                 .request()
                 .get(new TagListType());
 
-        assertThat(accounts.size(), equalTo(0));
+        assertThat(tags.size(), equalTo(0));
 
 
-        Account newAccount = new Account();
-        newAccount.name = "TG";
-        newAccount.description = "DSCR";
-
-        webTarget("tags")
-                .request()
-                .post(Entity.json(newAccount));
+        Tag t1 = createTag("1-tag", "descr..");
+        Tag t2 = createTag("2-tag", "otherrr");
 
 
-        accounts = webTarget("tags")
+        tags = tagWebTarget()
                 .request()
                 .get(new TagListType());
 
-        assertThat(accounts.size(), equalTo(1));
-        assertThat(accounts.get(0).id, notNullValue());
-        assertThat(accounts.get(0).name, equalTo("TG"));
-        assertThat(accounts.get(0).description, equalTo("DSCR"));
+        assertThat(tags.size(), equalTo(2));
+
+        assertThat(tags, hasItems(
+                new TagMatcher(t1),
+                new TagMatcher(t2)
+        ));
+
+
+        Integer id = tags.get(1).id;
+
+        Tag tag = tagWebTarget()
+                .path(id.toString())
+                .request()
+                .get(Tag.class);
+
+        assertThat(tag.id, equalTo(id));
+        assertThat(tag, new TagMatcher(t2));
+    }
+
+    private WebTarget tagWebTarget() {
+        return webTarget("tags");
+    }
+
+    private Tag createTag(String name, String description) {
+        Tag tag = new Tag();
+        tag.name = name;
+        tag.description = description;
+
+        tagWebTarget()
+                .request()
+                .post(Entity.json(tag));
+
+        return tag;
     }
 
 }
