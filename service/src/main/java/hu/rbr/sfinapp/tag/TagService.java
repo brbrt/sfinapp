@@ -3,6 +3,7 @@ package hu.rbr.sfinapp.tag;
 import hu.rbr.sfinapp.core.service.BaseService;
 import hu.rbr.sfinapp.core.service.Versioned;
 import hu.rbr.sfinapp.core.version.VersionStore;
+import hu.rbr.sfinapp.core.version.VersionedOperation;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -32,30 +33,24 @@ public class TagService extends BaseService implements Versioned {
         return tagDao.get(id);
     }
 
+    @VersionedOperation(VERSION_KEY)
     public Tag create(@Valid @NotNull Tag tag) {
-        Tag created = tagDao.create(tag);
-        incrementVersion();
-        return created;
+        return tagDao.create(tag);
     }
 
+    @VersionedOperation(VERSION_KEY)
     public Tag update(int id, @Valid @NotNull Tag tag) {
-        Tag updated = tagDao.update(id, tag);
-        incrementVersion();
-        return updated;
+        return tagDao.update(id, tag);
     }
 
+    @VersionedOperation(VERSION_KEY)
     public void delete(int id) {
         tagDao.delete(id);
-        incrementVersion();
     }
 
     @Override
     public long getVersion() {
         return versionStore.getVersion(VERSION_KEY);
-    }
-
-    private void incrementVersion() {
-        versionStore.incrementVersion(VERSION_KEY);
     }
 
 }

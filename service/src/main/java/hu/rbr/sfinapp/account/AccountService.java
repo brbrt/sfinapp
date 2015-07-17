@@ -3,6 +3,7 @@ package hu.rbr.sfinapp.account;
 import hu.rbr.sfinapp.core.service.BaseService;
 import hu.rbr.sfinapp.core.service.Versioned;
 import hu.rbr.sfinapp.core.version.VersionStore;
+import hu.rbr.sfinapp.core.version.VersionedOperation;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -32,30 +33,24 @@ public class AccountService extends BaseService implements Versioned {
         return accountDao.get(id);
     }
 
+    @VersionedOperation(VERSION_KEY)
     public Account create(@Valid @NotNull Account account) {
-        Account created = accountDao.create(account);
-        incrementVersion();
-        return created;
+        return accountDao.create(account);
     }
 
+    @VersionedOperation(VERSION_KEY)
     public Account update(int id, @Valid @NotNull Account account) {
-        Account updated = accountDao.update(id, account);
-        incrementVersion();
-        return updated;
+        return accountDao.update(id, account);
     }
 
+    @VersionedOperation(VERSION_KEY)
     public void delete(int id) {
         accountDao.delete(id);
-        incrementVersion();
     }
 
     @Override
     public long getVersion() {
         return versionStore.getVersion(VERSION_KEY);
-    }
-
-    private void incrementVersion() {
-        versionStore.incrementVersion(VERSION_KEY);
     }
 
 }

@@ -5,6 +5,7 @@ import hu.rbr.sfinapp.account.AccountService;
 import hu.rbr.sfinapp.core.service.BaseService;
 import hu.rbr.sfinapp.core.service.Versioned;
 import hu.rbr.sfinapp.core.version.VersionStore;
+import hu.rbr.sfinapp.core.version.VersionedOperation;
 import hu.rbr.sfinapp.tag.TagService;
 import hu.rbr.sfinapp.transaction.list.TransactionListDao;
 import hu.rbr.sfinapp.transaction.list.TransactionListFilter;
@@ -17,7 +18,6 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static hu.rbr.sfinapp.transaction.TransactionType.*;
 
@@ -77,32 +77,30 @@ public class TransactionService extends BaseService implements Versioned {
         return skeleton;
     }
 
+    @VersionedOperation(VERSION_KEY)
     public Transaction create(@Valid @NotNull Transaction transaction) {
         preProcess(transaction);
-        Transaction created = transactionDao.create(transaction);
-        incrementVersion();
-        return created;
+        return transactionDao.create(transaction);
     }
 
+    @VersionedOperation(VERSION_KEY)
     public void createBatch(@Valid @NotNull List<Transaction> transactions) {
         for (Transaction transaction : transactions) {
             preProcess(transaction);
         }
 
         transactionDao.createBatch(transactions);
-        incrementVersion();
     }
 
+    @VersionedOperation(VERSION_KEY)
     public Transaction update(int id, @Valid @NotNull Transaction transaction) {
         preProcess(transaction);
-        Transaction updated = transactionDao.update(id, transaction);
-        incrementVersion();
-        return updated;
+        return transactionDao.update(id, transaction);
     }
 
+    @VersionedOperation(VERSION_KEY)
     public void delete(int id) {
         transactionDao.delete(id);
-        incrementVersion();
     }
 
     private void preProcess(Transaction transaction) {
@@ -145,10 +143,6 @@ public class TransactionService extends BaseService implements Versioned {
 
     public long getListVersion() {
         return versionStore.getVersion(VERSION_KEY, AccountService.VERSION_KEY, TagService.VERSION_KEY);
-    }
-
-    private void incrementVersion() {
-        versionStore.incrementVersion(VERSION_KEY);
     }
 
 }

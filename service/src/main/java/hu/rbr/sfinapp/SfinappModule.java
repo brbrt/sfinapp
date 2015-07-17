@@ -13,6 +13,8 @@ import hu.rbr.sfinapp.core.validation.ExecutableValidatorProvider;
 import hu.rbr.sfinapp.core.validation.ValidatorProvider;
 import hu.rbr.sfinapp.core.version.InMemoryVersionStore;
 import hu.rbr.sfinapp.core.version.VersionStore;
+import hu.rbr.sfinapp.core.version.VersionedOperation;
+import hu.rbr.sfinapp.core.version.VersionedOperationInterceptor;
 import org.sql2o.Sql2o;
 
 import javax.sql.DataSource;
@@ -28,9 +30,8 @@ public class SfinappModule extends AbstractModule {
         bind(DataSource.class).toProvider(DataSourceProvider.class).in(Singleton.class);
         bind(Sql2o.class).toProvider(Sql2oProvider.class).in(Singleton.class);
 
-        bind(VersionStore.class).to(InMemoryVersionStore.class).in(Singleton.class);
-
         configureValidation();
+        configureVersioning();
     }
 
     private void configureValidation() {
@@ -41,6 +42,15 @@ public class SfinappModule extends AbstractModule {
         requestInjection(interceptor);
 
         bindInterceptor(Matchers.subclassesOf(BaseService.class), Matchers.any(), interceptor);
+    }
+
+    private void configureVersioning() {
+        bind(VersionStore.class).to(InMemoryVersionStore.class).in(Singleton.class);
+
+        final VersionedOperationInterceptor interceptor = new VersionedOperationInterceptor();
+        requestInjection(interceptor);
+
+        bindInterceptor(Matchers.subclassesOf(BaseService.class), Matchers.annotatedWith(VersionedOperation.class), interceptor);
     }
 
 }
