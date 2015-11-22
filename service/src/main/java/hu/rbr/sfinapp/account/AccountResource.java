@@ -1,6 +1,10 @@
 package hu.rbr.sfinapp.account;
 
+import hu.rbr.sfinapp.account.command.CreateAccountCommand;
+import hu.rbr.sfinapp.account.command.DeleteAccountCommand;
+import hu.rbr.sfinapp.account.command.UpdateAccountCommand;
 import hu.rbr.sfinapp.core.cache.ETagResponseBuilder;
+import hu.rbr.sfinapp.core.command.CommandExecutor;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -10,15 +14,17 @@ import javax.ws.rs.core.Response;
 @Path("accounts")
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountResource {
-	
-	private final AccountService service;
-    private final ETagResponseBuilder eTagResponseBuilder;
 
-    @Inject
-    public AccountResource(AccountService service, ETagResponseBuilder eTagResponseBuilder) {
-        this.service = service;
-        this.eTagResponseBuilder = eTagResponseBuilder;
-    }
+	private final AccountService service;
+	private final CommandExecutor commandExecutor;
+	private final ETagResponseBuilder eTagResponseBuilder;
+
+	@Inject
+	public AccountResource(AccountService service, CommandExecutor commandExecutor, ETagResponseBuilder eTagResponseBuilder) {
+		this.service = service;
+		this.commandExecutor = commandExecutor;
+		this.eTagResponseBuilder = eTagResponseBuilder;
+	}
 
 	@GET
 	public Response getAll() {
@@ -33,22 +39,22 @@ public class AccountResource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Account create(Account acc) {
-        return service.create(acc);
+	public void create(CreateAccountCommand command) {
+		commandExecutor.execute(command);
 	}
 	
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Account update(@PathParam("id") int id, Account acc) {
-		return service.update(id, acc);
+	public void update(@PathParam("id") int id, UpdateAccountCommand command) {
+        command.id = id;
+		commandExecutor.execute(command);
 	}
 	
 	@DELETE
 	@Path("/{id}")
-	public Response delete(@PathParam("id") int id) {
-		service.delete(id);
-		return Response.ok().build();
+	public void delete(@PathParam("id") Integer id) {
+		commandExecutor.execute(new DeleteAccountCommand(id));
 	}
 
 }

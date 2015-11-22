@@ -3,6 +3,11 @@ package hu.rbr.sfinapp;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.matcher.Matchers;
+import com.google.inject.multibindings.Multibinder;
+import hu.rbr.sfinapp.account.command.CreateAccountCommandHandler;
+import hu.rbr.sfinapp.account.command.DeleteAccountCommandHandler;
+import hu.rbr.sfinapp.account.command.UpdateAccountCommandHandler;
+import hu.rbr.sfinapp.core.command.Handler;
 import hu.rbr.sfinapp.core.config.Config;
 import hu.rbr.sfinapp.core.config.TypeSafeConfig;
 import hu.rbr.sfinapp.core.db.DataSourceProvider;
@@ -32,6 +37,8 @@ public class SfinappModule extends AbstractModule {
 
         configureValidation();
         configureVersioning();
+
+        configureHandlers();
     }
 
     private void configureValidation() {
@@ -51,6 +58,13 @@ public class SfinappModule extends AbstractModule {
         requestInjection(interceptor);
 
         bindInterceptor(Matchers.subclassesOf(BaseService.class), Matchers.annotatedWith(VersionedOperation.class), interceptor);
+    }
+
+    private void configureHandlers() {
+        Multibinder<Handler> multibinder = Multibinder.newSetBinder(binder(), Handler.class);
+        multibinder.addBinding().to(CreateAccountCommandHandler.class);
+        multibinder.addBinding().to(DeleteAccountCommandHandler.class);
+        multibinder.addBinding().to(UpdateAccountCommandHandler.class);
     }
 
 }

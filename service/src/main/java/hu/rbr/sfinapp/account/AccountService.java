@@ -1,5 +1,8 @@
 package hu.rbr.sfinapp.account;
 
+import hu.rbr.sfinapp.account.command.CreateAccountCommand;
+import hu.rbr.sfinapp.account.command.DeleteAccountCommand;
+import hu.rbr.sfinapp.account.command.UpdateAccountCommand;
 import hu.rbr.sfinapp.core.service.BaseService;
 import hu.rbr.sfinapp.core.service.Versioned;
 import hu.rbr.sfinapp.core.version.VersionStore;
@@ -7,8 +10,6 @@ import hu.rbr.sfinapp.core.version.VersionedOperation;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Singleton
@@ -34,24 +35,34 @@ public class AccountService extends BaseService implements Versioned {
     }
 
     @VersionedOperation(VERSION_KEY)
-    public Account create(@Valid @NotNull Account account) {
-        return accountDao.create(account);
+    public void create(CreateAccountCommand command) {
+        Account newAccount = new Account();
+        newAccount.name = command.name;
+        newAccount.description = command.description;
+        newAccount.technical = command.technical;
+
+        accountDao.create(newAccount);
     }
 
     @VersionedOperation(VERSION_KEY)
-    public Account update(int id, @Valid @NotNull Account account) {
-        return accountDao.update(id, account);
+    public void update(UpdateAccountCommand command) {
+        Account account = new Account();
+        account.id = command.id;
+        account.name = command.name;
+        account.description = command.description;
+        account.technical = command.technical;
+
+        accountDao.update(command.id, account);
     }
 
     @VersionedOperation(VERSION_KEY)
-    public void delete(int id) {
-        accountDao.delete(id);
+    public void delete(DeleteAccountCommand command) {
+        accountDao.delete(command.id);
     }
 
     @Override
     public long getVersion() {
         return versionStore.getVersion(VERSION_KEY);
     }
-
 }
 
