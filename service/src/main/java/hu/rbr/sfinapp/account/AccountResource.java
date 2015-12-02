@@ -15,12 +15,12 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountResource {
 
-	private final AccountService service;
+	private final AccountQueryService service;
 	private final CommandExecutor commandExecutor;
 	private final ETagResponseBuilder eTagResponseBuilder;
 
 	@Inject
-	public AccountResource(AccountService service, CommandExecutor commandExecutor, ETagResponseBuilder eTagResponseBuilder) {
+	public AccountResource(AccountQueryService service, CommandExecutor commandExecutor, ETagResponseBuilder eTagResponseBuilder) {
 		this.service = service;
 		this.commandExecutor = commandExecutor;
 		this.eTagResponseBuilder = eTagResponseBuilder;

@@ -1,7 +1,7 @@
 package hu.rbr.sfinapp.account.command;
 
 
-import hu.rbr.sfinapp.account.AccountService;
+import hu.rbr.sfinapp.account.AccountCommandService;
 import hu.rbr.sfinapp.core.command.Handler;
 
 import javax.inject.Inject;
@@ -10,16 +10,16 @@ import javax.inject.Singleton;
 @Singleton
 public class UpdateAccountCommandHandler implements Handler<UpdateAccountCommand> {
 
-    private final AccountService accountService;
+    private final AccountCommandService accountCommandService;
 
     @Inject
-    public UpdateAccountCommandHandler(AccountService accountService) {
-        this.accountService = accountService;
+    public UpdateAccountCommandHandler(AccountCommandService accountCommandService) {
+        this.accountCommandService = accountCommandService;
     }
 
     @Override
     public void handle(UpdateAccountCommand command) {
-        accountService.update(command);
+        accountCommandService.update(command);
     }
 
     @Override

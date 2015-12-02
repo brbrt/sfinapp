@@ -1,7 +1,8 @@
 package hu.rbr.sfinapp.transaction;
 
 import hu.rbr.sfinapp.account.Account;
-import hu.rbr.sfinapp.account.AccountService;
+import hu.rbr.sfinapp.account.AccountCommandService;
+import hu.rbr.sfinapp.account.AccountQueryService;
 import hu.rbr.sfinapp.core.service.BaseService;
 import hu.rbr.sfinapp.core.service.Versioned;
 import hu.rbr.sfinapp.core.version.VersionStore;
@@ -28,17 +29,17 @@ public class TransactionService extends BaseService implements Versioned {
 
     private final TransactionDao transactionDao;
     private final TransactionListDao transactionListDao;
-    private final AccountService accountService;
+    private final AccountQueryService accountQueryService;
     private final VersionStore versionStore;
 
     @Inject
     public TransactionService(TransactionDao transactionDao,
                               TransactionListDao transactionListDao,
-                              AccountService accountService,
+                              AccountQueryService accountQueryService,
                               VersionStore versionStore) {
         this.transactionDao = transactionDao;
         this.transactionListDao = transactionListDao;
-        this.accountService = accountService;
+        this.accountQueryService = accountQueryService;
         this.versionStore = versionStore;
     }
 
@@ -69,7 +70,7 @@ public class TransactionService extends BaseService implements Versioned {
         skeleton.type = Expense;
         skeleton.tagIds = new ArrayList<>();
 
-        List<Account> accounts = accountService.getAll();
+        List<Account> accounts = accountQueryService.getAll();
         if (!accounts.isEmpty()) {
             skeleton.accountId = accounts.get(0).id;
         }
@@ -142,7 +143,7 @@ public class TransactionService extends BaseService implements Versioned {
     }
 
     public long getListVersion() {
-        return versionStore.getVersion(VERSION_KEY, AccountService.VERSION_KEY, TagService.VERSION_KEY);
+        return versionStore.getVersion(VERSION_KEY, AccountCommandService.VERSION_KEY, TagService.VERSION_KEY);
     }
 
 }
