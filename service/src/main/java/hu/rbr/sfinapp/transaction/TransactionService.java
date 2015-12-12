@@ -7,7 +7,7 @@ import hu.rbr.sfinapp.core.service.BaseService;
 import hu.rbr.sfinapp.core.service.Versioned;
 import hu.rbr.sfinapp.core.version.VersionStore;
 import hu.rbr.sfinapp.core.version.VersionedOperation;
-import hu.rbr.sfinapp.tag.TagService;
+import hu.rbr.sfinapp.tag.TagCommandService;
 import hu.rbr.sfinapp.transaction.list.TransactionListDao;
 import hu.rbr.sfinapp.transaction.list.TransactionListFilter;
 import hu.rbr.sfinapp.transaction.list.TransactionListItem;
@@ -143,7 +143,7 @@ public class TransactionService extends BaseService implements Versioned {
     }
 
     public long getListVersion() {
-        return versionStore.getVersion(VERSION_KEY, AccountCommandService.VERSION_KEY, TagService.VERSION_KEY);
+        return versionStore.getVersion(VERSION_KEY, AccountCommandService.VERSION_KEY, TagCommandService.VERSION_KEY);
     }
 
 }

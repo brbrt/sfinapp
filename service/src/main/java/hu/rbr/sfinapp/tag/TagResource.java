@@ -1,6 +1,10 @@
 package hu.rbr.sfinapp.tag;
 
 import hu.rbr.sfinapp.core.cache.ETagResponseBuilder;
+import hu.rbr.sfinapp.core.command.CommandExecutor;
+import hu.rbr.sfinapp.tag.command.CreateTagCommand;
+import hu.rbr.sfinapp.tag.command.DeleteTagCommand;
+import hu.rbr.sfinapp.tag.command.UpdateTagCommand;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -11,16 +15,18 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class TagResource {
 
-	private final TagService service;
+	private final CommandExecutor commandExecutor;
+	private final TagQueryService service;
 	private final ETagResponseBuilder eTagResponseBuilder;
 
 	@Inject
-    public TagResource(TagService service, ETagResponseBuilder eTagResponseBuilder) {
-        this.service = service;
-        this.eTagResponseBuilder = eTagResponseBuilder;
-    }
+	public TagResource(CommandExecutor commandExecutor, TagQueryService service, ETagResponseBuilder eTagResponseBuilder) {
+		this.commandExecutor = commandExecutor;
+		this.service = service;
+		this.eTagResponseBuilder = eTagResponseBuilder;
+	}
 
-    @GET
+	@GET
 	public Response getAll() {
 		return eTagResponseBuilder.build(service::getVersion, service::getAll);
 	}
@@ -33,21 +39,28 @@ public class TagResource {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Tag create(Tag acc) {
-		return service.create(acc);
+	public Response create(CreateTagCommand command) {
+		commandExecutor.execute(command);
+
+        return Response.ok().build();
 	}
 	
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Tag update(@PathParam("id") int id, Tag acc) {
-		return service.update(id, acc);
+	public Response update(@PathParam("id") int id, UpdateTagCommand command) {
+        command.id = id;
+        commandExecutor.execute(command);
+
+        return Response.ok().build();
 	}
 	
 	@DELETE
 	@Path("/{id}")
 	public Response delete(@PathParam("id") int id) {
-        service.delete(id);
-		return Response.ok().build();
+		commandExecutor.execute(new DeleteTagCommand(id));
+
+        return Response.ok().build();
 	}
+
 }
