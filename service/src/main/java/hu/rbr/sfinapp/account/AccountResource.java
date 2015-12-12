@@ -39,22 +39,28 @@ public class AccountResource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void create(CreateAccountCommand command) {
+	public Response create(CreateAccountCommand command) {
 		commandExecutor.execute(command);
+
+		return Response.ok().build();
 	}
 	
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void update(@PathParam("id") int id, UpdateAccountCommand command) {
+	public Response update(@PathParam("id") int id, UpdateAccountCommand command) {
         command.id = id;
 		commandExecutor.execute(command);
+
+		return Response.ok().build();
 	}
 	
 	@DELETE
 	@Path("/{id}")
-	public void delete(@PathParam("id") Integer id) {
+	public Response delete(@PathParam("id") Integer id) {
 		commandExecutor.execute(new DeleteAccountCommand(id));
+
+		return Response.ok().build();
 	}
 
 }
