@@ -23,6 +23,9 @@ import hu.rbr.sfinapp.core.version.VersionedOperationInterceptor;
 import hu.rbr.sfinapp.tag.command.CreateTagCommandHandler;
 import hu.rbr.sfinapp.tag.command.DeleteTagCommandHandler;
 import hu.rbr.sfinapp.tag.command.UpdateTagCommandHandler;
+import hu.rbr.sfinapp.transaction.command.CreateTransactionsCommandHandler;
+import hu.rbr.sfinapp.transaction.command.DeleteTransactionCommandHandler;
+import hu.rbr.sfinapp.transaction.command.UpdateTransactionCommandHandler;
 import org.sql2o.Sql2o;
 
 import javax.sql.DataSource;
@@ -68,9 +71,14 @@ public class SfinappModule extends AbstractModule {
         multibinder.addBinding().to(CreateAccountCommandHandler.class);
         multibinder.addBinding().to(DeleteAccountCommandHandler.class);
         multibinder.addBinding().to(UpdateAccountCommandHandler.class);
+
         multibinder.addBinding().to(CreateTagCommandHandler.class);
         multibinder.addBinding().to(DeleteTagCommandHandler.class);
         multibinder.addBinding().to(UpdateTagCommandHandler.class);
+
+        multibinder.addBinding().to(CreateTransactionsCommandHandler.class);
+        multibinder.addBinding().to(UpdateTransactionCommandHandler.class);
+        multibinder.addBinding().to(DeleteTransactionCommandHandler.class);
     }
 
 }

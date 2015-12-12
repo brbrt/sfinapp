@@ -1,6 +1,12 @@
 package hu.rbr.sfinapp.transaction;
 
+import com.google.common.collect.ImmutableList;
 import hu.rbr.sfinapp.core.cache.ETagResponseBuilder;
+import hu.rbr.sfinapp.core.command.CommandExecutor;
+import hu.rbr.sfinapp.transaction.command.CreateTransactionsCommand;
+import hu.rbr.sfinapp.transaction.command.DeleteTransactionCommand;
+import hu.rbr.sfinapp.transaction.command.TransactionItem;
+import hu.rbr.sfinapp.transaction.command.UpdateTransactionCommand;
 import hu.rbr.sfinapp.transaction.list.TransactionListFilter;
 
 import javax.inject.Inject;
@@ -14,12 +20,14 @@ import static hu.rbr.sfinapp.core.api.Dates.parseAsDate;
 @Path("transactions")
 @Produces(MediaType.APPLICATION_JSON)
 public class TransactionResource {
-	
-	private final TransactionService service;
+
+    private final CommandExecutor commandExecutor;
+	private final TransactionQueryService service;
 	private final ETagResponseBuilder eTagResponseBuilder;
 
 	@Inject
-    public TransactionResource(TransactionService service, ETagResponseBuilder eTagResponseBuilder) {
+    public TransactionResource(CommandExecutor commandExecutor, TransactionQueryService service, ETagResponseBuilder eTagResponseBuilder) {
+        this.commandExecutor = commandExecutor;
         this.service = service;
         this.eTagResponseBuilder = eTagResponseBuilder;
     }
@@ -54,28 +62,35 @@ public class TransactionResource {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Transaction create(Transaction transaction) {
-		return service.create(transaction);
+	public Response create(TransactionItem transaction) {
+        commandExecutor.execute(new CreateTransactionsCommand(ImmutableList.of(transaction)));
+
+        return Response.ok().build();
 	}
 
 	@POST
 	@Path("/batch")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void createBatch(List<Transaction> transactions) {
-		service.createBatch(transactions);
+	public Response createBatch(List<TransactionItem> transactions) {
+        commandExecutor.execute(new CreateTransactionsCommand(transactions));
+
+		return Response.ok().build();
 	}
 	
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Transaction update(@PathParam("id") int id, Transaction transaction) {
-		return service.update(id, transaction);
+	public Response update(@PathParam("id") int id, TransactionItem transaction) {
+		commandExecutor.execute(new UpdateTransactionCommand(id, transaction));
+
+		return Response.ok().build();
 	}
 	
 	@DELETE
 	@Path("/{id}")
 	public Response delete(@PathParam("id") int id) {
-        service.delete(id);
+        commandExecutor.execute(new DeleteTransactionCommand(id));
+
 		return Response.ok().build();
 	}
 
