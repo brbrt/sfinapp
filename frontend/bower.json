@@ -2,19 +2,19 @@
   "name": "sfinapp-frontend",
   "version": "0.0.1",
   "devDependencies": {
-    "angular": "1.4.8",
-    "angular-animate": "1.4.8",
-    "angular-i18n": "1.4.8",
-    "angular-mocks": "1.4.8",
-    "angular-sanitize": "1.4.8",
-    "angular-ui-router": "0.2.15",
+    "angular": "1.5.5",
+    "angular-animate": "1.5.5",
+    "angular-i18n": "1.5.5",
+    "angular-mocks": "1.5.5",
+    "angular-sanitize": "1.5.5",
+    "angular-ui-router": "0.2.18",
     "angular-foundation": "0.6.0",
     "foundation": "5.5.2",
-    "angular-smart-table": "~2.1.5",
-    "angular-toastr": "1.3.0",
+    "angular-smart-table": "2.1.7",
+    "angular-toastr": "1.7.0",
     "isteven-angular-multiselect": "~4.0.0",
     "angular-mass-autocomplete": "~0.2.3",
-    "moment": "~2.10.3"
+    "moment": "2.13.0"
   },
   "dependencies": {}
 }
