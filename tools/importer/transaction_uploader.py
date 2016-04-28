@@ -49,7 +49,7 @@ def upload(apiurl, transactions):
     log.debug('Request payload: %s', request)
 
     r = requests.post(url, data=request, headers=headers)
-    if r.status_code != 204:
+    if r.status_code != 200:
         log.error('Api error: %s', r.json())
         raise Exception('Api error')
 
