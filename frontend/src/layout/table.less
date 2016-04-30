@@ -3,9 +3,23 @@
   overflow: auto;
   margin: 0 0 1em;
 
+  table {
+    border-collapse: collapse;
+  }
+
+  thead:first-child, tr:nth-child(even) {
+    background: #ebf3fb;
+    border-top: 1px solid #D4D4D4;
+    border-bottom: 1px solid #D4D4D4;
+  }
+  tr:nth-child(odd) {
+    border-top: 1px solid #D4D4D4;
+    border-bottom: 1px solid #D4D4D4;
+  }
+
   td, th {
     vertical-align: middle;
-    padding: 8px;
+    padding: 10px;
 
     white-space: nowrap;
     overflow: hidden;

@@ -1,54 +1,42 @@
-<form>
+<form ng-submit="vm.save()">
     <h2>{{ ::(vm.isNew ? 'Create' : 'Edit' ) }} account </h2>
 
-    <div class="row">
-        <div class="large-11 columns">
-            <label>Name
-                <input type="text" ng-model="vm.account.name" />
-            </label>
-        </div>
+    <md-content>
+        <md-input-container class="md-block" >
+            <label>Name</label>
+            <input type="text" ng-model="vm.account.name" />
+        </md-input-container>
 
-        <div class="large-1 columns">
-            <label> Technical
-                <input type="checkbox" class="sf-checkbox"
-                       ng-model="vm.account.technical">
-            </label>
-        </div>
+        <md-input-container class="md-block" >
+            <md-checkbox ng-model="vm.account.technical">
+                Technical
+            </md-checkbox>
+        </md-input-container>
 
-        <div class="large-12 columns end">
-            <label>Description
-                <input type="text" ng-model="vm.account.description" />
-            </label>
-        </div>
-    </div>
+        <md-input-container class="md-block" >
+            <label>Description</label>
+            <input type="text" ng-model="vm.account.description" />
+        </md-input-container>
+    </md-content>
 
-    <div class="row" ng-if="::vm.isNew" >
-        <div class="large-12 columns">
-            <label>
-                <input type="checkbox" value="false"
-                       ng-model="vm.createAnother">
-                Create another
-            </label>
-        </div>
-    </div>
+    <md-content>
+        <md-checkbox ng-if="::vm.isNew" ng-model="vm.createAnother">
+            Create another
+        </md-checkbox>
 
-    <div class="row">
-        <div class="large-2 small-6 columns">
-            <button class="button sf-button" ng-click="vm.save()">
-                Save
-            </button>
-        </div>
+        <md-button type="submit" class="md-raised md-primary">
+            Save
+        </md-button>
 
-        <div class="large-2 small-6 columns">
-            <a class="button secondary sf-button" state-ref="app.account">
+        <a state-ref="app.account">
+            <md-button class="md-raised">
                 Cancel
-            </a>
-        </div>
+            </md-button>
+        </a>
 
-        <div class="large-2 small-6 columns end">
-            <button ng-if="::!vm.isNew" class="button alert sf-button" ng-click="vm.delete()">
-                Delete
-            </button>
-        </div>
-    </div>
+        <md-button ng-if="::!vm.isNew" ng-click="vm.delete()"
+                   class="md-raised md-warn" >
+            Delete
+        </md-button>
+    </md-content>
 </form>

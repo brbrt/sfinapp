@@ -8,13 +8,12 @@
     "angular-mocks": "1.5.5",
     "angular-sanitize": "1.5.5",
     "angular-ui-router": "0.2.18",
-    "angular-foundation": "0.6.0",
-    "foundation": "5.5.2",
     "angular-smart-table": "2.1.7",
     "angular-toastr": "1.7.0",
     "isteven-angular-multiselect": "~4.0.0",
     "angular-mass-autocomplete": "~0.2.3",
-    "moment": "2.13.0"
+    "moment": "2.13.0",
+    "angular-material": "1.0.7"
   },
   "dependencies": {}
 }

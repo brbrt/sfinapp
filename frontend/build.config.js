@@ -4,10 +4,11 @@ module.exports = {
     vendorJs: [
         './vendor/angular/angular.js',
         './vendor/angular-animate/angular-animate.js',
+        './vendor/angular-aria/angular-aria.js',
         './vendor/angular-sanitize/angular-sanitize.js',
         './vendor/angular-i18n/angular-locale_hu-hu.js',
+        './vendor/angular-material/angular-material.js',
         './vendor/angular-ui-router/release/angular-ui-router.js',
-        './vendor/angular-foundation/mm-foundation-tpls.js',
         './vendor/angular-mass-autocomplete/massautocomplete.js',
         './vendor/angular-smart-table/dist/smart-table.js',
         './vendor/angular-toastr/dist/angular-toastr.tpls.js',
@@ -16,8 +17,7 @@ module.exports = {
     ],
 
     vendorCss: [
-        './vendor/foundation/css/foundation.css',
-        './vendor/foundation/css/normalize.css',
+        './vendor/angular-material/angular-material.css',
         './vendor/angular-mass-autocomplete/massautocomplete.theme.css',
         './vendor/angular-toastr/dist/angular-toastr.css',
         './vendor/isteven-angular-multiselect/isteven-multi-select.css'

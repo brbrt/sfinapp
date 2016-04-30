@@ -5,10 +5,10 @@ angular
         'ngSanitize',
 
         // External modules.
+        'ngMaterial',
         'ui.router',
         'isteven-multi-select',
         'MassAutoComplete',
-        'mm.foundation',
         'smart-table',
         'toastr',
 

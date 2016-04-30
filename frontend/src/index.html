@@ -14,34 +14,36 @@
     <!-- endinject -->
 </head>
 
-<body>
-    <div>
-        <top-bar>
-            <ul class="title-area">
-                <li class="name">
-                    <h1><a ui-sref="transaction">sfinapp</a></h1>
-                </li>
-                <li toggle-top-bar class="menu-icon"><a href="#">Menu</a></li>
-            </ul>
+<body layout="row" flex>
+    <div layout="column" flex id="content">
+        <md-toolbar layout="row" class="md-whiteframe-z2">
+            <div class="md-toolbar-tools">
+                <a state-ref="app.transaction">
+                    <md-button aria-label="Transactions">
+                        Transactions
+                    </md-button>
+                </a>
 
-            <top-bar-section>
-                <!-- Left Nav Section -->
-                <ul class="left">
-                    <li ui-sref-active="active"><a state-ref="app.transaction">Transactions</a></li>
-                    <li ui-sref-active="active"><a state-ref="app.account">Accounts</a></li>
-                    <li ui-sref-active="active"><a state-ref="app.tag">Tags</a></li>
-                </ul>
-            </top-bar-section>
-        </top-bar>
-    </div>
+                <a state-ref="app.account">
+                    <md-button aria-label="sfinapp">
+                        Account
+                    </md-button>
+                </a>
 
-    <div class="row">
-        <!--Main content-->
-        <div id="main-content" class="small-12 large-12 columns" ui-view></div>
+                <a state-ref="app.tag">
+                    <md-button aria-label="sfinapp">
+                        Tags
+                    </md-button>
+                </a>
+            </div>
+        </md-toolbar>
+
+        <md-content>
+            <div ui-view layout-padding flex></div>
+        </md-content>
     </div>
 
     <loading-bar ng-if="main.isLoading"></loading-bar>
-
 
     <!-- vendor:js -->
     <!-- endinject -->
