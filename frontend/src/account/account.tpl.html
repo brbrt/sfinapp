@@ -1,13 +1,15 @@
 <md-content flex>
-    <h2 class="page-header">
+    <h2 class="sf-page-header">
         Accounts
     </h2>
 
-    <a class="button" state-ref="app.account.detail({id: 'new'})">
-        <md-button class="md-raised md-primary">
-            Add
-        </md-button>
-    </a>
+    <div class="sf-page-action-bar">
+        <a class="button" state-ref="app.account.detail({id: 'new'})">
+            <md-button class="md-raised md-primary">
+                Add
+            </md-button>
+        </a>
+    </div>
 
     <div class="sf-table-container">
         <table st-table="vm.diplayedAccounts" st-safe-src="vm.accounts">
