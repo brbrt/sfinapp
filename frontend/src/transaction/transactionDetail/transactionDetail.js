@@ -49,7 +49,7 @@ function transactionDetailCtrl($log,
     vm.transaction = transaction;
 
     vm.save = save;
-    vm.delete = delete_;
+    vm.remove = remove;
     vm.suggestDescription = (term) => { return transactionSrv.suggestDescription(descriptions, term); };
 
     ////////////
@@ -60,16 +60,11 @@ function transactionDetailCtrl($log,
     }
 
     function saveSuccess() {
-        if ((isNew && vm.createAnother) || !isNew) {
-            locationSrv.reload();
-        } else {
-            locationSrv.goToUrl('transactions');
-        }
-
         toastr.success('Transaction is saved.');
+        locationSrv.goToUrl('transactions');
     }
 
-    function delete_() {
+    function remove() {
         confirmSrv.confirm('Are you sure you want to delete this transaction?', callDelete);
     }
 

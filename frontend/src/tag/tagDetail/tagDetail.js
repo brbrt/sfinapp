@@ -39,7 +39,7 @@ function tagDetailCtrl($log,
     vm.tag = tag;
 
     vm.save = save;
-    vm.delete = delete_;
+    vm.remove = remove;
 
     ////////////
 
@@ -49,16 +49,11 @@ function tagDetailCtrl($log,
     }
 
     function saveSuccess() {
-        if ((isNew && vm.createAnother) || !isNew) {
-            locationSrv.reload();
-        } else {
-            locationSrv.goToUrl('tags');
-        }
-
         toastr.success('Tag is saved.');
+        locationSrv.goToUrl('tags');
     }
 
-    function delete_() {
+    function remove() {
         confirmSrv.confirm('Are you sure you want to delete this tag?', callDelete);
     }
 

@@ -64,10 +64,6 @@
     </md-content>
 
     <md-content>
-        <md-checkbox ng-if="::vm.isNew" ng-model="vm.createAnother">
-            Create another
-        </md-checkbox>
-
         <md-button type="submit" class="md-raised md-primary">
             Save
         </md-button>
@@ -78,7 +74,7 @@
             </md-button>
         </a>
 
-        <md-button ng-if="::!vm.isNew" ng-click="vm.delete()"
+        <md-button ng-if="::!vm.isNew" ng-click="vm.remove()"
                    class="md-raised md-warn" >
             Delete
         </md-button>

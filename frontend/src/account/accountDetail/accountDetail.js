@@ -40,7 +40,7 @@ function accountDetailCtrl($log,
     vm.account = account;
 
     vm.save = save;
-    vm.delete = delete_;
+    vm.remove = remove;
 
     ////////////
 
@@ -50,17 +50,11 @@ function accountDetailCtrl($log,
     }
 
     function saveSuccess() {
-        if ((isNew && vm.createAnother) || !isNew) {
-            locationSrv.reload();
-
-        } else {
-            locationSrv.goToUrl('accounts');
-        }
-
         toastr.success('Account is saved.');
+        locationSrv.goToUrl('accounts');
     }
 
-    function delete_() {
+    function remove() {
         confirmSrv.confirm('Are you sure you want to delete this account?', callDelete);
     }
 
