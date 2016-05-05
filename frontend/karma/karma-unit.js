@@ -27,6 +27,11 @@ module.exports = {
     //logLevel: 'LOG_DEBUG',
     browsers: [
       'PhantomJS'
-    ]
+    ],
+
+    captureTimeout: 60000,
+    browserDisconnectTimeout : 10000,
+    browserDisconnectTolerance : 1,
+    browserNoActivityTimeout : 60000
 };
 
