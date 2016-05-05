@@ -2,11 +2,13 @@ angular
     .module('sfinapp.config.toastr', [
         'toastr'
     ])
-    .config(toastrConfig);
+    .config(configureToastr);
 
 
-function toastrConfig($provide) {
+function configureToastr($provide, toastrConfig) {
     $provide.decorator('toastr', decorateToastr);
+
+    toastrConfig.positionClass = 'toast-bottom-right';
 }
 
 function decorateToastr($delegate, $log) {
