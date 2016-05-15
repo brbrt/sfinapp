@@ -79,12 +79,7 @@ function transactionBatchCtrl($log,
     }
 
     function mapTags(orig) {
-        var tr = angular.copy(orig);
-        tr.tagIds = orig.tags.map(function(tag) {
-            return tag.id;
-        });
-        delete tr.tags;
-        return tr;
+        return angular.copy(orig);
     }
 
     function saveSuccess() {

@@ -2,13 +2,17 @@
     <h2>{{ ::(vm.isNew ? 'Create' : 'Edit' ) }} transaction </h2>
 
     <md-content>
-        <md-input-container class="md-block" mass-autocomplete>
-            <label>Description</label>
-            <input type="text" required
-                   ng-model="vm.transaction.description"
-                   mass-autocomplete-item="{'suggest': vm.suggestDescription}"/>
-        </md-input-container>
-
+        <md-autocomplete md-no-cache="true"
+                         md-min-length="1"
+                         md-search-text="vm.transaction.description"
+                         md-items="item in vm.suggestDescription(vm.transaction.description)"
+                         md-item-text="item"
+                         required
+                         md-floating-label="Description">
+            <md-item-template>
+                <span md-highlight-text="vm.transaction.description" md-highlight-flags="^i">{{ item }}</span>
+            </md-item-template>
+        </md-autocomplete>
 
         <md-input-container class="md-block" >
             <label>Date</label>
@@ -43,7 +47,6 @@
             </md-select>
         </md-input-container>
 
-
         <md-input-container ng-if="vm.transaction.type === 'Transfer'" class="md-block" >
             <label>To account</label>
             <md-select ng-model="vm.transaction.toAccountId">
@@ -53,14 +56,18 @@
             </md-select>
         </md-input-container>
 
-        <md-input-container class="md-block" >
-            <label>Tags</label>
-            <md-select ng-model="vm.transaction.tagIds" multiple>
-                <md-option ng-repeat="tag in vm.tags" value="{{ tag.id }}">
-                    {{ tag.name }}
-                </md-option>
-            </md-select>
-        </md-input-container>
+        <md-autocomplete md-no-cache="true"
+                         md-min-length="0"
+                         md-search-text="vm.tagSearchText"
+                         md-selected-item="vm.selectedTag"
+                         md-items="tag in vm.suggestTag(vm.tagSearchText)"
+                         md-item-text="tag.name"
+                         required
+                         md-floating-label="Tag">
+            <md-item-template>
+                <span md-highlight-text="vm.tagSearchText" md-highlight-flags="^i">{{ tag.name }}</span>
+            </md-item-template>
+        </md-autocomplete>
     </md-content>
 
     <md-content>

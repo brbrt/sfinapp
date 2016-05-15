@@ -8,7 +8,7 @@ angular
 function transactionSrv($http) {
     var url = 'api/transactions/';
 
-    var factory = {
+    return {
         getAll: getAll,
         getAllDescriptions: getAllDescriptions,
         get: get,
@@ -16,11 +16,8 @@ function transactionSrv($http) {
         create: create,
         createBatch: createBatch,
         update: update,
-        delete: delete_,
-        suggestDescription: suggestDescription
+        remove: remove
     };
-
-    return factory;
 
     ////////////
 
@@ -52,27 +49,12 @@ function transactionSrv($http) {
         return $http.put(url + item.id, item);
     }
 
-    function delete_(item) {
+    function remove(item) {
         return $http.delete(url + item.id);
     }
 
     function getResponseData(resp) {
         return resp.data;
-    }
-
-    function suggestDescription(descriptions, term) {
-        var q = term.toLowerCase().trim();
-        var results = [];
-
-        // Find first 10 states that start with `term`.
-        for (var i = 0; i < descriptions.length && results.length < 5; i++) {
-            var description = descriptions[i];
-            if (description.toLowerCase().indexOf(q) === 0) {
-                results.push({label: description, value: description});
-            }
-        }
-
-        return results;
     }
 
 }

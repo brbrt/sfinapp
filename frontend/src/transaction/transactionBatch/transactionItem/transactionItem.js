@@ -5,7 +5,7 @@ angular
         'isteven-multi-select',
         'MassAutoComplete',
 
-        'sfinapp.transaction.transactionSrv'
+        'sfinapp.core.suggestionSrv'
     ])
     .directive('transactionItem', transactionItem);
 
@@ -25,10 +25,16 @@ function transactionItem() {
     };
 
     function transactionItemCtrl($scope,
-                                 transactionSrv) {
-        var vm = this;
+                                 suggestionSrv) {
+        var itemVm = this;
 
-        vm.suggestDescription = (term) => { return transactionSrv.suggestDescription($scope.descriptions, term); };
+        itemVm.suggestDescription = (searchTerm) => { return suggestionSrv.suggest($scope.descriptions, searchTerm); };
+
+        itemVm.suggestTag = (searchTerm) => { return suggestionSrv.suggest($scope.tags, searchTerm, t => t.name); };
+        itemVm.selectedTag = null;
+
+        itemVm.setTagId = (selectedTag) => { $scope.transaction.tagIds = [selectedTag.id]; }
+
     }
 
 }

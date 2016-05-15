@@ -36,6 +36,7 @@ function transactionDetailCtrl($log,
                                confirmSrv,
                                locationSrv,
                                transactionSrv,
+                               suggestionSrv,
                                accounts,
                                descriptions,
                                isNew,
@@ -50,12 +51,30 @@ function transactionDetailCtrl($log,
 
     vm.save = save;
     vm.remove = remove;
-    vm.suggestDescription = (term) => { return transactionSrv.suggestDescription(descriptions, term); };
+
+    vm.suggestDescription = (searchTerm) => { return suggestionSrv.suggest(descriptions, searchTerm); };
+
+    vm.suggestTag = (searchTerm) => { return suggestionSrv.suggest(tags, searchTerm, t => t.name); };
+    vm.selectedTag = null;
+
+    init();
 
     ////////////
 
+    function init() {
+        if (isNew) {
+            return;
+        }
+
+        // Populate tag autocomplete with the existing tag object.
+        vm.selectedTag = tags.filter(t => t.id === transaction.tagIds[0])[0];
+    }
+
     function save() {
         var method = isNew ? transactionSrv.create : transactionSrv.update;
+
+        vm.transaction.tagIds = [vm.selectedTag.id];
+
         method(vm.transaction).then(saveSuccess, toastr.apiError);
     }
 
@@ -65,15 +84,16 @@ function transactionDetailCtrl($log,
     }
 
     function remove() {
-        confirmSrv.confirm('Are you sure you want to delete this transaction?', callDelete);
+        confirmSrv.confirm('Are you sure you want to delete this transaction?', callRemove);
     }
 
-    function callDelete() {
-        transactionSrv.delete(vm.transaction).then(deleteSuccess, toastr.apiError);
+    function callRemove() {
+        transactionSrv.remove(vm.transaction).then(removeSuccess, toastr.apiError);
     }
 
-    function deleteSuccess() {
+    function removeSuccess() {
         toastr.success('Transaction is deleted.');
         locationSrv.goToUrl('transactions');
     }
+
 }

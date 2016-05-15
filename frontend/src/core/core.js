@@ -3,5 +3,6 @@ angular
         'sfinapp.core.confirmSrv',
         'sfinapp.core.dateUtilSrv',
         'sfinapp.core.locationSrv',
-        'sfinapp.core.stateRef'
+        'sfinapp.core.stateRef',
+        'sfinapp.core.suggestionSrv'
     ]);

@@ -1,42 +1,43 @@
 <form>
     <h2>Create multiple transactions</h2>
 
-    <table class="sf-transaction-batch-table">
-        <thead>
-            <th class="description-col">Description</th>
-            <th class="date-col">Date</th>
-            <th class="type-col">Type</th>
-            <th class="amount-col">Amount</th>
-            <th class="account-col">Account</th>
-            <th class="tags-col">Tags</th>
-        </thead>
+    <md-content>
+        <table class="sf-transaction-batch-table">
+            <thead>
+                <th class="description-col">Description</th>
+                <th class="date-col">Date</th>
+                <th class="type-col">Type</th>
+                <th class="amount-col">Amount</th>
+                <th class="account-col">Account</th>
+                <th class="tags-col">Tags</th>
+            </thead>
 
-        <tbody>
-            <tr ng-repeat="transaction in vm.transactions"
-                transaction-item="transaction"
-                descriptions="vm.descriptions"
-                accounts="vm.accounts"
-                tags="vm.tagOptions[$index]">
-            </tr>
-        </tbody>
-    </table>
+            <tbody>
+                <tr ng-repeat="transaction in vm.transactions"
+                    transaction-item="transaction"
+                    descriptions="vm.descriptions"
+                    accounts="vm.accounts"
+                    tags="vm.tagOptions[$index]">
+                </tr>
+            </tbody>
+        </table>
+    </md-content>
 
-    <a ng-click="vm.extendTransactionList(2)">
-        Add more...
-    </a>
-    <br><br>
+    <md-content>
+        <md-button ng-click="vm.extendTransactionList(2)">
+            Add more...
+        </md-button>
+    </md-content>
 
-    <div class="row sf-full-width">
-        <div class="large-2 small-6 columns">
-            <button class="button sf-button" ng-click="vm.save()">
-                Save
-            </button>
-        </div>
+    <md-content>
+        <md-button class="md-raised" ng-click="vm.save()">
+            Save
+        </md-button>
 
-        <div class="large-2 small-6 columns end">
-            <a class="button secondary sf-button" state-ref="app.transaction">
+        <a state-ref="app.transaction">
+            <md-button class="md-raised">
                 Cancel
-            </a>
-        </div>
-    </div>
+            </md-button>
+        </a>
+    </md-content>
 </form>

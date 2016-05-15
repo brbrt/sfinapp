@@ -1,40 +1,51 @@
 <td class="description-col">
-    <div mass-autocomplete>
-        <input type="text" required
-               ng-model="transaction.description"
-               mass-autocomplete-item="{'suggest': itemVm.suggestDescription}"/>
-    </div>
+    <md-autocomplete md-no-cache="true"
+                     md-min-length="1"
+                     md-search-text="transaction.description"
+                     md-items="item in itemVm.suggestDescription(transaction.description)"
+                     md-item-text="item"
+                     required>
+        <md-item-template>
+            <span md-highlight-text="transaction.description" md-highlight-flags="^i">{{ item }}</span>
+        </md-item-template>
+    </md-autocomplete>
 </td>
 <td class="date-col">
-    <input type="date" ng-model="transaction.date" required />
+    <md-input-container>
+        <input type="date" ng-model="transaction.date" required />
+    </md-input-container>
 </td>
 <td class="type-col">
-    <select ng-model="transaction.type" required>
-        <option value="Expense" selected>Expense</option>
-        <option value="Income">Income</option>
-    </select>
+    <md-select ng-model="transaction.type" required>
+        <md-option value="Expense">Expense</md-option>
+        <md-option value="Income">Income</md-option>
+    </md-select>
 </td>
 <td class="amount-col">
-    <input type="number" min="-10000000" max="10000000"
-           ng-model="transaction.amount"
-           required />
+    <md-input-container>
+        <input type="number" min="-10000000" max="10000000"
+               ng-model="transaction.amount"
+               required />
+    </md-input-container>
 </td>
 <td class="account-col">
-    <select ng-model="transaction.accountId"
-            ng-options="acc.id as acc.name for acc in accounts"
-            required>
-    </select>
+    <md-select ng-model="transaction.accountId" required>
+        <md-option ng-repeat="acc in accounts" value="{{ acc.id }}">
+            {{ acc.name }}
+        </md-option>
+    </md-select>
 </td>
 <td class="tags-col">
-    <div isteven-multi-select
-         input-model="tags"
-         output-model="transaction.tags"
-         output-properties="id"
-         button-label="name"
-         item-label="name"
-         tick-property="isSelected"
-         helper-elements="none filter"
-         max-height="280px"
-         translation="{ 'nothingSelected': '', 'search': 'Search...', 'selectNone': 'Select None' }">
-    </div>
+    <md-autocomplete md-no-cache="true"
+                     md-min-length="0"
+                     md-search-text="itemVm.tagSearchText"
+                     md-selected-item="itemVm.selectedTag"
+                     md-selected-item-change="itemVm.setTagId(itemVm.selectedTag)"
+                     md-items="tag in itemVm.suggestTag(itemVm.tagSearchText)"
+                     md-item-text="tag.name"
+                     required>
+        <md-item-template>
+            <span md-highlight-text="itemVm.tagSearchText" md-highlight-flags="^i">{{ tag.name }}</span>
+        </md-item-template>
+    </md-autocomplete>
 </td>
