@@ -13,7 +13,7 @@
     "isteven-angular-multiselect": "~4.0.0",
     "angular-mass-autocomplete": "~0.2.3",
     "moment": "2.13.0",
-    "angular-material": "1.0.7"
+    "angular-material": "1.0.8"
   },
   "dependencies": {}
 }
