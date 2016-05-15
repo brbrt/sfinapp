@@ -8,16 +8,14 @@ angular
 function tagSrv($http) {
     var url = 'api/tags/';
 
-    var factory = {
+    return {
         getAll: getAll,
         get: get,
         skeleton: skeleton,
         create: create,
         update: update,
-        delete: delete_
+        remove: remove
     };
-
-    return factory;
 
     ////////////
 
@@ -44,11 +42,12 @@ function tagSrv($http) {
         return $http.put(url + editedTag.id, editedTag);
     }
 
-    function delete_(tag) {
+    function remove(tag) {
         return $http.delete(url + tag.id);
     }
 
     function getResponseData(resp) {
         return resp.data;
     }
+
 }

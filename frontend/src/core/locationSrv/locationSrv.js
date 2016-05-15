@@ -8,12 +8,10 @@ angular
 function locationSrv($location,
                      $state) {
 
-    var factory = {
+    return {
         reload: reload,
         goToUrl: goToUrl
     };
-
-    return factory;
 
     ////////////
 

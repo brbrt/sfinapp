@@ -54,14 +54,14 @@ function tagDetailCtrl($log,
     }
 
     function remove() {
-        confirmSrv.confirm('Are you sure you want to delete this tag?', callDelete);
+        confirmSrv.confirm('Are you sure you want to delete this tag?', callRemove);
     }
 
-    function callDelete() {
-        tagSrv.delete(vm.tag).then(deleteSuccess, toastr.apiError);
+    function callRemove() {
+        tagSrv.remove(vm.tag).then(removeSuccess, toastr.apiError);
     }
 
-    function deleteSuccess() {
+    function removeSuccess() {
         toastr.success('Tag is deleted.');
         locationSrv.goToUrl('tags');
     }
