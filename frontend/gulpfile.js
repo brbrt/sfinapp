@@ -104,7 +104,8 @@ gulp.task('test', function(done) {
     new karma.Server(karmaConfig, done).start();
 });
 
-gulp.task('build', ['vendor', 'app', 'index', 'test']);
+gulp.task('build', ['vendor', 'app', 'index']);
+//gulp.task('build', ['vendor', 'app', 'index', 'test']);
 
 gulp.task('watch', ['build'], function() {
     var watchFor = []
