@@ -6,7 +6,9 @@
     "type": "MIT",
     "url": "https://github.com/rbr8/sfinapp/blob/master/LICENSE"
   },
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.13.4"
+  },
   "devDependencies": {
     "bower": "~1.4.1",
     "del": "~1.1.1",
