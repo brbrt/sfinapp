@@ -5,7 +5,7 @@ module.exports = {
 
     // list of files / patterns to load in the browser
     files: [
-      './vendor/angular-mocks/angular-mocks.js'
+      './node_modules/angular-mocks/angular-mocks.js'
     ],
 
     // list of files to exclude

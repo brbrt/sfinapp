@@ -2,25 +2,25 @@ module.exports = {
     buildDir:'./build',
 
     vendorJs: [
-        './vendor/angular/angular.js',
-        './vendor/angular-animate/angular-animate.js',
-        './vendor/angular-aria/angular-aria.js',
-        './vendor/angular-sanitize/angular-sanitize.js',
-        './vendor/angular-i18n/angular-locale_hu-hu.js',
-        './vendor/angular-material/angular-material.js',
-        './vendor/angular-ui-router/release/angular-ui-router.js',
-        './vendor/angular-mass-autocomplete/massautocomplete.js',
-        './vendor/angular-smart-table/dist/smart-table.js',
-        './vendor/angular-toastr/dist/angular-toastr.tpls.js',
-        './vendor/isteven-angular-multiselect/isteven-multi-select.js',
-        './vendor/moment/moment.js'
+        './node_modules/angular/angular.js',
+        './node_modules/angular-animate/angular-animate.js',
+        './node_modules/angular-aria/angular-aria.js',
+        './node_modules/angular-sanitize/angular-sanitize.js',
+        './node_modules/angular-i18n/angular-locale_hu-hu.js',
+        './node_modules/angular-material/angular-material.js',
+        './node_modules/angular-ui-router/release/angular-ui-router.js',
+        './node_modules/angular-mass-autocomplete/massautocomplete.js',
+        './node_modules/angular-smart-table/dist/smart-table.js',
+        './node_modules/angular-toastr/dist/angular-toastr.tpls.js',
+        './node_modules/isteven-angular-multiselect/isteven-multi-select.js',
+        './node_modules/moment/moment.js'
     ],
 
     vendorCss: [
-        './vendor/angular-material/angular-material.css',
-        './vendor/angular-mass-autocomplete/massautocomplete.theme.css',
-        './vendor/angular-toastr/dist/angular-toastr.css',
-        './vendor/isteven-angular-multiselect/isteven-multi-select.css'
+        './node_modules/angular-material/angular-material.css',
+        './node_modules/angular-mass-autocomplete/massautocomplete.theme.css',
+        './node_modules/angular-toastr/dist/angular-toastr.css',
+        './node_modules/isteven-angular-multiselect/isteven-multi-select.css'
     ],
 
     jsSources: [

@@ -10,7 +10,6 @@
     "express": "^4.13.4"
   },
   "devDependencies": {
-    "bower": "~1.4.1",
     "del": "~1.1.1",
     "gulp": "~3.8.5",
     "gulp-angular-templatecache": "^1.6.0",
@@ -37,6 +36,19 @@
     "karma-spec-reporter": "0.0.19",
     "phantomjs-prebuilt": "2.1.7",
     "stream-series": "^0.1.1",
-    "yargs": "^3.9.1"
+    "yargs": "^3.9.1",
+
+    "angular": "1.5.5",
+    "angular-animate": "1.5.5",
+    "angular-i18n": "1.5.5",
+    "angular-mocks": "1.5.5",
+    "angular-sanitize": "1.5.5",
+    "angular-ui-router": "0.2.18",
+    "angular-smart-table": "2.1.7",
+    "angular-toastr": "1.7.0",
+    "isteven-angular-multiselect": "~4.0.0",
+    "angular-mass-autocomplete": "~0.2.3",
+    "moment": "2.13.0",
+    "angular-material": "1.0.8"
   }
 }
