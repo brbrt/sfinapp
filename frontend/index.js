@@ -1,11 +1,14 @@
 var express = require('express');
 var app = express();
+var apiProxy = require('http-proxy').createProxyServer();
+
+var apiUrl = 'http://localhost:4060';
+
 
 app.use(express.static('build'));
 
-var server = app.listen(4070, function listen() {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log('sfinapp-frontend is started');
+app.all("/api/*", function(req, res) {
+    apiProxy.web(req, res, {target: apiUrl});
 });
+
+app.listen(4070, () => console.log('sfinapp-frontend is started'));

@@ -7,7 +7,8 @@
     "url": "https://github.com/rbr8/sfinapp/blob/master/LICENSE"
   },
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "http-proxy": "^1.13.3"
   },
   "devDependencies": {
     "del": "~1.1.1",
