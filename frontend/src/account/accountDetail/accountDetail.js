@@ -1,3 +1,7 @@
+import angular from 'angular';
+
+import tpl from './accountDetail.tpl.html';
+
 angular
     .module('sfinapp.account.accountDetail', [
         'ui.router',
@@ -16,7 +20,7 @@ function accountDetailConfig($stateProvider) {
         url: '/:id',
         controller: 'accountDetailCtrl',
         controllerAs: 'vm',
-        templateUrl: 'src/account/accountDetail/accountDetail.tpl.html',
+        template: tpl,
         resolve: {
             accountId: ($stateParams) => { return $stateParams.id; },
             isNew: (accountId) => { return accountId === 'new';},

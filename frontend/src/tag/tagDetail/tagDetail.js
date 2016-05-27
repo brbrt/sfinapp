@@ -1,3 +1,7 @@
+import angular from 'angular';
+
+import tpl from './tagDetail.tpl.html';
+
 angular
     .module('sfinapp.tag.tagDetail', [
         'ui.router',
@@ -15,7 +19,7 @@ function tagDetailConfig($stateProvider) {
         url: '/:id',
         controller: 'tagDetailCtrl',
         controllerAs: 'vm',
-        templateUrl: 'src/tag/tagDetail/tagDetail.tpl.html',
+        template: tpl,
         resolve: {
             tagId: ($stateParams) => { return $stateParams.id; },
             isNew: (tagId) => { return tagId === 'new'; },

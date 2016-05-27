@@ -1,3 +1,10 @@
+import angular from 'angular';
+
+import './transactionItem/transactionItem.js';
+
+import tpl from './transactionBatch.tpl.html';
+import './transactionBatch.less';
+
 angular
     .module('sfinapp.transaction.transactionBatch', [
         'ui.router',
@@ -19,7 +26,7 @@ function transactionBatchConfig($stateProvider) {
         url: '/batch',
         controller: 'transactionBatchCtrl',
         controllerAs: 'vm',
-        templateUrl: 'src/transaction/transactionBatch/transactionBatch.tpl.html',
+        template: tpl,
         resolve: {
             accounts: (accountSrv) => { return accountSrv.getAll(); },
             descriptions: (transactionSrv) => { return transactionSrv.getAllDescriptions(); },

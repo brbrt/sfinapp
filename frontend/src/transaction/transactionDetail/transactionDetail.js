@@ -1,3 +1,7 @@
+import angular from 'angular';
+
+import tpl from './transactionDetail.tpl.html';
+
 angular
     .module('sfinapp.transaction.transactionDetail', [
         'ui.router',
@@ -17,7 +21,7 @@ function transactionDetailConfig($stateProvider) {
         url: '/:id',
         controller: 'transactionDetailCtrl',
         controllerAs: 'vm',
-        templateUrl: 'src/transaction/transactionDetail/transactionDetail.tpl.html',
+        template: tpl,
         resolve: {
             accounts: (accountSrv) => { return accountSrv.getAll(); },
             descriptions: (transactionSrv) => { return transactionSrv.getAllDescriptions(); },

@@ -1,3 +1,7 @@
+import angular from 'angular';
+
+import './apiCheckerSrv/apiCheckerSrv.js';
+
 angular
     .module('sfinapp.home', [
         'ui.router',

@@ -1,3 +1,8 @@
+import angular from 'angular';
+
+import tpl from './loadingBar.tpl.html';
+import style from './loadingBar.less';
+
 angular
     .module('sfinapp.layout.loadingBar', [
 
@@ -8,6 +13,6 @@ angular
 function loadingBar() {
     return {
         restrict: 'E',
-        templateUrl: 'src/layout/loadingBar/loadingBar.tpl.html'
+        template: tpl
     };
 }

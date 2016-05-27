@@ -1,3 +1,9 @@
+import angular from 'angular';
+
+import apiDate from './apiDate/apiDate.js'
+import errorAnalyzer from './errorAnalyzer/errorAnalyzer.js'
+import infoDispatcher from './infoDispatcher/infoDispatcher.js'
+
 angular
     .module('sfinapp.config.http', [
         'sfinapp.config.http.apiDate',

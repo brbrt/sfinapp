@@ -1,3 +1,13 @@
+import angular from 'angular';
+import moment from 'moment';
+
+import './transactionBatch/transactionBatch.js';
+import './transactionDetail/transactionDetail.js';
+import './transactionSrv/transactionSrv.js';
+
+import tpl from './transaction.tpl.html';
+import './transaction.less';
+
 angular
     .module('sfinapp.transaction', [
         'ui.router',
@@ -24,7 +34,7 @@ function transactionConfig($stateProvider) {
             url: '',
             controller: 'transactionCtrl',
             controllerAs: 'vm',
-            templateUrl: 'src/transaction/transaction.tpl.html',
+            template: tpl,
             resolve: {
                 tags: (tagSrv) => { return tagSrv.getAll(); }
             }

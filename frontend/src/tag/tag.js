@@ -1,3 +1,10 @@
+import angular from 'angular';
+
+import './tagDetail/tagDetail.js';
+import './tagSrv/tagSrv.js';
+
+import tpl from './tag.tpl.html';
+
 angular
     .module('sfinapp.tag', [
         'ui.router',
@@ -21,7 +28,7 @@ function tagConfig($stateProvider) {
             url: '',
             controller: 'tagCtrl',
             controllerAs: 'vm',
-            templateUrl: 'src/tag/tag.tpl.html',
+            template: tpl,
             resolve: {
                 tags: (tagSrv) => { return tagSrv.getAll(); }
             }

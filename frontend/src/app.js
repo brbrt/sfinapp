@@ -1,3 +1,24 @@
+import angular from 'angular';
+import moment from 'moment';
+
+import 'angular-animate';
+import 'angular-sanitize';
+import 'angular-material';
+import 'angular-material/angular-material.css';
+import 'angular-ui-router';
+import 'angular-smart-table';
+import 'angular-toastr';
+import 'angular-toastr/dist/angular-toastr.css';
+
+import config from './config/config.js'
+import core from './core/core.js'
+import home from './home/home.js'
+import layout from './layout/layout.js'
+
+import account from './account/account.js'
+import tag from './tag/tag.js'
+import transaction from './transaction/transaction.js'
+
 angular
     .module('sfinapp', [
         // AngularJS modules.
@@ -7,8 +28,6 @@ angular
         // External modules.
         'ngMaterial',
         'ui.router',
-        'isteven-multi-select',
-        'MassAutoComplete',
         'smart-table',
         'toastr',
 
@@ -17,7 +36,6 @@ angular
         'sfinapp.core',
         'sfinapp.home',
         'sfinapp.layout',
-        'sfinapp.templates',
 
         'sfinapp.account',
         'sfinapp.tag',

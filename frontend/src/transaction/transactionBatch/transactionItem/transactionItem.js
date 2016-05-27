@@ -1,9 +1,10 @@
+import angular from 'angular';
+
+import tpl from './transactionItem.tpl.html';
+
 angular
     .module('sfinapp.transaction.transactionBatch.transactionItem', [
         'ngSanitize',
-
-        'isteven-multi-select',
-        'MassAutoComplete',
 
         'sfinapp.core.suggestionSrv'
     ])
@@ -15,7 +16,7 @@ function transactionItem() {
         restrict: 'A',
         controller: transactionItemCtrl,
         controllerAs: 'itemVm',
-        templateUrl: 'src/transaction/transactionBatch/transactionItem/transactionItem.tpl.html',
+        template: tpl,
         scope: {
             transaction: '=transactionItem',
             descriptions: '=',

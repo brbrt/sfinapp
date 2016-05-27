@@ -1,3 +1,10 @@
+import angular from 'angular';
+
+import './accountDetail/accountDetail.js';
+import './accountSrv/accountSrv.js';
+
+import tpl from './account.tpl.html';
+
 angular
     .module('sfinapp.account', [
         'ui.router',
@@ -21,7 +28,7 @@ function accountConfig($stateProvider) {
             url: '',
             controller: 'accountCtrl',
             controllerAs: 'vm',
-            templateUrl: 'src/account/account.tpl.html',
+            template: tpl,
             resolve: {
                 accounts: (accountSrv) => { return accountSrv.getAll(); }
             }

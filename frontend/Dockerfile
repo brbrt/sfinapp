@@ -7,7 +7,7 @@ RUN npm install --quiet
 
 ADD . /webapp
 
-RUN node_modules/gulp/bin/gulp.js build --production
+RUN ./node_modules/.bin/webpack
 
 EXPOSE 4070
 

@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 angular
     .module('sfinapp.core.stateRef', [
         'ui.router'
