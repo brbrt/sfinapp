@@ -8,6 +8,7 @@
                          md-items="item in vm.suggestDescription(vm.transaction.description)"
                          md-item-text="item"
                          required
+                         md-autofocus
                          md-floating-label="Description">
             <md-item-template>
                 <span md-highlight-text="vm.transaction.description" md-highlight-flags="^i">{{ item }}</span>

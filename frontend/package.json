@@ -36,6 +36,7 @@
     "less-loader": "^2.2.3",
     "moment": "2.13.0",
     "ng-cache-loader": "0.0.15",
+    "ng-focus-if": "^1.0.5",
     "phantomjs-prebuilt": "2.1.7",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1",

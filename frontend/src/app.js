@@ -9,6 +9,7 @@ import 'angular-ui-router';
 import 'angular-smart-table';
 import 'angular-toastr';
 import 'angular-toastr/dist/angular-toastr.css';
+import 'ng-focus-if';
 
 import config from './config/config.js'
 import core from './core/core.js'
@@ -30,6 +31,7 @@ angular
         'ui.router',
         'smart-table',
         'toastr',
+        'focus-if',
 
         // Internal modules.
         'sfinapp.config',
