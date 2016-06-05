@@ -48,7 +48,7 @@ function transactionBatchCtrl($log,
 
     vm.accounts = accounts;
     vm.descriptions = descriptions;
-    vm.tagOptions = [];
+    vm.tags = tags;
     vm.transactions = [];
 
     vm.extendTransactionList = extendTransactionList;
@@ -59,12 +59,11 @@ function transactionBatchCtrl($log,
     ////////////
 
     function init() {
-        extendTransactionList(10);
+        extendTransactionList(4);
     }
 
     function extendTransactionList(count) {
         for (var i = 0; i < count; i++) {
-            vm.tagOptions.push(angular.copy(tags));
             vm.transactions.push(angular.copy(transactionSkeleton));
         }
     }

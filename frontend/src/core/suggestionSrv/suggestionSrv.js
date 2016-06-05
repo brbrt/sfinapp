@@ -15,6 +15,7 @@ function suggestionSrv() {
     ////////////
 
     function suggest(options, term, labelFn) {
+        term = term || '';
         labelFn = labelFn || identityFn;
 
         var q = term.toLowerCase().trim();
@@ -23,7 +24,7 @@ function suggestionSrv() {
         // Find first 5 options that start with `term`.
         for (var i = 0; i < options.length && result.length < 5; i++) {
             var label = labelFn(options[i]);
-            if (label.toLowerCase().indexOf(q) === 0) {
+            if (label.toLowerCase().indexOf(q) > -1) {
                 result.push(options[i]);
             }
         }

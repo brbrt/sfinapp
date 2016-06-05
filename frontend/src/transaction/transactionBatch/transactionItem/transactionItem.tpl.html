@@ -1,51 +1,63 @@
-<td class="description-col">
-    <md-autocomplete md-no-cache="true"
+<div flex="30" class="sf-col">
+    <md-autocomplete flex
+                     md-no-cache="true"
                      md-min-length="1"
                      md-search-text="transaction.description"
                      md-items="item in itemVm.suggestDescription(transaction.description)"
                      md-item-text="item"
+                     md-floating-label="Description"
                      required>
         <md-item-template>
             <span md-highlight-text="transaction.description" md-highlight-flags="^i">{{ item }}</span>
         </md-item-template>
     </md-autocomplete>
-</td>
-<td class="date-col">
+</div>
+<div flex="10" class="sf-col">
     <md-input-container>
-        <input type="date" ng-model="transaction.date" required />
+        <input type="date"
+               ng-model="transaction.date"
+               required
+               aria-label="Date"/>
     </md-input-container>
-</td>
-<td class="type-col">
-    <md-select ng-model="transaction.type" required>
+</div>
+<div flex="10" class="sf-col">
+    <md-select ng-model="transaction.type"
+               required
+               aria-label="Type">
         <md-option value="Expense">Expense</md-option>
         <md-option value="Income">Income</md-option>
     </md-select>
-</td>
-<td class="amount-col">
+</div>
+<div flex="10" class="sf-col">
     <md-input-container>
-        <input type="number" min="-10000000" max="10000000"
+        <input type="number"
+               min="-10000000" max="10000000"
                ng-model="transaction.amount"
-               required />
+               required
+               aria-label="Amount"/>
     </md-input-container>
-</td>
-<td class="account-col">
-    <md-select ng-model="transaction.accountId" required>
+</div>
+<div flex="10" class="sf-col">
+    <md-select ng-model="transaction.accountId"
+               required
+               aria-label="Account">
         <md-option ng-repeat="acc in accounts" value="{{ acc.id }}">
             {{ acc.name }}
         </md-option>
     </md-select>
-</td>
-<td class="tags-col">
+</div>
+<div flex="30" class="sf-col">
     <md-autocomplete md-no-cache="true"
-                     md-min-length="0"
+                     md-min-length="1"
                      md-search-text="itemVm.tagSearchText"
                      md-selected-item="itemVm.selectedTag"
                      md-selected-item-change="itemVm.setTagId(itemVm.selectedTag)"
                      md-items="tag in itemVm.suggestTag(itemVm.tagSearchText)"
                      md-item-text="tag.name"
+                     md-floating-label="Tag"
                      required>
         <md-item-template>
             <span md-highlight-text="itemVm.tagSearchText" md-highlight-flags="^i">{{ tag.name }}</span>
         </md-item-template>
     </md-autocomplete>
-</td>
+</div>

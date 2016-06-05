@@ -1,27 +1,24 @@
 <form>
     <h2>Create multiple transactions</h2>
 
-    <md-content>
-        <table class="sf-transaction-batch-table">
-            <thead>
-                <th class="description-col">Description</th>
-                <th class="date-col">Date</th>
-                <th class="type-col">Type</th>
-                <th class="amount-col">Amount</th>
-                <th class="account-col">Account</th>
-                <th class="tags-col">Tags</th>
-            </thead>
+    <div layout="row"
+         class="sf-transaction-batch-header">
+        <div flex="30" class="sf-col">Description</div>
+        <div flex="10" class="sf-col">Date</div>
+        <div flex="10" class="sf-col">Type</div>
+        <div flex="10" class="sf-col">Amount</div>
+        <div flex="10" class="sf-col">Account</div>
+        <div flex="30" class="sf-col">Tag</div>
+    </div>
 
-            <tbody>
-                <tr ng-repeat="transaction in vm.transactions"
-                    transaction-item="transaction"
-                    descriptions="vm.descriptions"
-                    accounts="vm.accounts"
-                    tags="vm.tagOptions[$index]">
-                </tr>
-            </tbody>
-        </table>
-    </md-content>
+    <div layout="row"
+         class="sf-transaction-batch"
+         ng-repeat="transaction in vm.transactions"
+         transaction-item="transaction"
+         descriptions="vm.descriptions"
+         accounts="vm.accounts"
+         tags="vm.tags">
+    </div>
 
     <md-content>
         <md-button ng-click="vm.extendTransactionList(2)">

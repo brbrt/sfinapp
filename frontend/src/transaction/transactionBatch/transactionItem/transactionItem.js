@@ -34,7 +34,13 @@ function transactionItem() {
         itemVm.suggestTag = (searchTerm) => { return suggestionSrv.suggest($scope.tags, searchTerm, t => t.name); };
         itemVm.selectedTag = null;
 
-        itemVm.setTagId = (selectedTag) => { $scope.transaction.tagIds = [selectedTag.id]; }
+        itemVm.setTagId = function setTagId(selectedTag) {
+            if (!selectedTag) {
+                $scope.transaction.tagIds = [];
+                return;
+            }
+            $scope.transaction.tagIds = [selectedTag.id];
+        }
 
     }
 
