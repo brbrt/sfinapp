@@ -28,5 +28,13 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.boot:spring-boot-starter-jdbc')
+
+    compile('com.h2database:h2:1.4.193')
+    compile('org.flywaydb:flyway-core:4.0.3')
+
+    compile('com.google.guava:guava:20.0')
+
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
