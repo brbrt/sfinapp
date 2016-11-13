@@ -2,4 +2,4 @@
 
 cat banner_service.txt
 
-mvn clean install --batch-mode
+./gradlew build
