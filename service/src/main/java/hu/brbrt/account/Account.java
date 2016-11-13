@@ -1,12 +1,14 @@
 package hu.brbrt.account;
 
 import com.google.common.base.MoreObjects;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.Objects;
 
 public class Account {
 
     public Integer id;
+    @NotBlank(message = "Name is required!")
     public String name;
     public String description;
     public boolean technical;

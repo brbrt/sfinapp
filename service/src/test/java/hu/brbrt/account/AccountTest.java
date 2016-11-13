@@ -1,15 +1,21 @@
 package hu.brbrt.account;
 
 import hu.brbrt.TestBase;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class AccountTest extends TestBase {
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Autowired
     private AccountController accountController;
@@ -45,6 +51,12 @@ public class AccountTest extends TestBase {
         accountController.delete(account.id);
 
         assertThat(accountController.getAll(), empty());
+    }
+
+    @Test
+    public void validation() {
+        exception.expect(ConstraintViolationException.class);
+        accountController.create(new Account());
     }
 
 }

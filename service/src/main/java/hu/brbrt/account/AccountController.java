@@ -1,17 +1,21 @@
 package hu.brbrt.account;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping(path = "account")
+@Validated
 public class AccountController {
 
     private final AccountRepository accountRepository;
@@ -32,12 +36,12 @@ public class AccountController {
     }
 
     @RequestMapping(method = POST)
-    public void create(@RequestBody Account account) {
+    public void create(@RequestBody @NotNull @Valid Account account) {
         accountRepository.create(account);
     }
 
     @RequestMapping(method = PUT)
-    public void update(@RequestBody Account account) {
+    public void update(@RequestBody @NotNull @Valid Account account) {
         accountRepository.update(account);
     }
 
