@@ -8,7 +8,7 @@ angular
 
 
 function tagSrv($http) {
-    var url = 'api/tags/';
+    var url = 'api/tag/';
 
     return {
         getAll: getAll,

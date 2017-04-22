@@ -8,7 +8,7 @@ angular
 
 
 function accountSrv($http) {
-    var url = 'api/accounts/';
+    var url = 'api/account/';
 
     var factory = {
         getAll: getAll,

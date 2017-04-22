@@ -6,12 +6,16 @@
     "type": "MIT",
     "url": "https://github.com/rbr8/sfinapp/blob/master/LICENSE"
   },
+  "scripts": {
+    "build": "node_modules/webpack/bin/webpack.js --progress --colors --watch"
+  },
   "dependencies": {
     "express": "^4.13.4",
     "http-proxy": "^1.13.3"
   },
   "devDependencies": {
     "angular": "1.5.5",
+    "angular-aria": "1.5.5",
     "angular-animate": "1.5.5",
     "angular-i18n": "1.5.5",
     "angular-material": "1.1.0-rc.5",

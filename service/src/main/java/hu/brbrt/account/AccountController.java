@@ -10,7 +10,7 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
-@RequestMapping(path = "account")
+@RequestMapping(path = "api/account")
 public class AccountController {
 
     private final AccountService accountService;

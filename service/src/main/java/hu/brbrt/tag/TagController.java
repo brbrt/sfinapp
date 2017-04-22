@@ -10,7 +10,7 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
-@RequestMapping(path = "tag")
+@RequestMapping(path = "api/tag")
 public class TagController {
 
     private final TagService tagService;
