@@ -1,7 +1,6 @@
 package hu.brbrt.account;
 
 import com.google.common.collect.ImmutableMap;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -15,7 +14,6 @@ public class AccountRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final BeanPropertyRowMapper<Account> rowMapper;
 
-    @Autowired
     public AccountRepository(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.rowMapper = new BeanPropertyRowMapper<>(Account.class);
