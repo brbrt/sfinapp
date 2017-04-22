@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.4.2.RELEASE'
+		springBootVersion = '1.5.3.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -30,10 +30,10 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
 
-    compile('com.h2database:h2:1.4.193')
-    compile('org.flywaydb:flyway-core:4.0.3')
+    compile('com.h2database:h2:1.4.194')
+    compile('org.flywaydb:flyway-core:4.1.2')
 
-    compile('com.google.guava:guava:20.0')
+    compile('com.google.guava:guava:21.0')
 
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
