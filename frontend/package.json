@@ -7,7 +7,8 @@
     "url": "https://github.com/rbr8/sfinapp/blob/master/LICENSE"
   },
   "scripts": {
-    "build": "node_modules/webpack/bin/webpack.js --progress --colors --watch"
+    "build": "node_modules/webpack/bin/webpack.js --progress --colors",
+    "watch": "node_modules/webpack/bin/webpack.js --progress --colors --watch"
   },
   "dependencies": {
     "express": "^4.13.4",

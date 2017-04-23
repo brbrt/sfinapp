@@ -34,7 +34,7 @@ public class TagController {
         return tagService.create(tag);
     }
 
-    @RequestMapping(method = PUT)
+    @RequestMapping(method = PUT, path = "/{id}")
     public void update(@RequestBody Tag tag) {
         tagService.update(tag);
     }

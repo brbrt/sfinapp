@@ -34,7 +34,7 @@ public class AccountController {
         return accountService.create(account);
     }
 
-    @RequestMapping(method = PUT)
+    @RequestMapping(method = PUT, path = "/{id}")
     public void update(@RequestBody Account account) {
         accountService.update(account);
     }
