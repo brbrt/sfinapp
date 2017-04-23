@@ -30,8 +30,8 @@ public class AccountController {
     }
 
     @RequestMapping(method = POST)
-    public void create(@RequestBody Account account) {
-        accountService.create(account);
+    public int create(@RequestBody Account account) {
+        return accountService.create(account);
     }
 
     @RequestMapping(method = PUT)

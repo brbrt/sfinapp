@@ -25,8 +25,8 @@ public class TagService {
         return tagRepository.get(id);
     }
 
-    public void create(@NotNull @Valid Tag tag) {
-        tagRepository.create(tag);
+    public int create(@NotNull @Valid Tag tag) {
+        return tagRepository.create(tag);
     }
 
     public void update(@NotNull @Valid Tag tag) {

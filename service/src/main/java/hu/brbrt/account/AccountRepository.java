@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -43,12 +45,14 @@ public class AccountRepository {
         return jdbcTemplate.queryForObject(sql, ImmutableMap.of("id", id), rowMapper);
     }
 
-    public void create(Account account) {
+    public int create(Account account) {
         final String sql =
                 "INSERT INTO accounts(name, description, technical)" +
                 "     VALUES (:name, :description, :technical)";
 
-        jdbcTemplate.update(sql, new BeanPropertySqlParameterSource(account));
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(sql, new BeanPropertySqlParameterSource(account), keyHolder);
+        return keyHolder.getKey().intValue();
     }
 
     public void update(Account account) {

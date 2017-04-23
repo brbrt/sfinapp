@@ -22,7 +22,7 @@ public class TagTest extends TestBase {
 
     @Test
     public void crud() {
-        tagController.create(new Tag()
+        int id = tagController.create(new Tag()
                 .setName("T1")
                 .setDescription("T1D")
         );
@@ -30,7 +30,7 @@ public class TagTest extends TestBase {
         List<Tag> tags = tagController.getAll();
         assertThat(tags, hasSize(1));
         Tag tag = tags.get(0);
-        assertThat(tag.getId(), notNullValue());
+        assertThat(tag.getId(), is(id));
         assertThat(tag.getName(), is("T1"));
         assertThat(tag.getDescription(), is("T1D"));
 
@@ -39,12 +39,12 @@ public class TagTest extends TestBase {
                 .setDescription("T1D-UPD")
         );
 
-        Tag updatedTag = tagController.get(tag.getId());
-        assertThat(updatedTag.getId(), is(tag.getId()));
+        Tag updatedTag = tagController.get(id);
+        assertThat(updatedTag.getId(), is(id));
         assertThat(updatedTag.getName(), is("T1-UPD"));
         assertThat(updatedTag.getDescription(), is("T1D-UPD"));
 
-        tagController.delete(tag.getId());
+        tagController.delete(id);
 
         assertThat(tagController.getAll(), empty());
     }

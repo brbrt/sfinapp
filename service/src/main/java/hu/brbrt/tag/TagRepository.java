@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -41,12 +43,14 @@ public class TagRepository {
         return jdbcTemplate.queryForObject(sql, ImmutableMap.of("id", id), rowMapper);
     }
 
-    public void create(Tag tag) {
+    public int create(Tag tag) {
         final String sql =
                 "INSERT INTO tags(name, description)" +
                 "     VALUES (:name, :description)";
 
-        jdbcTemplate.update(sql, new BeanPropertySqlParameterSource(tag));
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(sql, new BeanPropertySqlParameterSource(tag), keyHolder);
+        return keyHolder.getKey().intValue();
     }
 
     public void update(Tag account) {

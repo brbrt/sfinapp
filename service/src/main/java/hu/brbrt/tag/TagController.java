@@ -30,8 +30,8 @@ public class TagController {
     }
 
     @RequestMapping(method = POST)
-    public void create(@RequestBody Tag tag) {
-        tagService.create(tag);
+    public int create(@RequestBody Tag tag) {
+        return tagService.create(tag);
     }
 
     @RequestMapping(method = PUT)

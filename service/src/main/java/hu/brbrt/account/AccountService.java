@@ -25,8 +25,8 @@ public class AccountService {
         return accountRepository.get(id);
     }
 
-    public void create(@NotNull @Valid Account account) {
-        accountRepository.create(account);
+    public int create(@NotNull @Valid Account account) {
+        return accountRepository.create(account);
     }
 
     public void update(@NotNull @Valid Account account) {

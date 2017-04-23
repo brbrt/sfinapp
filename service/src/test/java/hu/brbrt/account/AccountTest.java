@@ -22,7 +22,7 @@ public class AccountTest extends TestBase {
 
     @Test
     public void crudAccount() {
-        accountController.create(new Account()
+        int id = accountController.create(new Account()
                 .setName("A1")
                 .setDescription("A1D")
                 .setTechnical(false)
@@ -31,10 +31,10 @@ public class AccountTest extends TestBase {
         List<Account> accounts = accountController.getAll();
         assertThat(accounts, hasSize(1));
         Account account = accounts.get(0);
-        assertThat(account.id, notNullValue());
-        assertThat(account.name, is("A1"));
-        assertThat(account.description, is("A1D"));
-        assertThat(account.technical, is(false));
+        assertThat(account.getId(), is(id));
+        assertThat(account.getName(), is("A1"));
+        assertThat(account.getDescription(), is("A1D"));
+        assertThat(account.isTechnical(), is(false));
 
         accountController.update(account
                 .setName("A1-UPD")
@@ -42,13 +42,13 @@ public class AccountTest extends TestBase {
                 .setTechnical(true)
         );
 
-        Account updatedAccount = accountController.get(account.id);
-        assertThat(updatedAccount.id, is(account.id));
-        assertThat(updatedAccount.name, is("A1-UPD"));
-        assertThat(updatedAccount.description, is("A1D-UPD"));
-        assertThat(updatedAccount.technical, is(true));
+        Account updatedAccount = accountController.get(id);
+        assertThat(updatedAccount.getId(), is(id));
+        assertThat(updatedAccount.getName(), is("A1-UPD"));
+        assertThat(updatedAccount.getDescription(), is("A1D-UPD"));
+        assertThat(updatedAccount.isTechnical(), is(true));
 
-        accountController.delete(account.id);
+        accountController.delete(id);
 
         assertThat(accountController.getAll(), empty());
     }

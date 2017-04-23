@@ -7,11 +7,11 @@ import java.util.Objects;
 
 public class Account {
 
-    public Integer id;
+    private Integer id;
     @NotBlank(message = "Name is required!")
-    public String name;
-    public String description;
-    public boolean technical;
+    private String name;
+    private String description;
+    private boolean technical;
 
     public Integer getId() {
         return id;
