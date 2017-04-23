@@ -8,7 +8,7 @@ angular
 
 
 function transactionSrv($http) {
-    var url = 'api/transactions/';
+    var url = 'api/transaction/';
 
     return {
         getAll: getAll,

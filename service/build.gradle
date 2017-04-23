@@ -30,6 +30,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
 
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310')
+
     compile('com.h2database:h2:1.4.194')
     compile('org.flywaydb:flyway-core:4.1.2')
 
