@@ -45,8 +45,7 @@ public class TransactionService {
         return new Transaction()
                 .setDate(LocalDate.now())
                 .setType(Expense)
-                .setAccountId(accountId)
-                .setTagIds(ImmutableList.of());
+                .setAccountId(accountId);
     }
 
     public int create(@Valid @NotNull Transaction transaction) {

@@ -71,13 +71,13 @@ function transactionDetailCtrl($log,
         }
 
         // Populate tag autocomplete with the existing tag object.
-        vm.selectedTag = tags.filter(t => t.id === transaction.tagIds[0])[0];
+        vm.selectedTag = tags.filter(t => t.id === transaction.tagId)[0];
     }
 
     function save() {
         var method = isNew ? transactionSrv.create : transactionSrv.update;
 
-        vm.transaction.tagIds = [vm.selectedTag.id];
+        vm.transaction.tagId = vm.selectedTag.id;
 
         method(vm.transaction).then(saveSuccess, toastr.apiError);
     }

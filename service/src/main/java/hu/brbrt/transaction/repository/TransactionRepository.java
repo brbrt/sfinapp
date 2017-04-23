@@ -12,14 +12,11 @@ import org.springframework.stereotype.Repository;
 public class TransactionRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
-    private final TransactionTagRepository transactionTagRepository;
     private final TransactionRowMapper rowMapper;
 
     public TransactionRepository(NamedParameterJdbcTemplate jdbcTemplate,
-                                 TransactionTagRepository transactionTagRepository,
                                  TransactionRowMapper rowMapper) {
         this.jdbcTemplate = jdbcTemplate;
-        this.transactionTagRepository = transactionTagRepository;
         this.rowMapper = rowMapper;
     }
 
@@ -31,28 +28,24 @@ public class TransactionRepository {
                 "       description, " +
                 "       account_id, " +
                 "       to_account_id, " +
+                "       tag_id, " +
                 "       comment " +
                 "  FROM transactions" +
                 " WHERE id = :id";
 
-        Transaction transaction = jdbcTemplate.queryForObject(sql, ImmutableMap.of("id", id), rowMapper);
-        transaction.setTagIds(transactionTagRepository.loadTags(id));
-        return transaction;
+        return jdbcTemplate.queryForObject(sql, ImmutableMap.of("id", id), rowMapper);
     }
 
     public int create(Transaction transaction) {
         final String sql =
                 "INSERT INTO transactions " +
-                "        (date, amount, description, account_id, to_account_id, comment) " +
-                "VALUES (:date, :amount, :description, :accountId, :toAccountId, :comment)";
+                "        (date, amount, description, account_id, to_account_id, tag_id, comment) " +
+                "VALUES (:date, :amount, :description, :accountId, :toAccountId, :tagId, :comment)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(sql, new BeanPropertySqlParameterSource(transaction), keyHolder);
-        int transactionId = keyHolder.getKey().intValue();
 
-        transactionTagRepository.saveTags(transactionId, transaction.getTagIds());
-
-        return transactionId;
+        return keyHolder.getKey().intValue();
     }
 
     public void update(Transaction transaction) {
@@ -63,13 +56,11 @@ public class TransactionRepository {
                 "       description = :description, " +
                 "       account_id = :accountId, " +
                 "       to_account_id = :toAccountId, " +
+                "       tag_id = :tagId, " +
                 "       comment = :comment " +
                 " WHERE id = :id";
 
         jdbcTemplate.update(sql, new BeanPropertySqlParameterSource(transaction));
-
-        transactionTagRepository.deleteTags(transaction.getId());
-        transactionTagRepository.saveTags(transaction.getId(), transaction.getTagIds());
     }
 
     public void delete(int id) {

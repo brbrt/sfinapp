@@ -9,15 +9,13 @@ SELECT tr.id AS id,
        acc.name AS accountName,
        toacc.id AS toAccountId,
        toacc.name AS toAccountName,
-       GROUP_CONCAT(ta.name ORDER BY ta.name) AS tagNames
-  FROM transactions tr 
-       LEFT JOIN accounts acc
+       ta.id AS tagId,
+       ta.name AS tagName
+  FROM transactions tr
+       INNER JOIN accounts acc
            ON tr.account_id = acc.id
+       INNER JOIN tags ta
+           ON ta.id = tr.tag_id
        LEFT JOIN accounts toacc
            ON tr.to_account_id = toacc.id
-       LEFT JOIN transaction_tags tt
-           ON tr.id = tt.transaction_id
-       LEFT JOIN tags ta 
-           ON ta.id = tt.tag_id
- GROUP BY tr.id         
 ;

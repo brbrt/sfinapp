@@ -1,6 +1,5 @@
 package hu.brbrt.transaction;
 
-import com.google.common.collect.ImmutableList;
 import hu.brbrt.TestBase;
 import hu.brbrt.account.Account;
 import hu.brbrt.account.AccountController;
@@ -36,24 +35,22 @@ public class TransactionTest extends TestBase {
     private int alice;
     private int bob;
     private int food;
-    private int entertainment;
-    private int gift;
+    private int work;
 
     @Before
     public void init() {
         alice = createAccount("Alice");
         bob = createAccount("Bob");
         food = createTag("food");
-        entertainment = createTag("entertainment");
-        gift = createTag("gift");
+        work = createTag("work");
     }
 
     @Test
     public void crud() {
         int id = transactionController.create(new Transaction()
-                .setDescription("Dc1")
+                .setDescription("Gyros")
                 .setAccountId(alice)
-                .setTagIds(ImmutableList.of(food, gift))
+                .setTagId(food)
                 .setType(Expense)
                 .setAmount(-200.0)
                 .setDate(LocalDate.now())
@@ -61,28 +58,28 @@ public class TransactionTest extends TestBase {
 
         Transaction transaction = transactionController.get(id);
         assertThat(transaction.getId()).isEqualTo(id);
-        assertThat(transaction.getDescription()).isEqualTo("Dc1");
+        assertThat(transaction.getDescription()).isEqualTo("Gyros");
         assertThat(transaction.getAccountId()).isEqualTo(alice);
-        assertThat(transaction.getTagIds()).containsOnly(food, gift);
+        assertThat(transaction.getTagId()).isEqualTo(food);
         assertThat(transaction.getAmount()).isEqualTo(-200.0);
         assertThat(transaction.getType()).isEqualTo(Expense);
         assertThat(transaction.getDate()).isEqualTo(LocalDate.now());
 
         transactionController.update(transaction
-                .setDescription("Dc2")
+                .setDescription("Work")
                 .setAccountId(bob)
-                .setTagIds(ImmutableList.of(gift, entertainment))
-                .setAmount(100.0)
+                .setTagId(work)
+                .setAmount(2000.0)
                 .setType(Income)
                 .setDate(LocalDate.now().minusDays(1))
         );
 
         transaction = transactionController.get(id);
         assertThat(transaction.getId()).isEqualTo(id);
-        assertThat(transaction.getDescription()).isEqualTo("Dc2");
+        assertThat(transaction.getDescription()).isEqualTo("Work");
         assertThat(transaction.getAccountId()).isEqualTo(bob);
-        assertThat(transaction.getTagIds()).containsOnly(gift, entertainment);
-        assertThat(transaction.getAmount()).isEqualTo(100.0);
+        assertThat(transaction.getTagId()).isEqualTo(work);
+        assertThat(transaction.getAmount()).isEqualTo(2000.0);
         assertThat(transaction.getType()).isEqualTo(Income);
         assertThat(transaction.getDate()).isEqualTo(LocalDate.now().minusDays(1));
 

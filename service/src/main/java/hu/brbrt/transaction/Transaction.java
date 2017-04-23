@@ -4,9 +4,7 @@ import com.google.common.base.MoreObjects;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.List;
 
 public class Transaction {
 
@@ -22,10 +20,9 @@ public class Transaction {
     @NotNull(message = "Account is required")
     private Integer accountId;
     private Integer toAccountId;
+    @NotNull(message = "Tag is required")
+    private Integer tagId;
     private String comment;
-    @NotNull(message = "You must specify one or more tags")
-    @Size(min = 1, message = "You must specify one or more tags")
-    private List<Integer> tagIds;
 
     public Integer getId() {
         return id;
@@ -90,21 +87,21 @@ public class Transaction {
         return this;
     }
 
+    public Integer getTagId() {
+        return tagId;
+    }
+
+    public Transaction setTagId(Integer tagId) {
+        this.tagId = tagId;
+        return this;
+    }
+
     public String getComment() {
         return comment;
     }
 
     public Transaction setComment(String comment) {
         this.comment = comment;
-        return this;
-    }
-
-    public List<Integer> getTagIds() {
-        return tagIds;
-    }
-
-    public Transaction setTagIds(List<Integer> tagIds) {
-        this.tagIds = tagIds;
         return this;
     }
 
@@ -118,8 +115,8 @@ public class Transaction {
                 .add("type", type)
                 .add("accountId", accountId)
                 .add("toAccountId", toAccountId)
+                .add("tagId", tagId)
                 .add("comment", comment)
-                .add("tagIds", tagIds)
                 .toString();
     }
 }

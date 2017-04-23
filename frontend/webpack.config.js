@@ -43,7 +43,8 @@ var config = {
   ],
   resolve: {
     extensions: ['', '.js', '.json', '.coffee']
-  }
+  },
+  devtool: 'source-map'
 };
 
 module.exports = config;

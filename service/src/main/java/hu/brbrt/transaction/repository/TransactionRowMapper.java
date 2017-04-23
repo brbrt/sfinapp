@@ -19,6 +19,7 @@ public class TransactionRowMapper implements RowMapper<Transaction> {
                 .setAmount(rs.getDouble("amount"))
                 .setAccountId(rs.getInt("account_id"))
                 .setToAccountId(getInteger(rs, "to_account_id"))
+                .setTagId(rs.getInt("tag_id"))
                 .setComment(rs.getString("comment"));
     }
 
