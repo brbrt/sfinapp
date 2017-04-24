@@ -1,6 +1,7 @@
 package hu.brbrt.transaction;
 
 import com.google.common.base.MoreObjects;
+import hu.brbrt.core.TransactionType;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;

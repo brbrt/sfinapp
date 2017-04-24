@@ -14,8 +14,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.time.LocalDate;
 
-import static hu.brbrt.transaction.TransactionType.Expense;
-import static hu.brbrt.transaction.TransactionType.Income;
+import static hu.brbrt.core.TransactionType.Expense;
+import static hu.brbrt.core.TransactionType.Income;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TransactionTest extends TestBase {

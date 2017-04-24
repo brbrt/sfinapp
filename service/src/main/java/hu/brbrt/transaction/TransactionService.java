@@ -1,8 +1,8 @@
 package hu.brbrt.transaction;
 
-import com.google.common.collect.ImmutableList;
 import hu.brbrt.account.Account;
 import hu.brbrt.account.AccountRepository;
+import hu.brbrt.core.TransactionType;
 import hu.brbrt.transaction.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,12 +10,9 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
 import java.time.LocalDate;
 
-import static hu.brbrt.transaction.TransactionType.Expense;
-import static hu.brbrt.transaction.TransactionType.Income;
-import static hu.brbrt.transaction.TransactionType.Transfer;
+import static hu.brbrt.core.TransactionType.*;
 
 @Service
 @Transactional
@@ -77,20 +74,8 @@ public class TransactionService {
     }
 
     private Transaction postProcess(Transaction transaction) {
-        transaction.setType(calculateTransactionType(transaction));
+        transaction.setType(TransactionType.calculate(transaction.getToAccountId(), transaction.getAmount()));
         return transaction;
-    }
-
-    private TransactionType calculateTransactionType(Transaction transaction) {
-        if (transaction.getToAccountId() != null) {
-            return Transfer;
-        }
-
-        if (transaction.getAmount() > 0) {
-            return Income;
-        }
-
-        return Expense;
     }
 
 }

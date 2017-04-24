@@ -1,16 +1,16 @@
-CREATE OR REPLACE VIEW transaction_list
+CREATE OR REPLACE VIEW overview
 AS 
-SELECT tr.id AS id,
+SELECT tr.id AS transaction_id,
        tr.description AS description,
        tr.date,
        tr.amount,
        tr.comment,
-       acc.id AS accountId,
-       acc.name AS accountName,
-       toacc.id AS toAccountId,
-       toacc.name AS toAccountName,
-       ta.id AS tagId,
-       ta.name AS tagName
+       acc.id AS account_id,
+       acc.name AS account_name,
+       toacc.id AS to_account_id,
+       toacc.name AS to_account_name,
+       ta.id AS tag_id,
+       ta.name AS tag_name
   FROM transactions tr
        INNER JOIN accounts acc
            ON tr.account_id = acc.id
