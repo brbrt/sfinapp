@@ -12,11 +12,11 @@ var config = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
           presets: ['es2015'],
           cacheDirectory: true
@@ -24,11 +24,11 @@ var config = {
       },
       {
         test: /\.html$/,
-        loader: "ng-cache?prefix=[dir]/[dir]"
+        loader: "ng-cache-loader?prefix=[dir]/[dir]"
       },
       {
         test: /\.less$/,
-        loader: "style!css!less"
+        loader: "style-loader!css-loader!less-loader"
       },
       {
         test: /\.css$/,
@@ -42,7 +42,7 @@ var config = {
     ])
   ],
   resolve: {
-    extensions: ['', '.js', '.json', '.coffee']
+    extensions: ['.js', '.json', '.coffee']
   },
   devtool: 'source-map'
 };
