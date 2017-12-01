@@ -18,7 +18,7 @@ function apiCheckerSrv($http) {
     ////////////
 
     function check() {
-        return $http.get('api/test');
+        return $http.get('api/healthcheck');
     }
 
 }
