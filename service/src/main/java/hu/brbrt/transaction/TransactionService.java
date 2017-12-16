@@ -4,6 +4,7 @@ import hu.brbrt.account.Account;
 import hu.brbrt.account.AccountRepository;
 import hu.brbrt.core.TransactionType;
 import hu.brbrt.transaction.repository.TransactionRepository;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -11,6 +12,8 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static hu.brbrt.core.TransactionType.*;
 
@@ -48,6 +51,14 @@ public class TransactionService {
     public int create(@Valid @NotNull Transaction transaction) {
         Transaction preparedTransaction = prepare(transaction);
         return transactionRepository.create(preparedTransaction);
+    }
+
+    public List<Integer> createBatch(@Valid @NotEmpty List<Transaction> transactions) {
+        return transactions
+                .stream()
+                .map(this::prepare)
+                .map(transactionRepository::create)
+                .collect(Collectors.toList());
     }
 
     public void delete(int id) {

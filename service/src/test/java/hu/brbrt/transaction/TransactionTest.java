@@ -1,5 +1,6 @@
 package hu.brbrt.transaction;
 
+import com.google.common.collect.ImmutableList;
 import hu.brbrt.TestBase;
 import hu.brbrt.account.Account;
 import hu.brbrt.account.AccountController;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static hu.brbrt.core.TransactionType.Expense;
 import static hu.brbrt.core.TransactionType.Income;
@@ -87,6 +89,48 @@ public class TransactionTest extends TestBase {
 
         expectedException.expect(EmptyResultDataAccessException.class);
         transactionController.get(id);
+    }
+
+    @Test
+    public void createBatch() {
+        Transaction salary = new Transaction()
+                .setDescription("Salary")
+                .setAccountId(bob)
+                .setTagId(work)
+                .setType(Income)
+                .setAmount(100000.0)
+                .setDate(LocalDate.of(2017, 12, 6));
+
+        Transaction gyros = new Transaction()
+                .setDescription("Gyros")
+                .setAccountId(alice)
+                .setTagId(food)
+                .setType(Expense)
+                .setAmount(-200.0)
+                .setDate(LocalDate.of(2017, 12, 14));
+
+        List<Integer> createdIds = transactionController.createBatch(ImmutableList.of(salary, gyros));
+        assertThat(createdIds).hasSize(2);
+
+        Integer salaryId = createdIds.get(0);
+        Transaction transaction = transactionController.get(salaryId);
+        assertThat(transaction.getId()).isEqualTo(salaryId);
+        assertThat(transaction.getDescription()).isEqualTo("Salary");
+        assertThat(transaction.getAccountId()).isEqualTo(bob);
+        assertThat(transaction.getTagId()).isEqualTo(work);
+        assertThat(transaction.getAmount()).isEqualTo(100000.0);
+        assertThat(transaction.getType()).isEqualTo(Income);
+        assertThat(transaction.getDate()).isEqualTo(LocalDate.of(2017, 12, 6));
+
+        Integer gyrosId = createdIds.get(1);
+        transaction = transactionController.get(gyrosId);
+        assertThat(transaction.getId()).isEqualTo(gyrosId);
+        assertThat(transaction.getDescription()).isEqualTo("Gyros");
+        assertThat(transaction.getAccountId()).isEqualTo(alice);
+        assertThat(transaction.getTagId()).isEqualTo(food);
+        assertThat(transaction.getAmount()).isEqualTo(-200.0);
+        assertThat(transaction.getType()).isEqualTo(Expense);
+        assertThat(transaction.getDate()).isEqualTo(LocalDate.of(2017, 12, 14));
     }
 
     private int createAccount(String name) {

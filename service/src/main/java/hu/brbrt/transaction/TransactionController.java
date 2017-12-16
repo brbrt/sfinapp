@@ -20,12 +20,6 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @RequestMapping(method = GET)
-    public List<Void> getAll() {
-        // TODO: implement
-        return ImmutableList.of();
-    }
-
     @RequestMapping(method = GET, path = "/{id}")
     public Transaction get(@PathVariable("id") int id) {
         return transactionService.get(id);
@@ -45,6 +39,11 @@ public class TransactionController {
     @RequestMapping(method = POST)
     public int create(@RequestBody Transaction transaction) {
         return transactionService.create(transaction);
+    }
+
+    @RequestMapping(method = POST, value = "/batch")
+    public List<Integer> createBatch(@RequestBody List<Transaction> transactions) {
+        return transactionService.createBatch(transactions);
     }
 
     @RequestMapping(method = PUT, path = "/{id}")
