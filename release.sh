@@ -2,13 +2,7 @@
 
 set -ev
 
-cd service
-./build_service.sh
-
-cd ../frontend
-./build_frontend.sh
-
-cd ..
+./gradlew build
 
 rm -rf release
 mkdir release release/service release/frontend
