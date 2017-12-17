@@ -26,9 +26,8 @@ public class TransactionController {
     }
 
     @RequestMapping(method = GET, value = "/descriptions")
-    public List<Void> getDescriptions() {
-        // TODO: implement
-        return ImmutableList.of();
+    public List<String> getDescriptions() {
+        return transactionService.getDescriptions();
     }
 
     @RequestMapping(method = GET, value = "/skeleton")

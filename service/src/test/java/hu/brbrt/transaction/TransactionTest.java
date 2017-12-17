@@ -131,6 +131,12 @@ public class TransactionTest extends TestBase {
         assertThat(transaction.getAmount()).isEqualTo(-200.0);
         assertThat(transaction.getType()).isEqualTo(Expense);
         assertThat(transaction.getDate()).isEqualTo(LocalDate.of(2017, 12, 14));
+
+
+        List<String> descriptions = transactionController.getDescriptions();
+        assertThat(descriptions).hasSize(2);
+        assertThat(descriptions).contains("Salary");
+        assertThat(descriptions).contains("Gyros");
     }
 
     private int createAccount(String name) {

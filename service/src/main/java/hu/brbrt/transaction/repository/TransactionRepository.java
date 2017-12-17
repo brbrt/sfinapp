@@ -8,6 +8,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class TransactionRepository {
 
@@ -34,6 +36,14 @@ public class TransactionRepository {
                 " WHERE id = :id";
 
         return jdbcTemplate.queryForObject(sql, ImmutableMap.of("id", id), rowMapper);
+    }
+
+    public List<String> getDescriptions() {
+        final String sql =
+                "SELECT DISTINCT description " +
+                "  FROM transactions";
+
+        return jdbcTemplate.queryForList(sql, ImmutableMap.of(), String.class);
     }
 
     public int create(Transaction transaction) {
@@ -70,5 +80,4 @@ public class TransactionRepository {
 
         jdbcTemplate.update(sql, ImmutableMap.of("id", id));
     }
-
 }

@@ -35,6 +35,11 @@ public class TransactionService {
         return postProcess(transaction);
     }
 
+    public List<String> getDescriptions() {
+        return transactionRepository.getDescriptions();
+
+    }
+
     public Transaction getSkeleton() {
         Integer accountId = accountRepository.getAll()
                 .stream()
@@ -88,5 +93,4 @@ public class TransactionService {
         transaction.setType(TransactionType.calculate(transaction.getToAccountId(), transaction.getAmount()));
         return transaction;
     }
-
 }
