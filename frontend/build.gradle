@@ -1,0 +1,12 @@
+defaultTasks 'webpack'
+
+task webpack(type: Exec) { 
+    inputs.dir("app")
+    inputs.file("package.json") 
+    inputs.file("package-lock.json")    
+    inputs.file("webpack.config.js")
+
+    outputs.dir("build") 
+
+    commandLine "npm", "run", "build"
+}

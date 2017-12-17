@@ -1,4 +1,5 @@
 release/
 temp/
+.gradle/
 
 .idea/
