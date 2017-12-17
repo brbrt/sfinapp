@@ -1,0 +1,4 @@
+rootProject.name = 'sfinapp'
+
+include 'frontend'
+include 'service'

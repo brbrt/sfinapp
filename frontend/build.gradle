@@ -1,6 +1,4 @@
-defaultTasks 'webpack'
-
-task webpack(type: Exec) { 
+task build(type: Exec) { 
     inputs.dir("src")
     inputs.file("package.json") 
     inputs.file("package-lock.json")    
