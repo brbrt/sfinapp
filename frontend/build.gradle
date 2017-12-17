@@ -6,5 +6,6 @@ task build(type: Exec) {
 
     outputs.dir("build") 
 
+    commandLine "npm", "install", "--quiet"
     commandLine "npm", "run", "build"
 }
