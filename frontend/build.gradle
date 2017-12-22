@@ -1,11 +1,17 @@
-task build(type: Exec) { 
-    inputs.dir("src")
+task npmInstall(type: Exec) { 
     inputs.file("package.json") 
     inputs.file("package-lock.json")    
+
+    outputs.dir("node_modules") 
+
+    commandLine "npm", "install", "--quiet"
+}
+
+task build(type: Exec, dependsOn: npmInstall) { 
+    inputs.dir("src")
     inputs.file("webpack.config.js")
 
     outputs.dir("build") 
 
-    commandLine "npm", "install", "--quiet"
     commandLine "npm", "run", "build"
 }
