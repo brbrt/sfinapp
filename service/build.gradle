@@ -27,6 +27,8 @@ repositories {
 
 
 dependencies {
+	compile project(':frontend') 
+
 	compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
 
