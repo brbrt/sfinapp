@@ -1,4 +1,5 @@
 rootProject.name = 'sfinapp'
 
-include 'frontend'
-include 'service'
+include 'sfinapp-frontend'
+include 'sfinapp-backend'
+
