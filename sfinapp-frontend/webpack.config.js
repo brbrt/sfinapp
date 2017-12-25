@@ -44,7 +44,13 @@ var config = {
   resolve: {
     extensions: ['.js', '.json', '.coffee']
   },
-  devtool: 'source-map'
+  devtool: 'source-map',
+  devServer: {
+    port: 4000,
+    proxy: {
+      "/api": "http://localhost:8080"
+    }
+  }
 };
 
 module.exports = config;
