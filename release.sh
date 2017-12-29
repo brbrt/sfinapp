@@ -2,4 +2,4 @@
 
 set -ev
 
-./gradlew build dockerPush
+./gradlew build dockerPush --debug
