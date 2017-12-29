@@ -2,4 +2,4 @@
 
 set -ev
 
-./gradlew build bintrayUpload
+./gradlew build dockerPush

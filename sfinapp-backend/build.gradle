@@ -11,12 +11,13 @@ buildscript {
 }
 
 plugins {
-    id "com.jfrog.bintray" version "1.7.3"
+	id 'com.palantir.docker' version '0.17.2'
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'com.palantir.docker'
 
 
 jar {
@@ -48,28 +49,9 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
 
-	filesSpec {
-		from 'build/libs'
-		include "**/*.jar"
-		into '.'
-	}
-
-    pkg {
-        repo = 'brbrt_public'
-        name = 'sfinapp'
-        userOrg = 'brbrt'
-        licenses = ['MIT']
-		publish = true
-		override = true
-        vcsUrl = 'https://github.com/brbrt/sfinapp'
-
-		version {
-			name = jar.version
-			released = new Date()
-		}
-    }
+docker {
+    name "brbrt/${jar.baseName}"
+    files jar.archivePath
+    buildArgs(['JAR_FILE': "${jar.archiveName}"])
 }
