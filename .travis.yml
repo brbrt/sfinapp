@@ -7,6 +7,6 @@ services:
   - docker
 
 before_script:
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - echo $DOCKER_PASS | docker login --username $DOCKER_USER --password-stdin
 
 script: ./release.sh
