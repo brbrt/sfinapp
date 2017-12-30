@@ -1,5 +1,16 @@
-release/
-temp/
+bin/
+build/
+dist/
 .gradle/
+node_modules/
+release/
+target/
+temp/
+
 
 .idea/
+.settings/
+.vscode/
+
+.project
+*.iml
