@@ -1,19 +1,19 @@
 pipeline {
     agent {
         docker {
-            image 'vegansk/ubuntu-java-nodejs' 
+            image 'joakimbeng/java-node' 
         }
     }
 
     stages {
         stage('Build') {
             steps {
-                sh './gradlew build'
+                sh './gradlew assemble'
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                sh './gradlew check'
             }
         }
         stage('Deploy') {
