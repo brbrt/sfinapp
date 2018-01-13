@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'vegansk/docker-ubuntu-java-nodejs' 
+            image 'vegansk/ubuntu-java-nodejs' 
         }
     }
 
