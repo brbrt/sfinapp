@@ -1,10 +1,14 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'vegansk/docker-ubuntu-java-nodejs' 
+        }
+    }
 
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                sh './gradlew build'
             }
         }
         stage('Test') {
